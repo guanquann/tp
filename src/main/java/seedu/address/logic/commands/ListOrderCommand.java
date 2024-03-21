@@ -7,12 +7,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
+import seedu.address.ui.OrderListPanel;
+import seedu.address.ui.OrderWindow;
 
 /**
  * Lists all orders of the person identified using it's displayed index from the address book.
@@ -50,6 +53,9 @@ public class ListOrderCommand extends Command {
 
         Person personTargeted = lastShownList.get(targetIndex.getZeroBased());
         List<Order> orderList = personTargeted.getOrders();
+
+        OrderWindow orderWindow = new OrderWindow(FXCollections.observableList(orderList));
+        orderWindow.show();
 
         return new CommandResult(createOrderListString(orderList));
     }
