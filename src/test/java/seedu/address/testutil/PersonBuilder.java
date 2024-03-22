@@ -1,9 +1,10 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
@@ -33,7 +34,7 @@ public class PersonBuilder {
     private Company company;
     private boolean isFavourite = false;
     private Set<Tag> tags;
-    private ArrayList<Order> orders;
+    private ObservableList<Order> orders;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -46,7 +47,7 @@ public class PersonBuilder {
         company = new Company(DEFAULT_COMPANY);
         isFavourite = DEFAULT_ISFAVOURITE;
         tags = new HashSet<>();
-        orders = new ArrayList<>();
+        orders = FXCollections.observableArrayList();
     }
 
     /**
@@ -60,7 +61,7 @@ public class PersonBuilder {
         company = personToCopy.getCompany();
         isFavourite = personToCopy.getFavourite();
         tags = new HashSet<>(personToCopy.getTags());
-        orders = new ArrayList<>(personToCopy.getOrders());
+        orders = personToCopy.getOrders();
     }
 
     /**
@@ -120,9 +121,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Set the {@code ArrayList<Order>} of the {@code Person} that we are building.
+     * Set the {@code ObservableList<Order>} of the {@code Person} that we are building.
      */
-    public PersonBuilder withOrders(ArrayList<Order> orders) {
+    public PersonBuilder withOrders(ObservableList<Order> orders) {
         this.orders = orders;
         return this;
     }

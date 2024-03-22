@@ -8,7 +8,8 @@
 <?import javafx.stage.Stage?>
 <?import javafx.scene.layout.StackPane?>
 
-<fx:root title="Orders" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Label?>
+<fx:root title="Orders" minWidth="300" minHeight="450" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/help_icon.png" />
     </icons>
@@ -16,14 +17,19 @@
         <Scene>
             <stylesheets>
                 <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
             </stylesheets>
-
-            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="540" prefWidth="540" VBox.vgrow="ALWAYS">
+            <VBox fx:id="orderList" styleClass="pane-with-border" minWidth="340" prefWidth="540" VBox.vgrow="ALWAYS">
                 <padding>
                     <Insets top="5" bottom="5" left="5" />
                 </padding>
-                <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                <StackPane fx:id="orderListView" VBox.vgrow="ALWAYS"/>
+                <VBox alignment="CENTER" minHeight="40">
+                    <padding>
+                        <Insets bottom="5" top="5" left="5" right="5" />
+                    </padding>
+                    <Label fx:id="userId" styleClass="order-title" text="\$userId" />
+                </VBox>
+                <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
         </Scene>
     </scene>

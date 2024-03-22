@@ -2,12 +2,13 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.order.Order;
 import seedu.address.model.tag.Tag;
@@ -29,7 +30,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private boolean isFavourite = false;
 
-    private final ArrayList<Order> orders;
+    private final ObservableList<Order> orders;
 
     /**
      * Every field must be present and not null.
@@ -42,7 +43,7 @@ public class Person {
         this.address = address;
         this.company = company;
         this.tags.addAll(tags);
-        this.orders = new ArrayList<>();
+        this.orders = FXCollections.observableArrayList();
     }
 
     /**
@@ -51,7 +52,7 @@ public class Person {
      * indicates whether they have been marked as favourite
      */
     public Person(Name name, Phone phone, Email email, Address address, Company company, boolean isFavourite,
-                  Set<Tag> tags, ArrayList<Order> orders) {
+                  Set<Tag> tags, ObservableList<Order> orders) {
         requireAllNonNull(name, phone, email, address, company, isFavourite, tags);
         this.name = name;
         this.phone = phone;
@@ -109,7 +110,8 @@ public class Person {
     public boolean getFavourite() {
         return this.isFavourite;
     }
-    public ArrayList<Order> getOrders() {
+
+    public ObservableList<Order> getOrders() {
         return orders;
     }
 

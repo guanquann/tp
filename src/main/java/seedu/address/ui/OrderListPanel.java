@@ -1,14 +1,14 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.order.Order;
 
 /**
@@ -24,9 +24,10 @@ public class OrderListPanel extends UiPart<Region> {
     /**
      * Creates a {@code OrderListPanel} with the given {@code ObservableList}.
      */
-    public OrderListPanel(List<Order> orderList) {
+    public OrderListPanel(ObservableList<Order> orderList, Index targetIndex) {
         super(FXML);
-        orderListView.setItems(FXCollections.observableArrayList(orderList));
+
+        orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
 

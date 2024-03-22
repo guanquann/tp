@@ -7,14 +7,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
-import seedu.address.ui.OrderListPanel;
 import seedu.address.ui.OrderWindow;
 
 /**
@@ -28,6 +28,8 @@ public class ListOrderCommand extends Command {
             + ": Lists all orders of the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+
+    public static final String SHOWING_ORDER_MESSAGE = "Opened order window.";
 
     private final Index targetIndex;
 
@@ -52,12 +54,14 @@ public class ListOrderCommand extends Command {
         }
 
         Person personTargeted = lastShownList.get(targetIndex.getZeroBased());
-        List<Order> orderList = personTargeted.getOrders();
+        ObservableList<Order> orderList = personTargeted.getOrders();
 
-        OrderWindow orderWindow = new OrderWindow(FXCollections.observableList(orderList));
-        orderWindow.show();
+        Platform.runLater(() -> {
+            OrderWindow orderWindow = new OrderWindow(orderList, targetIndex);
+            orderWindow.show();
+        });
 
-        return new CommandResult(createOrderListString(orderList));
+        return new CommandResult(SHOWING_ORDER_MESSAGE);
     }
 
     /**
@@ -66,7 +70,7 @@ public class ListOrderCommand extends Command {
      * @param orders List of orders to be listed.
      * @return A string representation of the order list.
      */
-    private String createOrderListString(List<Order> orders) {
+    private String createOrderListString(ObservableList<Order> orders) {
         StringBuilder sb = new StringBuilder();
         sb.append("Orders for the selected person:\n");
 

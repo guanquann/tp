@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
@@ -85,9 +87,9 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        final List<Order> personOrders = new ArrayList<>();
+        final ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         for (JsonAdaptedOrder order : orders) {
-            personOrders.add(order.toModelType());
+            modelOrders.add(order.toModelType());
         }
 
         if (name == null) {
@@ -131,8 +133,6 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-
-        final ArrayList<Order> modelOrders = new ArrayList<>(personOrders);
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCompany, isFavourite,
                 modelTags, modelOrders);

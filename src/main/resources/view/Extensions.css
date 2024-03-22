@@ -18,3 +18,9 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.order-title {
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+}

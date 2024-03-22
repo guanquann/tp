@@ -7,11 +7,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,7 +29,7 @@ public class AddOrderCommandTest {
     private static final Date DATE_STUB = new Date("2020-01-01");
     private static final String REMARK_STUB = "100 chicken wings";
     private static final Order ORDER_STUB = new Order(DATE_STUB, REMARK_STUB);
-    private static final ArrayList<Order> ORDERS_STUB = new ArrayList<>(List.of(ORDER_STUB));
+    private static final ObservableList<Order> ORDERS_STUB = FXCollections.observableList(List.of(ORDER_STUB));
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
