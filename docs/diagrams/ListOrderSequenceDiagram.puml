@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ListOrderCommandParser" as ListOrderCommandParser LOGIC_COLOR
+participant "l:ListOrderCommand" as ListOrderCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+box Person PERSON_COLOR_T1
+participant ":Person" as Person PERSON_COLOR
+end box
+
+[-> LogicManager : execute(args)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(args)
+activate AddressBookParser
+
+create ListOrderCommandParser
+AddressBookParser -> ListOrderCommandParser : parse(args)
+activate ListOrderCommandParser
+
+
+create ListOrderCommand
+ListOrderCommandParser -> ListOrderCommand :
+activate ListOrderCommand
+deactivate ListOrderCommandParser
+
+ListOrderCommand --> AddressBookParser : l
+deactivate ListOrderCommand
+
+AddressBookParser --> LogicManager : l
+deactivate AddressBookParser
+
+LogicManager -> ListOrderCommand : execute(m)
+activate ListOrderCommand
+
+ListOrderCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> ListOrderCommand : lastShownList
+deactivate Model
+
+ListOrderCommand -> Model : getPerson(Index)
+activate Model
+
+Model --> ListOrderCommand : personTargeted
+deactivate Model
+
+ListOrderCommand -> Person : getOrders()
+activate Person
+
+Person --> ListOrderCommand : orders
+deactivate Person
+
+ListOrderCommand -> ListOrderCommand : createOrderListString(orders)
+activate ListOrderCommand #DarkSlateGray
+ListOrderCommand --> ListOrderCommand : sortedOrders
+deactivate ListOrderCommand #DarkSlateGray
+
+create CommandResult
+ListOrderCommand -> CommandResult :
+activate CommandResult #DarkSlateGray
+CommandResult --> ListOrderCommand
+deactivate CommandResult #DarkSlateGray
+
+ListOrderCommand --> LogicManager : r
+deactivate ListOrderCommand
+
+[<-- LogicManager : r
+deactivate LogicManager
+@enduml

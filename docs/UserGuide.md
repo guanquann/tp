@@ -79,7 +79,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
 <box type="tip" seamless>
 
@@ -87,8 +87,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123 c/John's Burgers`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/West Street 12 p/91234567 c/Great Vegs t/criminal`
 
 ### Listing all persons : `list`
 
@@ -100,7 +100,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -285,15 +285,14 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action        | Format, Examples                                                                                                                                                      |
-|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Clear**     | `clear`                                                                                                                                                               |
-| **Delete**    | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   |
-| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           |
-| **Find**      | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                            |
-| **Add Order** | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                            |
-| **List Order**| `listorder INDEX`<br> e.g., `listorder 1`                                                                                                                               |
-| **Add Favourite** | `addfav [i/INDICES]` |
-| **List**      | `list`                                                                                                                                                                |
-| **Help**      | `help`                                                                                                                                                                |
+| Action        | Format, Examples                                                                                                                                                                                |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
+| **Clear**     | `clear`                                                                                                                                                                                         |
+| **Delete**    | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
+| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
+| **Find**      | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
+| **Add Order** | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
+| **Add Favourite** | `addfav [i/INDICES]`                                                                                                                                                                            |
+| **List**      | `list`        
+| **Help**      | `help`      
