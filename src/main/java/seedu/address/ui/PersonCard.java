@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -45,7 +46,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Label favourite;
+    private ImageView favouriteIcon;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -59,13 +60,9 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         company.setText(person.getCompany().companyName);
-        orders.setText(person.getOrders().size() + " orders");
-        if (person.getFavourite()) {
-            favourite.setText("Favourite");
-        } else {
-            // Collapse empty label
-            favourite.setVisible(false);
-            favourite.setManaged(false);
+        orders.setText(person.getOrders().size() + " order(s)");
+        if (!person.getFavourite()) {
+            favouriteIcon.setVisible(false);
         }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

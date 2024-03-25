@@ -72,7 +72,8 @@ public class ListOrderCommand extends Command {
         for (int i = 0; i < sortedOrders.size(); i++) {
             Order order = sortedOrders.get(i);
             int displayIndex = i + 1;
-            String orderDetails = order.toString();
+            String orderDetails = String.format("%s (by: %s, status: %s)", order.getRemark(),
+                    order.getDate(), order.getStatus());
 
             sb.append(displayIndex).append(". ")
                     .append(orderDetails)
