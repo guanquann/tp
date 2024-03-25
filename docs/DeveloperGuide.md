@@ -159,6 +159,78 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+### Add favourite feature
+
+The `addfav` feature allows users to add suppliers as favourites.
+
+#### Design considerations:
+
+**Aspect: How a contact being set as favourite is represented:**
+
+- **Alternative 1 (current choice):** A boolean field in the `Person` class is used to indicate whether a `Person` is a favourite 
+    - Pros: Make use of the current `Person` class by adding a simple primitive boolean to store information about favourites.
+    - Cons: Not a uniform way of representing information in the `Person` class given that all other fields are their own defined classes.
+
+- **Alternative 2:** A custom class field is created in the `Person` class to indicate whether a `Person` is a favourite
+    - Pros: Aligns with the information representation of other fields in the `Person` class
+    - Cons: Need to create a new `Favourite` wrapper class to store information on whether a person is a favourite. This may result in unnecessary abstraction given that the field and information to be stored are quite rudimentary.
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `addfav` command process:
+
+<puml src="diagrams/AddFavouriteSequenceDiagram.puml" alt="AddFavouriteSequenceDiagram" />
+
+
+### Add order feature
+
+The `addorder` feature allows users to add orders from a supplier. 
+
+#### Design considerations:
+
+**Aspect: How orders are stored:**
+
+- **Alternative 1 (current choice):** Orders are stored as a list in `Person` class.
+  - Pros: Make use of the current `Person` class by allowing it to store a list of orders.
+  - Cons: `Person` class become more complicated as more attributes are added.
+
+- **Alternative 2:** Orders are stored in a different storage class such as `OrderStorage`.
+  - Pros: `Person` class remains simple.
+  - Cons: Need to create a new `OrderStorage` storage class to store orders. This may result in duplicated code since the implementation of `AddressBookStorage` is similar.
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `addorder` command process:
+
+<puml src="diagrams/AddOrderSequenceDiagram.puml" alt="AddOrderSequenceDiagram" />
+
+### ListOrder Feature
+
+The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order. This is particularly useful for users who wish to track the order history of suppliers efficiently.
+
+#### Design Considerations
+
+- **Aspect:** Sorting orders by date.
+    - **Motivation:** Users are likely interested in the most recent orders. Sorting orders by date in ascending order allows users to see the most relevant orders first.
+- **Aspect:** Integration with existing data models.
+    - **Motivation:** Utilising the existing `Person` and new implemented `Order` models minimizes code redundancy and maintains consistency within the application.
+
+#### Implementation
+
+1. **Command Parsing:** The `ListOrderCommandParser` interprets the user input, extracts the index of the specified person, and creates an instance of `ListOrderCommand`.
+2. **Data Retrieval and Sorting:** Upon execution, `ListOrderCommand` fetches the selected person's orders from the model, sorts them by date, and prepares the output string.
+3. **Output Generation:** A summarising message that includes the sorted orders is then displayed to the user.
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `listorder` command process:
+
+<puml src="diagrams/ListOrderSequenceDiagram.puml" alt="ListOrderSequenceDiagram" />
+
+#### Future Enhancements
+
+- **Sorting by Status:** Introduce functionality to sort orders by their status (e.g., pending, completed), providing users with more flexibility in viewing order information.
+- **Filtering Options:** Implement filters to allow users to view orders within a specific date range or with particular characteristics, such as orders over a certain value.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -256,6 +328,15 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
+
+### Add command
+
+The `add` command allows users to create and add a new contact to the list.
+
+Its process largely follows from the previous address book implementation, but with slight modifications for GourmetGrid's unique functions.
+Below is the sequence diagram modelling the process of running an `add` command:
+
+
 
 ---
 
