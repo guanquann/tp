@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +19,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.order.Date;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.Remark;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -82,6 +86,32 @@ public class AddressBookTest {
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
+
+    @Test
+    public void deleteOrder_orderExists_orderRemoved() {
+        Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
+        Person personWithOrder = new PersonBuilder().withOrders(new ArrayList<>(List.of(order))).build();
+        addressBook.addPerson(personWithOrder);
+
+        addressBook.deleteOrder(personWithOrder, order);
+
+        assertFalse(personWithOrder.getOrders().contains(order));
+        assertTrue(addressBook.hasPerson(personWithOrder));
+    }
+
+
+    @Test
+    public void getOrders_personExists_returnsCorrectOrders() {
+        Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
+        Person personWithOrder = new PersonBuilder(ALICE).withOrders(new ArrayList<>(List.of(order))).build();
+        addressBook.addPerson(personWithOrder);
+
+        List<Order> orders = addressBook.getOrders(personWithOrder);
+
+        assertEquals(1, orders.size());
+        assertTrue(orders.contains(order));
+    }
+
 
     @Test
     public void toStringMethod() {

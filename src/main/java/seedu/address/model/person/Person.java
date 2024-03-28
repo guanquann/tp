@@ -63,6 +63,7 @@ public class Person {
         this.orders = orders;
     }
 
+
     public Name getName() {
         return name;
     }
@@ -109,11 +110,20 @@ public class Person {
     }
 
     /**
+     * Removes an order from the order list
+     * @param order the order to be removed
+     */
+    public void removeOrder(Order order) {
+        orders.remove(order);
+    }
+
+    /**
      * Sets the person specified by the contact as favourite
      */
     public void addFavourite() {
         this.isFavourite = true;
     }
+
     /**
      * Removes the person specified by the contact from favourites
      */

@@ -26,12 +26,11 @@ import seedu.address.model.order.Remark;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-public class EditStatusCommandTest {
+public class DeleteOrderCommandTest {
     private static final Date DATE_STUB = new Date("2020-01-01");
     private static final Remark REMARK_STUB = new Remark("100 chicken wings");
     private static final Order ORDER_STUB = new Order(DATE_STUB, REMARK_STUB);
     private static final ArrayList<Order> ORDERS_STUB = new ArrayList<>(List.of(ORDER_STUB));
-
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
@@ -41,9 +40,9 @@ public class EditStatusCommandTest {
         model.setPerson(personToDeleteOrderFrom, editedPerson);
 
         Index orderIndexToDelete = Index.fromZeroBased(0);
-        EditStatusCommand deleteOrderCommand = new EditStatusCommand(INDEX_FIRST_PERSON, orderIndexToDelete);
+        DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(INDEX_FIRST_PERSON, orderIndexToDelete);
 
-        String expectedMessage = String.format(EditStatusCommand.MESSAGE_DELETE_ORDER_SUCCESS,
+        String expectedMessage = String.format(DeleteOrderCommand.MESSAGE_DELETE_ORDER_SUCCESS,
                 ORDER_STUB, Messages.format(editedPerson));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -58,7 +57,7 @@ public class EditStatusCommandTest {
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditStatusCommand deleteOrderCommand = new EditStatusCommand(outOfBoundIndex, Index.fromOneBased(1));
+        DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(outOfBoundIndex, Index.fromOneBased(1));
 
         assertCommandFailure(deleteOrderCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -67,7 +66,7 @@ public class EditStatusCommandTest {
     public void execute_invalidOrderIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(
                 model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getOrders().size() + 1);
-        EditStatusCommand deleteOrderCommand = new EditStatusCommand(INDEX_FIRST_PERSON, outOfBoundIndex);
+        DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(INDEX_FIRST_PERSON, outOfBoundIndex);
 
         assertCommandFailure(deleteOrderCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
@@ -77,7 +76,7 @@ public class EditStatusCommandTest {
         Person personWithNoOrders = new PersonBuilder().withOrders(new ArrayList<>()).build();
         model.addPerson(personWithNoOrders);
         Index personIndex = Index.fromZeroBased(model.getFilteredPersonList().size() - 1);
-        EditStatusCommand deleteOrderCommand = new EditStatusCommand(personIndex, Index.fromZeroBased(0));
+        DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(personIndex, Index.fromZeroBased(0));
 
         assertCommandFailure(deleteOrderCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
@@ -86,16 +85,16 @@ public class EditStatusCommandTest {
 
     @Test
     public void equals() {
-        EditStatusCommand deleteFirstOrderFromFirstPerson = new EditStatusCommand(INDEX_FIRST_PERSON,
+        DeleteOrderCommand deleteFirstOrderFromFirstPerson = new DeleteOrderCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_ORDER);
-        EditStatusCommand deleteFirstOrderFromSecondPerson = new EditStatusCommand(INDEX_SECOND_PERSON,
+        DeleteOrderCommand deleteFirstOrderFromSecondPerson = new DeleteOrderCommand(INDEX_SECOND_PERSON,
                 INDEX_FIRST_ORDER);
-        EditStatusCommand deleteSecondOrderFromFirstPerson = new EditStatusCommand(INDEX_FIRST_PERSON,
+        DeleteOrderCommand deleteSecondOrderFromFirstPerson = new DeleteOrderCommand(INDEX_FIRST_PERSON,
                 INDEX_SECOND_ORDER);
 
         assertEquals(deleteFirstOrderFromFirstPerson, deleteFirstOrderFromFirstPerson);
 
-        EditStatusCommand deleteFirstOrderFromFirstPersonCopy = new EditStatusCommand(INDEX_FIRST_PERSON,
+        DeleteOrderCommand deleteFirstOrderFromFirstPersonCopy = new DeleteOrderCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_ORDER);
         assertEquals(deleteFirstOrderFromFirstPerson, deleteFirstOrderFromFirstPersonCopy);
 

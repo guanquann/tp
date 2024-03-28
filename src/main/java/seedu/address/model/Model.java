@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 
 /**
@@ -99,5 +100,20 @@ public interface Model {
      * Returns the orders for a person.
      */
     List<Order> getOrders(Person person);
+
+    /**
+     * Edits the status of an order from a person.
+     */
+    void editOrderStatus(Person person, Order order, Status newStatus);
+
+    /**
+     * Deletes an order from a person.
+     */
+    void deleteOrder(Person person, Order order);
+
+    /**
+     * Gets the sorted orders for a person.
+     */
+    List<Order> getSortedOrders(Person person);
 
 }

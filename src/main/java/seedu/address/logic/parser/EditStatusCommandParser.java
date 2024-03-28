@@ -24,9 +24,9 @@ public class EditStatusCommandParser implements Parser<EditStatusCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ORDER_INDEX, PREFIX_STATUS);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_STATUS) ||
-                !argMultimap.arePrefixesPresent(PREFIX_ORDER_INDEX) ||
-                argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_STATUS)
+                || !argMultimap.arePrefixesPresent(PREFIX_ORDER_INDEX)
+                || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     EditStatusCommand.MESSAGE_USAGE));
         }

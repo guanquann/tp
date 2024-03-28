@@ -41,6 +41,7 @@ public class Order {
         this.status = status;
     }
 
+
     public Date getDate() {
         return arrivalDate;
     }

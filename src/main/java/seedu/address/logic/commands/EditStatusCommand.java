@@ -52,33 +52,34 @@ public class EditStatusCommand extends Command {
         }
 
         Person personToEditOrderFrom = lastShownList.get(personIndex.getZeroBased());
-        String oP = Messages.format(personToEditOrderFrom);
 
-        List<Order> sortedOrders = personToEditOrderFrom.getOrders();
+        List<Order> sortedOrders = model.getSortedOrders(personToEditOrderFrom);
 
         if (orderIndex.getZeroBased() >= sortedOrders.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        // TODO
         Order orderToEdit = sortedOrders.get(orderIndex.getZeroBased());
+        model.editOrderStatus(personToEditOrderFrom, orderToEdit, status);
 
-        Order newOrder = new Order(orderToEdit.getDate(), orderToEdit.getRemark(), status);
-
-        personToEditOrderFrom.editOrder(orderToEdit, newOrder);
-
-        model.setPerson(personToEditOrderFrom, personToEditOrderFrom);
-
-        // TODO
         return new CommandResult(String.format(MESSAGE_EDIT_STATUS_SUCCESS, Messages.format(personToEditOrderFrom)));
     }
 
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof EditStatusCommand // instanceof handles nulls
-                && personIndex.equals(((EditStatusCommand) other).personIndex)
-                && orderIndex.equals(((EditStatusCommand) other).orderIndex)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditStatusCommand)) {
+            return false;
+        }
+
+        EditStatusCommand otherEditStatusCommand = (EditStatusCommand) other;
+        return personIndex.equals(otherEditStatusCommand.personIndex)
+                && orderIndex.equals(otherEditStatusCommand.orderIndex)
+                && status.equals(otherEditStatusCommand.status);
     }
 }

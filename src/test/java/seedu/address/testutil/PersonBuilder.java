@@ -127,6 +127,17 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Removes the order from the {@code Person} that we are building at the specified index.
+     * This mimics the deletion of an order.
+     */
+    public PersonBuilder withoutOrder(int index) {
+        if (index >= 0 && index < this.orders.size()) {
+            this.orders.remove(index);
+        }
+        return this;
+    }
+
     public Person build() {
         return new Person(name, phone, email, address, company, isFavourite, tags, orders);
     }

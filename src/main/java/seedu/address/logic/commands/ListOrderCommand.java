@@ -49,9 +49,9 @@ public class ListOrderCommand extends Command {
         }
 
         Person personTargeted = lastShownList.get(targetIndex.getZeroBased());
-        List<Order> orderList = model.getOrders(personTargeted);
+        List<Order> sortedOrders = model.getSortedOrders(personTargeted);
 
-        return new CommandResult(createOrderListString(orderList));
+        return new CommandResult(createOrderListString(sortedOrders));
     }
 
     /**
