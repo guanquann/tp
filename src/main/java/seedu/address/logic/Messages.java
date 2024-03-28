@@ -23,6 +23,8 @@ public class Messages {
 
     public static final String MESSAGE_CANNOT_BE_EMPTY = "Keyword Value of FIELD %1$s cannot be empty.";
 
+    public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

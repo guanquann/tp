@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Status {
     enum StatusEnum {
-        PENDING("Pending"),
-        ARRIVED("Arrived"),
-        LATE("Late");
+        PENDING("pending"),
+        ARRIVED("arrived"),
+        LATE("late");
 
         private final String status;
 
@@ -29,7 +29,7 @@ public class Status {
         }
     }
 
-    public static final String MESSAGE_CONSTRAINTS = "Status should be one of 'Pending', 'Arrived', or 'Late'";
+    public static final String MESSAGE_CONSTRAINTS = "Status should be one of 'pending', 'arrived', or 'late'";
 
     private final String status;
 

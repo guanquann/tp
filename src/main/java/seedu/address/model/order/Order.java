@@ -22,7 +22,7 @@ public class Order {
 
         this.arrivalDate = arrivalDate;
         this.remark = remark;
-        this.status = new Status("Pending");
+        this.status = new Status("pending");
     }
 
     /**

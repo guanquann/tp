@@ -24,17 +24,17 @@ public class StatusTest {
         assertFalse(Status.isValidStatus(""));
 
         // valid status
-        assertTrue(Status.isValidStatus("Pending"));
-        assertTrue(Status.isValidStatus("Arrived"));
-        assertTrue(Status.isValidStatus("Late"));
+        assertTrue(Status.isValidStatus("pending"));
+        assertTrue(Status.isValidStatus("arrived"));
+        assertTrue(Status.isValidStatus("late"));
     }
 
     @Test
     public void equals() {
-        Status status = new Status("Pending");
+        Status status = new Status("pending");
 
         // same values -> returns true
-        assertTrue(status.equals(new Status("Pending")));
+        assertTrue(status.equals(new Status("pending")));
 
         // same object -> returns true
         assertTrue(status.equals(status));
@@ -46,16 +46,16 @@ public class StatusTest {
         assertFalse(status.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(status.equals(new Status("Late")));
+        assertFalse(status.equals(new Status("late")));
 
         // check for enum
         assertFalse(Status.StatusEnum.PENDING.equals(null));
-        assertFalse(Status.StatusEnum.PENDING.toString().equals("Arrived"));
-        assertFalse(Status.StatusEnum.ARRIVED.toString().equals("Late"));
-        assertFalse(Status.StatusEnum.LATE.toString().equals("Pending"));
+        assertFalse(Status.StatusEnum.PENDING.toString().equals("arrived"));
+        assertFalse(Status.StatusEnum.ARRIVED.toString().equals("late"));
+        assertFalse(Status.StatusEnum.LATE.toString().equals("pending"));
 
-        assertTrue(Status.StatusEnum.PENDING.toString().equals("Pending"));
-        assertTrue(Status.StatusEnum.ARRIVED.toString().equals("Arrived"));
-        assertTrue(Status.StatusEnum.LATE.toString().equals("Late"));
+        assertTrue(Status.StatusEnum.PENDING.toString().equals("pending"));
+        assertTrue(Status.StatusEnum.ARRIVED.toString().equals("arrived"));
+        assertTrue(Status.StatusEnum.LATE.toString().equals("late"));
     }
 }

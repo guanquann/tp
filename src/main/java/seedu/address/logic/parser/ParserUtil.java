@@ -12,6 +12,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Date;
 import seedu.address.model.order.Remark;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
@@ -139,6 +140,15 @@ public class ParserUtil {
             throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
         return new Remark(remark);
+    }
+
+    public static Status parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim().toLowerCase();
+        if (!Status.isValidStatus(trimmedStatus)) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
+        return new Status(trimmedStatus);
     }
 
     /**

@@ -100,6 +100,15 @@ public class Person {
     }
 
     /**
+     * Edits the order specified by the order and replaces it with the edited order
+     * @param order the order to be edited
+     * @param editedOrder the edited order
+     */
+    public void editOrder(Order order, Order editedOrder) {
+        orders.set(orders.indexOf(order), editedOrder);
+    }
+
+    /**
      * Sets the person specified by the contact as favourite
      */
     public void addFavourite() {
