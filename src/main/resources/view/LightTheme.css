@@ -93,6 +93,10 @@
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap: 0;
+    -fx-background-color: derive(#e2e2e2, 20%);
+}
+
+.list-cell:filled {
     -fx-padding: 5;
     -fx-background-radius: 15;
     -fx-background-color: #faf9f6;
