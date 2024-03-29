@@ -64,6 +64,11 @@ public class ListOrderCommand extends Command {
         StringBuilder sb = new StringBuilder();
         sb.append("Order(s) for the selected person:\n");
 
+        if (orders.isEmpty()) {
+            sb.append("No orders found.");
+            return sb.toString();
+        }
+
         // Sort orders by date
         List<Order> sortedOrders = orders.stream()
                 .sorted(Comparator.comparing(Order::getDate))
@@ -72,7 +77,7 @@ public class ListOrderCommand extends Command {
         for (int i = 0; i < sortedOrders.size(); i++) {
             Order order = sortedOrders.get(i);
             int displayIndex = i + 1;
-            String orderDetails = order.toString();
+            String orderDetails = String.format("%s: %s", order.getDate(), order.getRemark());
 
             sb.append(displayIndex).append(". ")
                     .append(orderDetails)

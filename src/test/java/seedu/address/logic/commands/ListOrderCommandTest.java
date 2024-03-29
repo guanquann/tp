@@ -34,7 +34,7 @@ public class ListOrderCommandTest {
         ListOrderCommand listOrderCommand = new ListOrderCommand(Index.fromOneBased(2));
         CommandResult commandResult = listOrderCommand.execute(model);
 
-        String expectedMessage = "Order(s) for the selected person:\n";
+        String expectedMessage = "Order(s) for the selected person:\nNo orders found.";
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
