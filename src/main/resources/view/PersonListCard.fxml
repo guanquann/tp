@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -28,27 +30,27 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" minWidth="-Infinity" />
       </HBox>
       <FlowPane fx:id="tags" />
       <HBox>
-        <Label styleClass="cell_small_label_bold" text="Phone: " />
+        <Label styleClass="cell_small_label_bold" text="Phone: " minWidth="-Infinity" />
         <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label_bold" text="Address: " />
+        <Label styleClass="cell_small_label_bold" text="Address: " minWidth="-Infinity" />
         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label_bold" text="Email: " />
+        <Label styleClass="cell_small_label_bold" text="Email: " minWidth="-Infinity" />
         <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label_bold" text="Company: " />
+        <Label styleClass="cell_small_label_bold" text="Company: " minWidth="-Infinity" />
         <Label fx:id="company" styleClass="cell_small_label" text="\$company" />
       </HBox>
     </VBox>
-    <VBox alignment="TOP_RIGHT">
+    <VBox alignment="TOP_RIGHT" GridPane.columnIndex="1">
       <padding>
         <Insets top="8" right="8"/>
       </padding>
@@ -57,7 +59,7 @@
         <Image url="@../images/heart_icon.png"/>
       </ImageView>
     </VBox>
-    <VBox alignment="BOTTOM_RIGHT">
+    <VBox alignment="BOTTOM_RIGHT" GridPane.columnIndex="1">
       <padding>
         <Insets bottom="5" right="8"/>
       </padding>
