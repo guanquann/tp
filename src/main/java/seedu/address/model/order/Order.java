@@ -7,8 +7,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Order {
     private final Date arrivalDate;
-    private final String remark;
-    private final String status;
+    private final Remark remark;
 
     /**
      * Constructs a {@code Order}.
@@ -16,41 +15,21 @@ public class Order {
      * @param arrivalDate a valid date of the order.
      * @param remark a valid remark of the order.
      */
-    public Order(Date arrivalDate, String remark) {
+    public Order(Date arrivalDate, Remark remark) {
         requireNonNull(arrivalDate);
         requireNonNull(remark);
 
         this.arrivalDate = arrivalDate;
         this.remark = remark;
-        this.status = "Pending";
     }
 
-    /**
-     * Constructs a {@code Order}.
-     *
-     * @param arrivalDate a valid date of the order.
-     * @param remark a valid remark of the order.
-     * @param status a valid status of the order.
-     */
-    public Order(Date arrivalDate, String remark, String status) {
-        requireNonNull(arrivalDate);
-        requireNonNull(remark);
-
-        this.arrivalDate = arrivalDate;
-        this.remark = remark;
-        this.status = status;
-    }
 
     public Date getDate() {
         return arrivalDate;
     }
 
-    public String getRemark() {
+    public Remark getRemark() {
         return remark;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     @Override
@@ -65,20 +44,19 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return arrivalDate.equals(otherOrder.arrivalDate) && remark.equals(otherOrder.remark)
-                && status.equals(otherOrder.status);
+        return arrivalDate.equals(otherOrder.arrivalDate) && remark.equals(otherOrder.remark);
     }
 
     @Override
     public int hashCode() {
-        return arrivalDate.hashCode() + remark.hashCode() + status.hashCode();
+        return arrivalDate.hashCode() + remark.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return String.format("[%s (by: %s, status: %s)]", remark, arrivalDate, status);
+        return String.format("[%s (by: %s)]", remark, arrivalDate);
     }
 
 }

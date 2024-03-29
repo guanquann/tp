@@ -15,18 +15,18 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Adds the indicated contacts in the address book as favourites
+ * Removes the indicated contacts in the address book from favourites
  */
-public class AddFavouriteCommand extends Command {
-    public static final String COMMAND_WORD = "addfav";
+public class RemoveFavouriteCommand extends Command {
+    public static final String COMMAND_WORD = "removefav";
 
-    public static final String MESSAGE_SUCCESS = "The following contacts have been added to favourites: %s";
+    public static final String MESSAGE_SUCCESS = "The following contacts have been removed from favourites: %s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds contacts identified by index number "
+            + ": Removes contacts identified by index number "
             + "as favourites.\n"
             + "Parameters: i/ [INDICES] (must be positive integers separated by "
-            + "commas that correspond to non-favourite contacts)\n"
+            + "commas that correspond to existing favourite contacts)\n"
             + "Example: " + COMMAND_WORD + " "
             + "i/ 1,2,5";
 
@@ -35,7 +35,7 @@ public class AddFavouriteCommand extends Command {
     /**
      * Creates an AddFavouriteCommand to mark the specified group of {@code Person} as favourites
      */
-    public AddFavouriteCommand(Set<Index> indices) {
+    public RemoveFavouriteCommand(Set<Index> indices) {
         requireNonNull(indices);
         this.indices = indices;
     }
@@ -44,19 +44,22 @@ public class AddFavouriteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         List<Person> people = model.getFilteredPersonList();
         List<String> modifiedContacts = new ArrayList<>();
+
         boolean anyGreaterThanSize = this.indices.stream().anyMatch(index -> index.getZeroBased() >= people.size());
         if (anyGreaterThanSize) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        boolean anyFavourite = this.indices.stream().anyMatch(index ->
-                people.get(index.getZeroBased()).getIsFavourite());
-        if (anyFavourite) {
+
+        boolean anyNotFavourite = this.indices.stream().anyMatch(index ->
+                !people.get(index.getZeroBased()).getIsFavourite());
+        if (anyNotFavourite) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
+
         for (Index index : this.indices) {
             Person person = people.get(index.getZeroBased());
             modifiedContacts.add(person.getName().fullName);
-            person.addFavourite();
+            person.removeFavourite();
             model.setPerson(person, person);
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -70,12 +73,12 @@ public class AddFavouriteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddFavouriteCommand)) {
+        if (!(other instanceof RemoveFavouriteCommand)) {
             return false;
         }
 
-        AddFavouriteCommand otherAddFavouriteCommand = (AddFavouriteCommand) other;
-        return this.indices.equals(otherAddFavouriteCommand.indices);
+        RemoveFavouriteCommand otherRemoveFavouriteCommand = (RemoveFavouriteCommand) other;
+        return this.indices.equals(otherRemoveFavouriteCommand.indices);
     }
 
     @Override

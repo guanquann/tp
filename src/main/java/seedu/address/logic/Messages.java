@@ -14,6 +14,7 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_INVALID_NO_ARGUMENTS_COMMAND = "Give the exact command without trailing text!";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
@@ -21,6 +22,8 @@ public class Messages {
     public static final String MESSAGE_ALPHABET_ONLY = "Value for %1$s must consist of alphabets only.";
 
     public static final String MESSAGE_CANNOT_BE_EMPTY = "Keyword Value of FIELD %1$s cannot be empty.";
+
+    public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

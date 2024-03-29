@@ -13,8 +13,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.order.Date;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.Remark;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -51,6 +57,29 @@ public class PersonTest {
         editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(BOB.isSamePerson(editedBob));
     }
+
+    @Test
+    public void removeOrder_orderIsPresent_orderRemovedSuccessfully() {
+        Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
+        Person person = new PersonBuilder().withOrders(new ArrayList<>(List.of(order))).build();
+
+        person.removeOrder(order);
+
+        assertTrue(person.getOrders().isEmpty());
+    }
+
+    @Test
+    public void removeOrder_orderIsNotPresent_ordersListUnchanged() {
+        Order existingOrder = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
+        Person person = new PersonBuilder().withOrders(new ArrayList<>(List.of(existingOrder))).build();
+        Order nonExistingOrder = new Order(new Date("2020-02-01"), new Remark("200 chicken wings"));
+
+        person.removeOrder(nonExistingOrder);
+
+        assertEquals(1, person.getOrders().size());
+        assertTrue(person.getOrders().contains(existingOrder));
+    }
+
 
     @Test
     public void equals() {
@@ -95,7 +124,7 @@ public class PersonTest {
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", company=" + ALICE.getCompany()
-                + ", isFavourite=" + ALICE.getFavourite() + ", tags=" + ALICE.getTags()
+                + ", isFavourite=" + ALICE.getIsFavourite() + ", tags=" + ALICE.getTags()
                 + ", orders=" + ALICE.getOrders() + "}";
         assertEquals(expected, ALICE.toString());
     }

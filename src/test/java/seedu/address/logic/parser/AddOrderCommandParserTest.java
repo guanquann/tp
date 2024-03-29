@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.model.order.Date;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Remark;
 
 public class AddOrderCommandParserTest {
     private static final String NON_EMPTY_DATE = "2020-01-01";
@@ -27,7 +28,7 @@ public class AddOrderCommandParserTest {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_DATE + NON_EMPTY_DATE + " "
                 + PREFIX_REMARK + NON_EMPTY_REMARK;
 
-        Order order = new Order(new Date(NON_EMPTY_DATE), NON_EMPTY_REMARK);
+        Order order = new Order(new Date(NON_EMPTY_DATE), new Remark(NON_EMPTY_REMARK));
 
         AddOrderCommand expectedCommand = new AddOrderCommand(INDEX_FIRST_PERSON, order);
         assertParseSuccess(parser, userInput, expectedCommand);

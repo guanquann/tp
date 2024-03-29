@@ -58,7 +58,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         company = personToCopy.getCompany();
-        isFavourite = personToCopy.getFavourite();
+        isFavourite = personToCopy.getIsFavourite();
         tags = new HashSet<>(personToCopy.getTags());
         orders = new ArrayList<>(personToCopy.getOrders());
     }
@@ -124,6 +124,17 @@ public class PersonBuilder {
      */
     public PersonBuilder withOrders(ArrayList<Order> orders) {
         this.orders = orders;
+        return this;
+    }
+
+    /**
+     * Removes the order from the {@code Person} that we are building at the specified index.
+     * This mimics the deletion of an order.
+     */
+    public PersonBuilder withoutOrder(int index) {
+        if (index >= 0 && index < this.orders.size()) {
+            this.orders.remove(index);
+        }
         return this;
     }
 

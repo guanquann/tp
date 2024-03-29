@@ -106,6 +106,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, target);
     }
 
+    /**
+     * Deletes an order from the person.
+     * The person must exist in the address book.
+     */
+    public void deleteOrder(Person target, Order order) {
+        requireNonNull(target);
+        requireNonNull(order);
+
+        target.removeOrder(order);
+        persons.setPerson(target, target);
+    }
+
+    /**
+     * Gets the orders of the person.
+     *  The person must exist in the address book.
+     */
+    public List<Order> getOrders(Person target) {
+        return target.getOrders();
+    }
+
     //// util methods
 
     @Override
@@ -139,4 +159,5 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode();
     }
+
 }

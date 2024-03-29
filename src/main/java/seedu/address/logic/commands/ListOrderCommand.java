@@ -49,9 +49,9 @@ public class ListOrderCommand extends Command {
         }
 
         Person personTargeted = lastShownList.get(targetIndex.getZeroBased());
-        List<Order> orderList = personTargeted.getOrders();
+        List<Order> sortedOrders = model.getSortedOrders(personTargeted);
 
-        return new CommandResult(createOrderListString(orderList));
+        return new CommandResult(createOrderListString(sortedOrders));
     }
 
     /**
@@ -72,8 +72,7 @@ public class ListOrderCommand extends Command {
         for (int i = 0; i < sortedOrders.size(); i++) {
             Order order = sortedOrders.get(i);
             int displayIndex = i + 1;
-            String orderDetails = String.format("%s (by: %s, status: %s)", order.getRemark(),
-                    order.getDate(), order.getStatus());
+            String orderDetails = String.format("%s (by: %s)", order.getRemark(), order.getDate());
 
             sb.append(displayIndex).append(". ")
                     .append(orderDetails)

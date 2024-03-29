@@ -1,14 +1,64 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
-# AB-3 User Guide
-
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+# GourmetGrid User Guide
 
 <!-- * Table of Contents -->
+GourmetGrid User Guide
+- Introduction
+- About
+- Quick Start
+- Features
+    - Viewing help : help
+    - Adding a person : add
+    - Listing all persons : list
+    - Editing a person : edit
+    - Add Contacts as Favourites : addfav
+    - Search Contact : find
+    - Adding an order : addorder
+    - Listing orders : listorder
+    - Deleting a person : delete
+    - Clearing all entries : clear
+    - Exiting a program : exit
+    - Saving the data
+    - Editing the data file
+    - Archiving data files [coming in v2.0]
+- FAQ
+- Known Issues
+- Command Summary
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+## Introduction
+
+
+GourmetGrid is a **desktop app to help small restaurant owners manage supplier contacts and orders**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GourmetGrid can get your day-to-day supplier management tasks done faster than traditional GUI apps.
+
+
+## About
+This user guide provides in-depth documentation on GourmetGrid installation process, system configuration and management. From setting up the app to managing supplier contacts and orders efficiently, we cover everything you need to know to use GourmetGrid effectively.
+
+
+### How to Use the Guide
+
+
+- **Navigation**: Use the Table of Contents to find the sections relevant to your needs. This guide is structured logically from initial setup to more complex features, ensuring you would have a smooth learning curve.
+
+
+- **Conventions**: Throughout this guide, you will find consistent use of terminology and conventions to simplify understanding. Key terms/features are defined, and step-by-step instructions and examples are clearly outlined for your convenience.
+
+
+- **Examples**: Practical examples are provided to illustrate how features can be used in real-world scenarios. These are intended to give you a better understanding of how to apply the app's functionalities to meet your needs.
+
+
+**Getting Started**: If you're new to GourmetGrid, we recommend starting with the 'Quick Start' section to get up and running quickly. From there, explore the 'Features' section to discover how to leverage GourmetGrid's full capabilities.
+
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -28,40 +78,48 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#features) below for details of each command. If unsure, you can also key in the command without additional arguments to check the expected command format, which will be shown in the response prompt.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
+
 <box type="info" seamless>
 
+
 **Notes about the command format:**<br>
+
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
+
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
+
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
@@ -105,21 +163,24 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, existing tags other than the Favourite tag of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 
-### Add Contacts as Favourites `addfav`
+### Add contacts as favourites `addfav`
 
 - Adds the contacts specified by index as favourites
 
 Format: `addfav [i/INDICES]`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
+<box type="tip" seamless>
+
+**Note:** Indices corresponding to existing favourite contacts are deemed as invalid indices for `addfav`
+</box>
 
 Examples:
 - `addfav i/ 1` Sets the contact at index `1` as favourite
@@ -130,6 +191,28 @@ Examples:
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
+
+### Remove contacts from favourites `removefav`
+
+- Remove the contacts specified by index as favourites
+
+Format: `removefav [i/INDICES]`
+- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
+
+<box type="tip" seamless>
+
+**Note:** Indices corresponding to non-favourite contacts are deemed as invalid indices for `removefav`
+</box>
+
+Examples:
+- `removefav i/ 1` Removes the contact at index `1` from favourites
+- `removefav i/ 1, 1, 1` Removes the contact at index `1` as favourite once
+- `removefav i/ 1, 2, 5` Removes the contacts at the indices `1, 2, 5` as favourites
+- `removefav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
+- `removefav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
+- `removefav i/` returns an error message as the 'INDICES' field cannot be empty
+- `removefav` returns an error message as it must be accompanied by the 'INDICES' field
+- `removefav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
 ### Search Contact `find`
 
@@ -143,38 +226,38 @@ General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
 #### Search Guidelines
 
 * 'KEYWORD' can **ONLY** be alphabets and **CANNOT** contain spaces or be empty.
-  * e.g. `find n/John Doe` will **NOT** work. Try `find n/John n/Doe` instead to represent finding John and Doe
-  * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
-  * e.g. `find n/John123` will **NOT** work as 'KEYWORD' cannot contain non-alphabetic characters.
+    * e.g. `find n/John Doe` will **NOT** work. Try `find n/John n/Doe` instead to represent finding John and Doe
+    * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
+    * e.g. `find n/John123` will **NOT** work as 'KEYWORD' cannot contain non-alphabetic characters.
 
 
 * 'KEYWORD' and next 'FIELD' should be separated by a space.
-  * e.g. `find n/John t/friends` will find all instances of John that have the tag friends 
-  * but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends'
-  * and there should not be non-alphabetic characters in the 'KEYWORD' field.
+    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends
+    * but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends'
+    * and there should not be non-alphabetic characters in the 'KEYWORD' field.
 
 
 * Multiple of the same 'FIELDs' will be treated as a **Logical AND (&&)**.
-  * e.g. `find n/John n/Doe` will return all instances of John and Doe.
-  * e.g. `find n/Ale n/le` will still return the following example instances ["Alex Liew", "Alexis Lebrun", "Alec"]
+    * e.g. `find n/John n/Doe` will return all instances of John and Doe.
+    * e.g. `find n/Ale n/le` will still return the following example instances ["Alex Liew", "Alexis Lebrun", "Alec"]
 
 
 * 'KEYWORD' should **NOT** be empty and there should be at least one 'FIELD' and 'KEYWORD' pair.
-  * e.g. `find n/ t/` and `find ` will **NOT** work.
+    * e.g. `find n/ t/` and `find ` will **NOT** work.
 
 
-* There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair. 
-  * e.g. `find testing123 n/John` will **NOT** work.
+* There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair.
+    * e.g. `find testing123 n/John` will **NOT** work.
 
 
-* The search is case-insensitive. 
-  * e.g. `find n/hans` will match `Hans Niemann` and `Hans Zimmer`
+* The search is case-insensitive.
+    * e.g. `find n/hans` will match `Hans Niemann` and `Hans Zimmer`
 
-* The order of the keywords does not matter. 
-  * e.g. Results of `find n/Hans n/Bo` will match the results of`find n/Bo n/Hans`
+* The order of the keywords does not matter.
+    * e.g. Results of `find n/Hans n/Bo` will match the results of`find n/Bo n/Hans`
 
-* You can have multiple of the same 'FIELD's. 
-  * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe`
+* You can have multiple of the same 'FIELD's.
+    * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe`
 
 
 Examples:
@@ -190,8 +273,8 @@ Examples:
 
 * `find` returns an error message as there should be at least one 'FIELD' and 'KEYWORD' pair
 
-* `find testing123 n/John` returns an error message as there should not be 
-      prefixes before the first 'FIELD' and 'KEYWORD' pair
+* `find testing123 n/John` returns an error message as there should not be
+  prefixes before the first 'FIELD' and 'KEYWORD' pair
 
 ### Adding an order : `addorder`
 
@@ -260,7 +343,7 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
@@ -273,7 +356,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GourmetGrid home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -285,14 +368,15 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action        | Format, Examples                                                                                                                                                                                |
-|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**       | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
-| **Clear**     | `clear`                                                                                                                                                                                         |
-| **Delete**    | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
-| **Edit**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
-| **Find**      | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
-| **Add Order** | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
+| Action            | Format, Examples                                                                                                                                                                                |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
+| **Clear**         | `clear`                                                                                                                                                                                         |
+| **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
+| **Find**          | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
+| **Add Order**     | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
 | **Add Favourite** | `addfav [i/INDICES]`                                                                                                                                                                            |
-| **List**      | `list`        
-| **Help**      | `help`      
+| **List**      | `list`        |
+| **Help**      | `help`      | 
+

@@ -23,80 +23,77 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 
-public class AddFavouriteCommandTest {
+public class RemoveFavouriteCommandTest {
     private static final Set<Index> INDICES_STUB = Set.of(Index.fromOneBased(1),
             Index.fromOneBased(2), Index.fromOneBased(4));
     private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            AddFavouriteCommand.MESSAGE_USAGE);
+            RemoveFavouriteCommand.MESSAGE_USAGE);
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullIndices_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddFavouriteCommand(null));
+        assertThrows(NullPointerException.class, () -> new RemoveFavouriteCommand(null));
     }
 
     @Test
-    public void execute_addFavourite_success() {
+    public void execute_removeFavourite_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withFavourite(true).build();
+        model.setPerson(firstPerson, editedPerson);
         Set<Index> indices = Set.of(Index.fromOneBased(1));
         List<String> modifiedContacts = List.of(firstPerson.getName().fullName);
-        AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(indices);
-        String expectedMessage = String.format(AddFavouriteCommand.MESSAGE_SUCCESS, modifiedContacts);
+        RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(indices);
+        String expectedMessage = String.format(RemoveFavouriteCommand.MESSAGE_SUCCESS, modifiedContacts);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
-        assertCommandSuccess(addFavouriteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(removeFavouriteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         Set<Index> indices = Set.of(Index.fromOneBased(model.getFilteredPersonList().size() + 1));
-        AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(indices);
+        RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(indices);
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, () ->
-                addFavouriteCommand.execute(model));
+                removeFavouriteCommand.execute(model));
     }
 
     @Test
-    public void execute_favouriteContact_throwsCommandException() {
-        Set<Index> indices = Set.of(Index.fromOneBased(1));
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withFavourite(true).build();
-        model.setPerson(firstPerson, editedPerson);
-        AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(indices);
+    public void execute_nonFavouriteContact_throwsCommandException() {
+        Set<Index> indices = Set.of(Index.fromOneBased(2));
+        RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(indices);
         assertThrows(CommandException.class, MESSAGE_INVALID_FORMAT, () ->
-                addFavouriteCommand.execute(model));
+                removeFavouriteCommand.execute(model));
     }
 
     @Test
     public void equals() {
-        AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(INDICES_STUB);
+        RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(INDICES_STUB);
 
         // same object -> returns true
-        assert (addFavouriteCommand.equals(addFavouriteCommand));
+        assert (removeFavouriteCommand.equals(removeFavouriteCommand));
 
         // same values -> returns true
-        AddFavouriteCommand addFavouriteCommandCopy = new AddFavouriteCommand(INDICES_STUB);
-        assert (addFavouriteCommand.equals(addFavouriteCommandCopy));
+        RemoveFavouriteCommand removeFavouriteCommandCopy = new RemoveFavouriteCommand(INDICES_STUB);
+        assert (removeFavouriteCommand.equals(removeFavouriteCommandCopy));
 
         // different types -> returns false
-        assert (!addFavouriteCommand.equals(1));
+        assert (!removeFavouriteCommand.equals(1));
 
         // null -> returns false
-        assert (!addFavouriteCommand.equals(null));
+        assert (!removeFavouriteCommand.equals(null));
 
         // different indices -> returns false
-        AddFavouriteCommand differentFavouriteCommand = new AddFavouriteCommand(Set.of(Index.fromOneBased(1)));
-        assert (!addFavouriteCommand.equals(differentFavouriteCommand));
+        RemoveFavouriteCommand differentFavouriteCommand = new RemoveFavouriteCommand(Set.of(Index.fromOneBased(1)));
+        assert (!removeFavouriteCommand.equals(differentFavouriteCommand));
     }
 
     @Test
     public void toStringMethod() {
         StringBuilder sb = new StringBuilder();
         INDICES_STUB.forEach(sb::append);
-        AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(INDICES_STUB);
-        String expected = AddFavouriteCommand.class.getCanonicalName() + "{indices=" + sb.toString() + "}";
-        assertEquals(expected, addFavouriteCommand.toString());
+        RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(INDICES_STUB);
+        String expected = RemoveFavouriteCommand.class.getCanonicalName() + "{indices=" + sb.toString() + "}";
+        assertEquals(expected, removeFavouriteCommand.toString());
     }
 }

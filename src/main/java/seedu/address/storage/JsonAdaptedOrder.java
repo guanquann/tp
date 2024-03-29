@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Date;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Remark;
 
 /**
  * Jackson-friendly version of {@link Order}.
@@ -16,18 +17,15 @@ class JsonAdaptedOrder {
 
     private final String arrivalDate;
     private final String remark;
-    private final String status;
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given {@code order}.
      */
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("arrivalDate") String arrivalDate,
-                            @JsonProperty("remark") String remark,
-                            @JsonProperty("status") String status) {
+                            @JsonProperty("remark") String remark) {
         this.arrivalDate = arrivalDate;
         this.remark = remark;
-        this.status = status;
     }
 
     /**
@@ -35,8 +33,7 @@ class JsonAdaptedOrder {
      */
     public JsonAdaptedOrder(Order source) {
         this.arrivalDate = source.getDate().toString();
-        this.remark = source.getRemark();
-        this.status = source.getStatus();
+        this.remark = source.getRemark().toString();
     }
 
     /**
@@ -53,12 +50,9 @@ class JsonAdaptedOrder {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Remark"));
         }
 
-        if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Status"));
-        }
-
         final Date modelDate = new Date(arrivalDate);
+        final Remark modelRemark = new Remark(remark);
 
-        return new Order(modelDate, remark);
+        return new Order(modelDate, modelRemark);
     }
 }

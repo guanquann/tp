@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that evaluates to whether a person is a favourite contact */
+    Predicate<Person> PREDICATE_SHOW_FAVOURITES = unused -> unused.getIsFavourite();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -90,5 +94,21 @@ public interface Model {
      * Adds an order to the person.
      */
     void addOrder(Person person, Order order);
+
+    /**
+     * Returns the orders for a person.
+     */
+    List<Order> getOrders(Person person);
+
+    /**
+     * Deletes an order from a person.
+     */
+    void deleteOrder(Person person, Order order);
+
+    /**
+     * Gets the sorted orders for a person.
+     */
+    List<Order> getSortedOrders(Person person);
+
 
 }
