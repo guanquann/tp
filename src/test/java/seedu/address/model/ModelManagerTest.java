@@ -6,14 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.ORDER;
+import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,6 @@ import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
-    private static final ArrayList<Order> ORDERS_STUB = new ArrayList<>(List.of(ORDER));
     private ModelManager modelManager = new ModelManager();
 
     @Test
@@ -117,23 +115,22 @@ public class ModelManagerTest {
 
     @Test
     public void deleteOrder_removeExistingOrder_orderRemoved() {
-        Person personWithOrder = new PersonBuilder().withOrders(ORDERS_STUB).build();
+        Person personWithOrder = new PersonBuilder().withOrders(getTypicalOrders()).build();
         AddressBook addressBookWithOrder = new AddressBookBuilder().withPerson(personWithOrder).build();
         ModelManager modelManager = new ModelManager(addressBookWithOrder, new UserPrefs());
 
-        Order orderToRemove = ORDERS_STUB.get(0); // Assuming ORDERS_STUB is not empty
-        modelManager.deleteOrder(personWithOrder, orderToRemove);
+        modelManager.deleteOrder(personWithOrder, ORDER);
 
-        assertFalse(modelManager.getOrders(personWithOrder).contains(orderToRemove));
+        assertFalse(modelManager.getOrders(personWithOrder).contains(ORDER));
     }
 
     @Test
     public void getOrders_personWithOrders_returnsCorrectOrderList() {
-        Person personWithOrder = new PersonBuilder().withOrders(ORDERS_STUB).build();
+        Person personWithOrder = new PersonBuilder().withOrders(getTypicalOrders()).build();
         AddressBook addressBookWithOrder = new AddressBookBuilder().withPerson(personWithOrder).build();
         ModelManager modelManager = new ModelManager(addressBookWithOrder, new UserPrefs());
 
-        assertEquals(ORDERS_STUB, modelManager.getOrders(personWithOrder));
+        assertEquals(getTypicalOrders(), modelManager.getOrders(personWithOrder));
     }
 
     @Test
