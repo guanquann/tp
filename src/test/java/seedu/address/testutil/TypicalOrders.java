@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.model.order.Date;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Remark;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A utility class containing a list of {@code Order} objects to be used in tests.
