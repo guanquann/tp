@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalOrders.ORDER;
+import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -88,6 +90,24 @@ public class AddressBookTest {
     }
 
     @Test
+    public void addOrder_personExists_orderAdded() {
+        Person personWithOrder = new PersonBuilder().build();
+
+        addressBook.addPerson(personWithOrder);
+        addressBook.addOrder(personWithOrder, ORDER);
+
+        assertTrue(personWithOrder.getOrders().contains(ORDER));
+        assertTrue(addressBook.hasPerson(personWithOrder));
+    }
+
+    @Test
+    public void hasOrder_orderExists_returnsTrue() {
+        Person personWithOrder = new PersonBuilder().withOrders(getTypicalOrders()).build();
+        addressBook.addPerson(personWithOrder);
+        assertTrue(addressBook.hasOrder(personWithOrder, ORDER));
+    }
+
+    @Test
     public void deleteOrder_orderExists_orderRemoved() {
         Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
         Person personWithOrder = new PersonBuilder().withOrders(new ArrayList<>(List.of(order))).build();
@@ -98,7 +118,6 @@ public class AddressBookTest {
         assertFalse(personWithOrder.getOrders().contains(order));
         assertTrue(addressBook.hasPerson(personWithOrder));
     }
-
 
     @Test
     public void getOrders_personExists_returnsCorrectOrders() {
@@ -111,7 +130,6 @@ public class AddressBookTest {
         assertEquals(1, orders.size());
         assertTrue(orders.contains(order));
     }
-
 
     @Test
     public void toStringMethod() {

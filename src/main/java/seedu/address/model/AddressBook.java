@@ -107,6 +107,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Checks if the person has the order.
+     * The person must exist in the address book.
+     */
+    public boolean hasOrder(Person target, Order order) {
+        return target.hasOrder(order);
+    }
+
+    /**
      * Deletes an order from the person.
      * The person must exist in the address book.
      */
