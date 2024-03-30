@@ -6,7 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":ShowFavouriteCommandParser" as ShowFavouriteCommandParser LOGIC_COLOR
-participant "a:ShowFavouriteCommand" as ShowFavouriteCommand LOGIC_COLOR
+participant "s:ShowFavouriteCommand" as ShowFavouriteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -42,13 +42,13 @@ activate ShowFavouriteCommand
 ShowFavouriteCommand --> ShowFavouriteCommandParser :
 deactivate ShowFavouriteCommand
 
-ShowFavouriteCommandParser --> AddressBookParser : a
+ShowFavouriteCommandParser --> AddressBookParser : s
 deactivate ShowFavouriteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 ShowFavouriteCommandParser -[hidden]-> AddressBookParser
 destroy ShowFavouriteCommandParser
 
-AddressBookParser --> LogicManager : a
+AddressBookParser --> LogicManager : s
 deactivate AddressBookParser
 
 LogicManager -> ShowFavouriteCommand : execute(m)
