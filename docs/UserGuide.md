@@ -299,11 +299,32 @@ Examples:
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a supplier in order of Date.
+Shows a list of all orders for a supplier in order of Date from the earliest to the latest.
 
 Format: `listorder INDEX`
 
 * Shows a list of all orders for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+
+### Deleting an order : `deleteorder`
+
+Deletes an order from a particular person.
+
+Format: `deleteorder INDEX o/ORDER_INDEX`
+
+* Deletes a particular order for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* The ORDER_INDEX refers to the index number shown in the displayed order list. The order index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+
+**Important Note on Order Index**:
+The ORDER_INDEX is determined based on the chronological order of the orders' dates (from earliest to the latest), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a supplier to determine the correct order index to delete.
+
+Examples:
+* Assuming the 1st supplier has 3 orders that were added in the following order:
+  * `addorder 1 d/2020-01-01 r/100 chicken wings`
+  * `addorder 1 d/2020-01-02 r/200 chicken wings`
+  * `addorder 1 d/2019-12-31 r/300 chicken wings`
+* `deleteorder 1 o/1` deletes the 1st order for the 1st supplier in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a supplier
+* `deleteorder 55 o/1` will return an error message if there is no 55th person in the address book and the index is invalid
+* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st supplier in the address book and the order index is invalid
 
 
 ### Deleting a person : `delete`
