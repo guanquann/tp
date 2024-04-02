@@ -1,0 +1,36 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+!pragma useVerticalIf on
+
+start
+:User executes addorder command;
+
+:Parse command;
+
+if () then ([else])
+    :ParseException: INVALID_COMMAND_FORMAT;
+    stop
+
+([valid command format]) elseif () then ([else])
+    :ParseException: MESSAGE_INVALID_INDEX;
+    stop
+
+([valid index]) elseif () then ([else])
+    :ParseException: MESSAGE_CONSTRAINTS;
+    stop
+
+([valid remark]) elseif () then ([else])
+    :ParseException: MESSAGE_CONSTRAINTS;
+    stop
+
+([valid date]) elseif () then ([else])
+    :CommandException: MESSAGE_DUPLICATE_ORDER;
+    stop
+
+else ([person does not have the same order])
+endif
+    :Add order to person;
+stop
+@enduml

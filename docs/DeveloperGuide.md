@@ -198,6 +198,12 @@ The `addorder` feature allows users to add orders from a supplier.
   - Pros: `Person` class remains simple.
   - Cons: Need to create a new `OrderStorage` storage class to store orders. This may result in duplicated code since the implementation of `AddressBookStorage` is similar.
 
+#### Activity Diagram
+
+Below is the activity diagram for the `addorder` command process:
+
+<puml src="diagrams/AddOrderActivityDiagram.puml" alt="AddOrderActivityDiagram" />
+
 #### Sequence Diagram
 
 Below is the sequence diagram for the `addorder` command process:
@@ -420,6 +426,27 @@ _{More to be added}_
 
     Use case resumes at step 2.
 
+**Use case: Add an order**
+
+**MSS**
+
+1. User requests to add an order to a person 
+2. AddressBook adds the order to the person
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. AddressBook detects an error in the user command.
+    - 2a1. AddressBook shows an error message.
+
+      Use case ends.
+
+- 3a. AddressBook detects that the person already has the same order
+    - 3a1. AddressBook shows an error message.
+
+      Use case ends.
+
 _{More to be added}_
 
 ### Non-Functional Requirements
@@ -485,11 +512,37 @@ testers are expected to do more _exploratory_ testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding an order
+
+1. Adding an order to a person
+
+   1. Prerequisites: List all persons using the list command. There is only 1 supplier in the address book.
+
+   2. Test case: `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`<br>
+      Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the status bar. The date of the new order is 2020-01-01 and the remark is 100 chicken wings.
+
+   3. Test case: `addorder 0 d/ 2020-01-01 r/ 100 chicken wings`<br>
+      Expected: No new order is added. An error indicating invalid command format is shown in the status bar.
+
+   4. Test case: `addorder 5 d/ 2020-01-01 r/ 100 chicken wings`<br>
+      Expected: No new order is added. An error indicating invalid person index is shown in the status bar.
+
+   5. Test case: `addorder 1 d/ 2020-99-99 r/ 100 chicken wings`<br>
+      Expected: No new order is added. An error indicating invalid date format is shown in the status bar.
+
+   6. Test case: `addorder 1 d/ 2020-99-99 r/ *****`<br>
+      Expected: No new order is added. An error indicating invalid remark format is shown in the status bar.
+   
+   7. Test case: `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`<br>
+      Expected: No new error is added. An error indicating duplicate order is shown in the status bar.
+
+2. Viewing orders after adding order to a person.
+
+   1. To view the orders of the first person after adding an order, use the `listorder 1` command.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing/corrupted data filesgra
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
