@@ -159,6 +159,16 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Add command
+
+The `add` command allows users to create and add a new contact to the list.
+
+Its process largely follows from the previous address book implementation, but with slight modifications for GourmetGrid's unique functions.
+Below is the sequence diagram modelling the process of running an `add` command:
+
+<puml src="diagrams/AddSequenceDiagram.puml" alt="AddSequenceDiagram" />
+
 ### Add favourite feature
 
 The `addfav` feature allows users to add suppliers as favourites.
@@ -181,6 +191,27 @@ Below is the sequence diagram for the `addfav` command process:
 
 <puml src="diagrams/AddFavouriteSequenceDiagram.puml" alt="AddFavouriteSequenceDiagram" />
 
+### Show favourite feature
+
+The `showfav` feature allows users to filter the contacts such that only the favourites are shown.
+
+#### Design considerations:
+
+**Aspect: How the end result of filtering manifests:**
+
+- **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
+    - Pros: Simple and easy to implement given the existing `find` feature. 
+    - Cons: May result in some similar functionality between `find` and `showfav` features.
+
+- **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
+    - Pros: Allows users to see all contacts, with favourites at the top for easy access.
+    - Cons: May result in confusion regarding the ordering of contacts.
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `showfav` command process:
+
+<puml src="diagrams/ShowFavouriteSequenceDiagram.puml" alt="ShowFavouriteSequenceDiagram" />
 
 ### Add order feature
 
@@ -328,14 +359,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
-### Add command
-
-The `add` command allows users to create and add a new contact to the list.
-
-Its process largely follows from the previous address book implementation, but with slight modifications for GourmetGrid's unique functions.
-Below is the sequence diagram modelling the process of running an `add` command:
-
 
 
 ---
