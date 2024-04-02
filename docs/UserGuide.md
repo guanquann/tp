@@ -299,7 +299,7 @@ Examples:
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a supplier in order of Date from the earliest to the latest.
+Shows a list of all orders for a supplier, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
 
 Format: `listorder INDEX`
 
@@ -315,7 +315,7 @@ Format: `deleteorder INDEX o/ORDER_INDEX`
 * The ORDER_INDEX refers to the index number shown in the displayed order list. The order index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 
 **Important Note on Order Index**:
-The ORDER_INDEX is determined based on the chronological order of the orders' dates (from earliest to the latest), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a supplier to determine the correct order index to delete.
+The ORDER_INDEX is determined based on the chronological order of the orders' dates from earliest to the latest (if 2 orders have the same date, they will then be sorted in the order they were added), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a supplier to determine the correct order index to delete.
 
 Examples:
 * Assuming the 1st supplier has 3 orders that were added in the following order:
