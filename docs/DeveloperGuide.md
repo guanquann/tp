@@ -206,7 +206,7 @@ Below is the sequence diagram for the `addorder` command process:
 
 ### ListOrder Feature
 
-The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order. This is particularly useful for users who wish to track the order history of suppliers efficiently.
+The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of suppliers efficiently.
 
 #### Design Considerations
 
@@ -231,6 +231,35 @@ Below is the sequence diagram for the `listorder` command process:
 
 - **Sorting by Status:** Introduce functionality to sort orders by their status (e.g., pending, completed), providing users with more flexibility in viewing order information.
 - **Filtering Options:** Implement filters to allow users to view orders within a specific date range or with particular characteristics, such as orders over a certain value.
+
+### DeleteOrder Feature
+
+The `deleteorder` feature allows users to delete a specific order from a supplier's list of orders, ensuring accurate and up-to-date record-keeping.
+
+#### Design Considerations
+
+- **Aspect: How order deletion is managed within Person objects**:
+- 
+- **Alternative 1 (current choice):** Directly manage orders within the Person class by removing them from the person's orders list.
+  - Pros: Utilizes the existing structure of the Person class, allowing for straightforward access and modification of a person's order list.
+  - Cons: Adds complexity to the Person class, which now handles both personal information and order management.
+
+- **Alternative 2:** Implement a dedicated order management system within the model.
+  - Pros: Separates concerns, making the system more modular and potentially easier to maintain.
+  - Cons: Increases system complexity by introducing new components and possibly duplicating list management functionality.
+
+#### Implementation
+
+1. **Command Parsing:** The `DeleteOrderCommandParser` interprets user input to identify the target person and order indices, then creates an instance of `DeleteOrderCommand`.
+2. **Data Retrieval and Sorting:**  Upon execution, `DeleteOrderCommand` locates the target person in the model, identifies the correct order based on the provided index (accounting for sorting by date, then addition sequence), and removes it from the person's orders.
+3. **Output Generation:** A message confirms the successful deletion of the order.
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `deleteorder` command process:
+
+<puml src="diagrams/DeleteOrderSequenceDiagram.puml" alt="DeleteOrderSequenceDiagram" />
+
 
 ### \[Proposed\] Undo/redo feature
 

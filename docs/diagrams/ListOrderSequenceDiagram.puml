@@ -25,6 +25,12 @@ LogicManager -> AddressBookParser : parseCommand(args)
 activate AddressBookParser
 
 create ListOrderCommandParser
+AddressBookParser -> ListOrderCommandParser
+activate ListOrderCommandParser
+
+ListOrderCommandParser --> AddressBookParser
+deactivate ListOrderCommandParser
+
 AddressBookParser -> ListOrderCommandParser : parse(args)
 activate ListOrderCommandParser
 
@@ -32,10 +38,14 @@ activate ListOrderCommandParser
 create ListOrderCommand
 ListOrderCommandParser -> ListOrderCommand :
 activate ListOrderCommand
-deactivate ListOrderCommandParser
 
-ListOrderCommand --> AddressBookParser : l
+ListOrderCommand --> ListOrderCommandParser :
 deactivate ListOrderCommand
+
+ListOrderCommandParser --> AddressBookParser : l
+deactivate ListOrderCommandParser
+ListOrderCommandParser -[hidden]-> AddressBookParser
+destroy ListOrderCommandParser
 
 AddressBookParser --> LogicManager : l
 deactivate AddressBookParser
@@ -62,15 +72,15 @@ Person --> ListOrderCommand : orders
 deactivate Person
 
 ListOrderCommand -> ListOrderCommand : createOrderListString(orders)
-activate ListOrderCommand #DarkSlateGray
+activate ListOrderCommand
 ListOrderCommand --> ListOrderCommand : sortedOrders
-deactivate ListOrderCommand #DarkSlateGray
+deactivate ListOrderCommand
 
 create CommandResult
 ListOrderCommand -> CommandResult :
-activate CommandResult #DarkSlateGray
+activate CommandResult
 CommandResult --> ListOrderCommand
-deactivate CommandResult #DarkSlateGray
+deactivate CommandResult
 
 ListOrderCommand --> LogicManager : r
 deactivate ListOrderCommand
