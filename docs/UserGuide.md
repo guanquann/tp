@@ -283,7 +283,7 @@ Adds an order to a supplier.
 Format: `addorder INDEX d/DATE r/REMARK`
 
 * Adds an order to the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
-* The date must be in the format `YYYY-MM-DD`. For example, `2020-12-31`.
+* The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
 <box type="tip" seamless>
 
@@ -292,10 +292,7 @@ Format: `addorder INDEX d/DATE r/REMARK`
 
 Examples:
 * `addorder 1 d/2020-01-01 r/100 chicken wings`
-* `addorder 2 r/ 100 chicken wings d/ 2020-12-31`
-* `addorder 3 d/2020-01-01 r/100 chicken wings`
-* `addorder d/2020-01-01 r/100 chicken wings` returns an error as the index is not specified
-* `addorder r/` or `addorder d/` or `addorder r/ d/` returns an error message as the 'KEYWORD' field cannot be empty
+* `addorder 2 r/tomatoes d/2020-12-31`
 
 ### Listing orders : `listorder`
 

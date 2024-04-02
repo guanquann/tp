@@ -96,6 +96,11 @@ public interface Model {
     void addOrder(Person person, Order order);
 
     /**
+     * Checks if the person has the order.
+     */
+    boolean hasOrder(Person person, Order order);
+
+    /**
      * Returns the orders for a person.
      */
     List<Order> getOrders(Person person);

@@ -23,11 +23,16 @@ public class Order {
         this.remark = remark;
     }
 
-
+    /**
+     * Returns the date of the order.
+     */
     public Date getDate() {
         return arrivalDate;
     }
 
+    /**
+     * Returns the remark of the order.
+     */
     public Remark getRemark() {
         return remark;
     }
@@ -52,9 +57,7 @@ public class Order {
         return arrivalDate.hashCode() + remark.hashCode();
     }
 
-    /**
-     * Format state as text for viewing.
-     */
+    @Override
     public String toString() {
         return String.format("[%s (by: %s)]", remark, arrivalDate);
     }
