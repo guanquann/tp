@@ -58,7 +58,10 @@ ShowFavouriteCommand -> Model : updateFilteredPersonList(pred)
 activate Model
 
 Model -> FilteredList : setPredicate(pred)
+activate FilteredList
+
 FilteredList --> Model
+deactivate FilteredList
 
 Model --> ShowFavouriteCommand
 deactivate Model
