@@ -16,8 +16,10 @@ GourmetGrid User Guide
     - Adding a person : add
     - Listing all persons : list
     - Editing a person : edit
-    - Add Contacts as Favourites : addfav
-    - Search Contact : find
+    - Adding contacts as favourites : addfav
+    - Showing favourite contacts: showfav
+    - Removing contacts from favourites: removefav
+    - Searching contact : find
     - Adding an order : addorder
     - Listing orders : listorder
     - Deleting a person : delete
@@ -154,6 +156,9 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+**Note:** `list` command is not compatible with further arguments.
+</box>
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -171,13 +176,13 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 
-### Add contacts as favourites `addfav`
+### Adding contacts as favourites `addfav`
 
 - Adds the contacts specified by index as favourites
 
 Format: `addfav [i/INDICES]`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
-<box type="tip" seamless>
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+  <box type="tip" seamless>
 
 **Note:** Indices corresponding to existing favourite contacts are deemed as invalid indices for `addfav`
 </box>
@@ -191,10 +196,24 @@ Examples:
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
+- 
+### Showing favourite contacts `showfav`
 
-### Remove contacts from favourites `removefav`
+- Shows the contacts that are marked as favourites
 
-- Remove the contacts specified by index as favourites
+Format: `showfav`
+
+**Note:** `showfav` command is not compatible with further arguments.
+</box>
+
+Examples:
+- `showfav` Shows all favourited contacts as expected
+- `showfav 1` returns an error message as there should not be arguments after the `showfav` command word
+- `showfav hello` returns an error message as there should not be arguments after the `showfav` command word
+
+### Removing contacts from favourites `removefav`
+
+- Removes the contacts specified by index as favourites
 
 Format: `removefav [i/INDICES]`
 - Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
@@ -214,9 +233,9 @@ Examples:
 - `removefav` returns an error message as it must be accompanied by the 'INDICES' field
 - `removefav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
-### Search Contact `find`
+### Searching Contact `find`
 
-- Search feature supports search by name and/or tags **ONLY**.
+- Search feature supports searching by name and/or tags **ONLY**.
 - Finds all contacts whose names or tags matches the substring keyword provided.
 
 General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
