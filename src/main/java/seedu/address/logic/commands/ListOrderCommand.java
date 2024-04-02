@@ -65,7 +65,7 @@ public class ListOrderCommand extends Command {
         sb.append("Order(s) for the selected person:\n");
 
         if (orders.isEmpty()) {
-            sb.append("No orders found.");
+            sb.append("No orders found");
             return sb.toString();
         }
 

@@ -50,7 +50,14 @@ class JsonAdaptedOrder {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Remark"));
         }
 
+        if (!Date.isValidDate(arrivalDate)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
         final Date modelDate = new Date(arrivalDate);
+
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
+        }
         final Remark modelRemark = new Remark(remark);
 
         return new Order(modelDate, modelRemark);

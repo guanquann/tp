@@ -59,6 +59,22 @@ public class PersonTest {
     }
 
     @Test
+    public void addOrder_orderNotInList_orderAddedSuccessfully() {
+        Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
+        Person person = new PersonBuilder().build();
+        person.addOrder(order);
+        assertTrue(person.getOrders().contains(order));
+        assertEquals(1, person.getOrders().size());
+    }
+
+    @Test
+    public void hasOrder_orderInList_returnsTrue() {
+        Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
+        Person person = new PersonBuilder().withOrders(new ArrayList<>(List.of(order))).build();
+        assertTrue(person.hasOrder(order));
+    }
+
+    @Test
     public void removeOrder_orderIsPresent_orderRemovedSuccessfully() {
         Order order = new Order(new Date("2020-01-01"), new Remark("100 chicken wings"));
         Person person = new PersonBuilder().withOrders(new ArrayList<>(List.of(order))).build();
