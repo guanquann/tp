@@ -57,7 +57,7 @@ activate RemoveFavouriteCommand
 RemoveFavouriteCommand -> Model : getFilteredPersonList()
 activate Model
 
-Model --> RemoveFavouriteCommand : lastShownList
+Model --> RemoveFavouriteCommand
 deactivate Model
 
 loop iterate through all indices

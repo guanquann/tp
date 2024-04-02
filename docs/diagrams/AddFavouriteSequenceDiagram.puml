@@ -57,7 +57,7 @@ activate AddFavouriteCommand
 AddFavouriteCommand -> Model : getFilteredPersonList()
 activate Model
 
-Model --> AddFavouriteCommand : lastShownList
+Model --> AddFavouriteCommand
 deactivate Model
 
 loop iterate through all indices
