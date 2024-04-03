@@ -89,22 +89,38 @@ public class ArgumentMultimap {
 
     /**
      * Throws a {@code ParseException} if any of the keywords in the prefixes given in {@code prefixes}
-     * are not alphabets.
+     * are not alphanumeric.
      */
-    public void verifyAllValuesAlpha(Prefix... prefixes) throws ParseException {
+    public void verifyAllValuesAlphanumeric(Prefix... prefixes) throws ParseException {
         for (Prefix prefix : prefixes) {
             List<String> values = getAllValues(prefix);
-            checkValuesAlpha(values, prefix);
+            checkValuesAlphanumeric(values, prefix);
         }
     }
 
     /**
-     * Throws a {@code ParseException} if any of the characters in the prefixes given in {@code prefixes}
-     * are not alphabets.
+     * Throws a {@code ParseException} if any of the characters in the given values
+     * are not alphanumeric.
      */
-    private void checkValuesAlpha(List<String> values, Prefix prefix) throws ParseException {
-        if (values.stream().anyMatch(value -> !value.matches("^[a-zA-Z]+$"))) {
-            throw new ParseException(String.format(Messages.MESSAGE_ALPHABET_ONLY, prefix.getPrefix()));
+    private void checkValuesAlphanumeric(List<String> values, Prefix prefix) throws ParseException {
+        if (values.stream().anyMatch(value -> !value.matches("^[a-zA-Z0-9]+$"))) {
+            throw new ParseException(String.format(Messages.MESSAGE_ALPHANUMERIC_ONLY, prefix.getPrefix()));
+        }
+    }
+
+    /**
+     * Throws a {@code ParseException} if any of the keywords in the prefixes given in {@code prefixes}
+     * do not adhere to the validation regex for names and company names.
+     */
+    public void verifyValuesNameCompany(Prefix... prefixes) throws ParseException {
+        String validationRegex = "[\\p{Alnum}'\\-][\\p{Alnum}'\\- ]*";
+        for (Prefix prefix : prefixes) {
+            if (argMultimap.containsKey(prefix)) {
+                List<String> values = getAllValues(prefix);
+                if (values.stream().anyMatch(value -> !value.matches(validationRegex))) {
+                    throw new ParseException(String.format(Messages.MESSAGE_NAME_COMPANY_CONSTRAINTS, prefix));
+                }
+            }
         }
     }
 

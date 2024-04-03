@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameAndTagContainsKeywordsPredicate;
+import seedu.address.model.person.SearchPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -30,40 +30,28 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-
-        List<String> firstKeywordsList = Collections.singletonList("first");
-        List<String> secondKeywordsList = Collections.singletonList("second");
-        List<String> emptyList = Collections.emptyList();
-
-        NameAndTagContainsKeywordsPredicate firstPredicate =
-                new NameAndTagContainsKeywordsPredicate(firstKeywordsList, emptyList);
-        NameAndTagContainsKeywordsPredicate secondPredicate =
-                new NameAndTagContainsKeywordsPredicate(secondKeywordsList, emptyList);
+        List<String> nameKeywordsList = Collections.singletonList("first");
+        List<String> tagKeywordsList = Collections.singletonList("second");
+        SearchPredicate firstPredicate = new SearchPredicate(nameKeywordsList, tagKeywordsList,
+                Collections.emptyList());
+        SearchPredicate secondPredicate = new SearchPredicate(Collections.emptyList(),
+                Collections.emptyList(), Collections.singletonList("company"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
 
-        // same object -> returns true
+        // standard equality tests
         assertTrue(findFirstCommand.equals(findFirstCommand));
-
-        // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
-
-        // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
-
-        // different person -> returns false
+        assertTrue(findFirstCommand.equals(new FindCommand(firstPredicate)));
         assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertFalse(findFirstCommand.equals(null));
+        assertFalse(findFirstCommand.equals(1));
     }
 
     @Test
     public void execute_tagMatches_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameAndTagContainsKeywordsPredicate predicate = preparePredicate("", "friends");
+        SearchPredicate predicate = preparePredicate("", "friends", "");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -71,10 +59,9 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_nameAndTagMatches_singlePersonFound() {
-        // Assuming only ELLE has a "colleague" tag
+    public void execute_nameTagCompanyMatches_singlePersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        NameAndTagContainsKeywordsPredicate predicate = preparePredicate("Alice", "friends");
+        SearchPredicate predicate = preparePredicate("Alice", "friends", "");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -84,8 +71,8 @@ public class FindCommandTest {
     @Test
     public void execute_noMatches_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameAndTagContainsKeywordsPredicate predicate = preparePredicate("Nonexistent",
-                "NonexistentTag");
+        SearchPredicate predicate = preparePredicate("Nonexistent", "NonexistentTag",
+                "NonexistentCompany");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -94,21 +81,24 @@ public class FindCommandTest {
 
     @Test
     public void toStringMethod() {
-        NameAndTagContainsKeywordsPredicate predicate = preparePredicate("Alice", "friend");
+        SearchPredicate predicate = preparePredicate("Alice", "friend", "");
         FindCommand findCommand = new FindCommand(predicate);
-        String expectedString = "seedu.address.logic.commands.FindCommand{predicate="
-                + "NameAndTagContainsKeywordsPredicate{nameKeywords=[Alice], tagKeywords=[friend]}}";
+        String expectedString =
+                "seedu.address.logic.commands.FindCommand{predicate=SearchPredicate{nameKeywords=[Alice], "
+                        + "tagKeywords=[friend], companyKeywords=[]}}";
         assertEquals(expectedString, findCommand.toString());
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code SearchPredicate}.
      */
-    private NameAndTagContainsKeywordsPredicate preparePredicate(String nameInput, String tagInput) {
-        List<String> nameKeywords = nameInput.isEmpty() ? Collections.emptyList()
-                : Arrays.asList(nameInput.split("\\s+"));
-        List<String> tagKeywords = tagInput.isEmpty() ? Collections.emptyList()
-                : Arrays.asList(tagInput.split("\\s+"));
-        return new NameAndTagContainsKeywordsPredicate(nameKeywords, tagKeywords);
+    private SearchPredicate preparePredicate(String nameInput, String tagInput, String companyInput) {
+        List<String> nameKeywords = nameInput.isEmpty() ? Collections.emptyList() : Arrays.asList(
+                nameInput.trim().split("\\s+"));
+        List<String> tagKeywords = tagInput.isEmpty() ? Collections.emptyList() : Arrays.asList(
+                tagInput.trim().split("\\s+"));
+        List<String> companyKeywords = companyInput.isEmpty() ? Collections.emptyList() : Arrays.asList(
+                companyInput.trim().split("\\s+"));
+        return new SearchPredicate(nameKeywords, tagKeywords, companyKeywords);
     }
 }

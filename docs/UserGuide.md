@@ -216,19 +216,22 @@ Examples:
 
 ### Search Contact `find`
 
-- Search feature supports search by name and/or tags **ONLY**.
-- Finds all contacts whose names or tags matches the substring keyword provided.
+- Search feature supports substring search by name and/or tags and/or company **ONLY**.
+- Finds all contacts whose names, tags or company matches the substring keyword provided.
 
 General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
-- Where `FIELD` is either `n/` for name or `t/` for tag.
-- `KEYWORD` is the keyword (**alphabets only**) to search for.
+- Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
+- `KEYWORD` is the keyword to search for, here are some guidelines:
+  - Name and Company should contain alphanumeric characters, spaces, hyphens and/or apostrophes only.
+  - Tags should contain alphanumeric characters only.
+- The search is case-insensitive.
+- Teh search will find contacts containing the provided keyword as a substring within the specified field(s)
+- Multiple Search Fields are treated as a **Logical AND (&&)**. Therefore, a contact must match all specified keywords across any mentioned fields to appear in the search results.
 
 #### Search Guidelines
 
-* 'KEYWORD' can **ONLY** be alphabets and **CANNOT** contain spaces or be empty.
-    * e.g. `find n/John Doe` will **NOT** work. Try `find n/John n/Doe` instead to represent finding John and Doe
+* 'KEYWORD' cannot be empty.
     * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
-    * e.g. `find n/John123` will **NOT** work as 'KEYWORD' cannot contain non-alphabetic characters.
 
 
 * 'KEYWORD' and next 'FIELD' should be separated by a space.
@@ -237,10 +240,11 @@ General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
     * and there should not be non-alphabetic characters in the 'KEYWORD' field.
 
 
-* Multiple of the same 'FIELDs' will be treated as a **Logical AND (&&)**.
+* Multiple Search 'FIELD's will be treated as a **Logical AND (&&)**.
     * e.g. `find n/John n/Doe` will return all instances of John and Doe.
-    * e.g. `find n/Ale n/le` will still return the following example instances ["Alex Liew", "Alexis Lebrun", "Alec"]
-
+    * e.g. `find n/John t/friends c/ Meat` will return all instances of John that are tagged as friends and have Meat in their company name. This means if there exists a contact with the name John that is tagged as friends but has a company Mat, it will not be returned.
+    * e.g. `find n/Ale n/le` can return contacts such as ["Alex Lew", "Alexis Lebrun", "Alec"]
+    
 
 * 'KEYWORD' should **NOT** be empty and there should be at least one 'FIELD' and 'KEYWORD' pair.
     * e.g. `find n/ t/` and `find ` will **NOT** work.
@@ -249,7 +253,6 @@ General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
 * There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair.
     * e.g. `find testing123 n/John` will **NOT** work.
 
-
 * The search is case-insensitive.
     * e.g. `find n/hans` will match `Hans Niemann` and `Hans Zimmer`
 
@@ -257,7 +260,7 @@ General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
     * e.g. Results of `find n/Hans n/Bo` will match the results of`find n/Bo n/Hans`
 
 * You can have multiple of the same 'FIELD's.
-    * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe`
+    * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe` or `Dohnut Jibs`
 
 
 Examples:
@@ -267,7 +270,7 @@ Examples:
 
 * `find n/Alex t/friends` returns `Alex Yeoh` who is tagged as a `friend`
 
-* `find n////` returns an error message as the 'KEYWORD' field must consist of alphabets only
+* `find n////` returns an error message as the 'KEYWORD' field must consist of alphanumeric characters, spaces, hyphens and/or apostrophes only.
 
 * `find n/` or `find t/` or `find n/ t/` returns an error message as the 'KEYWORD' field cannot be empty
 

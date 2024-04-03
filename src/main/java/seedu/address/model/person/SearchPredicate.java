@@ -10,18 +10,23 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Person}'s {@code Name} and {@code Tag} matches any of the keywords given.
  */
-public class NameAndTagContainsKeywordsPredicate implements Predicate<Person> {
+public class SearchPredicate implements Predicate<Person> {
     private final List<String> nameKeywords;
     private final List<String> tagKeywords;
+    private final List<String> companyKeywords;
 
     /**
-     * Constructor for NameAndTagContainsKeywordsPredicate.
+     * Constructor for SearchPredicate.
      * @param nameKeywords List of name keywords to search for.
      * @param tagKeywords List of tag keywords to search for.
+     * @param companyKeywords List of company keywords to search for.
      */
-    public NameAndTagContainsKeywordsPredicate(List<String> nameKeywords, List<String> tagKeywords) {
+    public SearchPredicate(List<String> nameKeywords, List<String> tagKeywords,
+                           List<String> companyKeywords) {
         this.nameKeywords = nameKeywords;
         this.tagKeywords = tagKeywords;
+        this.companyKeywords = companyKeywords;
+
     }
 
     @Override
@@ -31,7 +36,9 @@ public class NameAndTagContainsKeywordsPredicate implements Predicate<Person> {
         boolean matchesTags = tagKeywords.stream()
                 .allMatch(keyword -> person.getTags().stream()
                         .anyMatch(tag -> StringUtil.containsSubstringIgnoreCase(tag.tagName, keyword)));
-        return matchesName && matchesTags;
+        boolean matchesCompany = companyKeywords.stream()
+                .allMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getCompany().companyName, keyword));
+        return matchesName && matchesTags && matchesCompany;
     }
 
     @Override
@@ -41,20 +48,22 @@ public class NameAndTagContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameAndTagContainsKeywordsPredicate)) {
+        if (!(other instanceof SearchPredicate)) {
             return false;
         }
 
-        NameAndTagContainsKeywordsPredicate that = (NameAndTagContainsKeywordsPredicate) other;
+        SearchPredicate that = (SearchPredicate) other;
         return Objects.equals(nameKeywords, that.nameKeywords)
-                && Objects.equals(tagKeywords, that.tagKeywords);
+                && Objects.equals(tagKeywords, that.tagKeywords)
+                && Objects.equals(companyKeywords, that.companyKeywords);
     }
 
     @Override
     public String toString() {
-        return "NameAndTagContainsKeywordsPredicate{"
+        return "SearchPredicate{"
                 + "nameKeywords=" + nameKeywords
                 + ", tagKeywords=" + tagKeywords
+                + ", companyKeywords=" + companyKeywords
                 + '}';
     }
 }
