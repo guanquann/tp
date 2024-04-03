@@ -14,7 +14,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
- * Lists all persons in the address book to the user.
+ * Adds an order to a person identified by the index from the address book.
  */
 public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "addorder";

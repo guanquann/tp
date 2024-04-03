@@ -14,7 +14,7 @@ public class JsonAdaptedOrderTest {
     private static final String VALID_DATE = "2020-01-01";
     private static final String VALID_REMARK = "100 chicken wings";
     private static final String INVALID_DATE = "2020-13-01";
-    private static final String INVALID_REMARK = "****";
+    private static final String INVALID_REMARK = "";
 
     private static final Order ORDER = new Order(new Date(VALID_DATE), new Remark(VALID_REMARK));
 
