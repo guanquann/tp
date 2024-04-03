@@ -38,7 +38,7 @@ public class AddFavouriteCommandTest {
     @Test
     public void execute_addFavourite_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withFavourite(true).build();
+        Person editedPerson = new PersonBuilder(firstPerson).build();
         Set<Index> indices = Set.of(Index.fromOneBased(1));
         List<String> modifiedContacts = List.of(firstPerson.getName().fullName);
         AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(indices);
@@ -59,14 +59,20 @@ public class AddFavouriteCommandTest {
     }
 
     @Test
-    public void execute_favouriteContact_throwsCommandException() {
+    public void execute_alreadyFavourite_success() {
         Set<Index> indices = Set.of(Index.fromOneBased(1));
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withFavourite(true).build();
         model.setPerson(firstPerson, editedPerson);
         AddFavouriteCommand addFavouriteCommand = new AddFavouriteCommand(indices);
-        assertThrows(CommandException.class, MESSAGE_INVALID_FORMAT, () ->
-                addFavouriteCommand.execute(model));
+
+        List<String> modifiedContacts = List.of(firstPerson.getName().fullName);
+        String expectedMessage = String.format(AddFavouriteCommand.MESSAGE_SUCCESS_WITH_WARNING, modifiedContacts);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(addFavouriteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
