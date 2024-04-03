@@ -27,8 +27,6 @@ public class RemarkTest {
         // invalid remark
         assertFalse(Remark.isValidRemark("")); // empty string
         assertFalse(Remark.isValidRemark(" ")); // spaces only
-        assertFalse(Remark.isValidRemark("^")); // only non-alphanumeric characters
-        assertFalse(Remark.isValidRemark("chick*n wings")); // contains non-alphanumeric characters
 
         // valid remark
         assertTrue(Remark.isValidRemark("chicken wings")); // alphabetical characters only

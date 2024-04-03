@@ -19,7 +19,7 @@ class JsonAdaptedOrder {
     private final String remark;
 
     /**
-     * Constructs a {@code JsonAdaptedOrder} with the given {@code order}.
+     * Constructs a {@code JsonAdaptedOrder} with the given {@code Order}.
      */
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("arrivalDate") String arrivalDate,
