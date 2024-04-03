@@ -44,7 +44,6 @@ public class RemoveFavouriteCommandTest {
         List<String> modifiedContacts = List.of(firstPerson.getName().fullName);
         RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(indices);
         String expectedMessage = String.format(RemoveFavouriteCommand.MESSAGE_SUCCESS, modifiedContacts);
-
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         assertCommandSuccess(removeFavouriteCommand, model, expectedMessage, expectedModel);
@@ -59,11 +58,17 @@ public class RemoveFavouriteCommandTest {
     }
 
     @Test
-    public void execute_nonFavouriteContact_throwsCommandException() {
-        Set<Index> indices = Set.of(Index.fromOneBased(2));
+    public void execute_alreadyNonFavouriteContact_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withFavourite(false).build();
+        model.setPerson(firstPerson, editedPerson);
+        Set<Index> indices = Set.of(Index.fromOneBased(1));
+        List<String> modifiedContacts = List.of(firstPerson.getName().fullName);
         RemoveFavouriteCommand removeFavouriteCommand = new RemoveFavouriteCommand(indices);
-        assertThrows(CommandException.class, MESSAGE_INVALID_FORMAT, () ->
-                removeFavouriteCommand.execute(model));
+        String expectedMessage = String.format(RemoveFavouriteCommand.MESSAGE_SUCCESS_WITH_WARNING, modifiedContacts);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        assertCommandSuccess(removeFavouriteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

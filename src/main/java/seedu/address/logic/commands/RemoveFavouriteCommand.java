@@ -22,6 +22,9 @@ public class RemoveFavouriteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "The following contacts have been removed from favourites: %s";
 
+    public static final String MESSAGE_SUCCESS_WITH_WARNING = "The following contacts have been removed from"
+            + " favourites: %s" + "\nWarning: There are contacts in your input that were already not favourites.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes contacts identified by index number "
             + "as favourites.\n"
@@ -52,9 +55,6 @@ public class RemoveFavouriteCommand extends Command {
 
         boolean anyNotFavourite = this.indices.stream().anyMatch(index ->
                 !people.get(index.getZeroBased()).getIsFavourite());
-        if (anyNotFavourite) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
-        }
 
         for (Index index : this.indices) {
             Person person = people.get(index.getZeroBased());
@@ -62,7 +62,12 @@ public class RemoveFavouriteCommand extends Command {
             person.removeFavourite();
             model.setPerson(person, person);
         }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (anyNotFavourite) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_WARNING, modifiedContacts));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, modifiedContacts));
     }
 
