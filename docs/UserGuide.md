@@ -17,8 +17,8 @@ GourmetGrid User Guide
     - Listing all persons : list
     - Editing a person : edit
     - Adding contacts as favourites : addfav
-    - Showing favourite contacts: showfav
-    - Removing contacts from favourites: removefav
+    - Showing favourite contacts : showfav
+    - Removing contacts from favourites : removefav
     - Searching contact : find
     - Adding an order : addorder
     - Listing orders : listorder
@@ -69,11 +69,11 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `gourmetgrid.jar` from [here](https://github.com/AY2324S2-CS2103T-T16-3/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gourmetgrid.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -135,7 +135,7 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a person : `add`
 
 Adds a person to the address book.
 
@@ -176,7 +176,7 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 
-### Adding contacts as favourites `addfav`
+### Adding contacts as favourites : `addfav`
 
 - Adds the contacts specified by index as favourites
 
@@ -197,7 +197,7 @@ Examples:
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 - 
-### Showing favourite contacts `showfav`
+### Showing favourite contacts : `showfav`
 
 - Shows the contacts that are marked as favourites
 
@@ -211,7 +211,7 @@ Examples:
 - `showfav 1` returns an error message as there should not be arguments after the `showfav` command word
 - `showfav hello` returns an error message as there should not be arguments after the `showfav` command word
 
-### Removing contacts from favourites `removefav`
+### Removing contacts from favourites : `removefav`
 
 - Removes the contacts specified by index as favourites
 
@@ -233,7 +233,7 @@ Examples:
 - `removefav` returns an error message as it must be accompanied by the 'INDICES' field
 - `removefav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
-### Searching Contact `find`
+### Searching Contact : `find`
 
 - Search feature supports searching by name and/or tags **ONLY**.
 - Finds all contacts whose names or tags matches the substring keyword provided.
@@ -311,7 +311,8 @@ Format: `addorder INDEX d/DATE r/REMARK`
 
 Examples:
 * `addorder 1 d/2020-01-01 r/100 chicken wings`
-* `addorder 2 r/tomatoes d/2020-12-31`
+* `addorder 1 r/20 * 150g lettuce d/2020-12-31`
+* `addorder 2 r/20 tomatoes, 40 apples (green) d/2020-12-31`
 
 ### Listing orders : `listorder`
 
