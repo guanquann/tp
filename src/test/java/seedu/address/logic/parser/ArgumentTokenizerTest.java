@@ -1,9 +1,15 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ArgumentTokenizerTest {
 
@@ -138,7 +144,8 @@ public class ArgumentTokenizerTest {
     public void verifyAllValuesAlphanumeric_validAlphanumericValues_success() {
         // Arguments with valid alphanumeric values
         String argsString = " n/Alice1 c/Company123 t/Tag1";
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, new Prefix("n/"), new Prefix("c/"), new Prefix("t/"));
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString,
+                new Prefix("n/"), new Prefix("c/"), new Prefix("t/"));
 
         // Attempt to verify values as alphanumeric without throwing an exception
         assertDoesNotThrow(() -> argMultimap.verifyAllValuesAlphanumeric(new Prefix("t/")));
@@ -151,7 +158,9 @@ public class ArgumentTokenizerTest {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, new Prefix("t/"));
 
         // Expect a ParseException when verifying values
-        Exception exception = assertThrows(ParseException.class, () -> argMultimap.verifyAllValuesAlphanumeric(new Prefix("t/")));
+        Exception exception = assertThrows(
+                ParseException.class, () -> argMultimap.verifyAllValuesAlphanumeric(new Prefix("t/")));
+
 
         assertTrue(exception.getMessage().contains("Value for t/ must consist of alphabets or numbers only."));
     }
@@ -173,9 +182,11 @@ public class ArgumentTokenizerTest {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, new Prefix("n/"), new Prefix("c/"));
 
         // Expect a ParseException when verifying values
-        Exception exception = assertThrows(ParseException.class, () -> argMultimap.verifyValuesNameCompany(new Prefix("n/"), new Prefix("c/")));
+        Exception exception = assertThrows(
+                ParseException.class, () -> argMultimap.verifyValuesNameCompany(new Prefix("n/"), new Prefix("c/")));
 
-        assertTrue(exception.getMessage().contains("Value for n/ must consist of alphanumeric characters, spaces, hyphens and/or apostrophes only"));
+        assertTrue(exception.getMessage().contains("Value for n/ must consist of alphanumeric characters, "
+                + "spaces, hyphens and/or apostrophes only"));
     }
 
 

@@ -26,17 +26,20 @@ public class SearchPredicateTest {
         SearchPredicate firstPredicate =
                 new SearchPredicate(firstPredicateNameKeywordList, firstPredicateTagKeywordList, firstCompanyKeywords);
         SearchPredicate secondPredicate =
-                new SearchPredicate(secondPredicateNameKeywordList, secondPredicateTagKeywordList, secondCompanyKeywords);
+                new SearchPredicate(secondPredicateNameKeywordList, secondPredicateTagKeywordList,
+                        secondCompanyKeywords);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        SearchPredicate firstPredicateCopy = new SearchPredicate(firstPredicateNameKeywordList, firstPredicateTagKeywordList, firstCompanyKeywords);
+        SearchPredicate firstPredicateCopy = new SearchPredicate(firstPredicateNameKeywordList,
+                firstPredicateTagKeywordList, firstCompanyKeywords);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different company keywords -> returns false
-        SearchPredicate differentCompanyPredicate = new SearchPredicate(firstPredicateNameKeywordList, firstPredicateTagKeywordList, secondCompanyKeywords);
+        SearchPredicate differentCompanyPredicate = new SearchPredicate(firstPredicateNameKeywordList,
+                firstPredicateTagKeywordList, secondCompanyKeywords);
         assertFalse(firstPredicate.equals(differentCompanyPredicate));
 
         // null -> returns false
@@ -49,38 +52,50 @@ public class SearchPredicateTest {
     @Test
     public void test_combinationOfNameTagCompanyMatches_returnsTrue() {
         // Combination of name, tag, and company matches
-        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Alice"), Arrays.asList("friend"), Arrays.asList("Corp"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withTags("friend").withCompany("Alice Corp").build()));
+        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Alice"), Arrays.asList("friend"),
+                Arrays.asList("Corp"));
+        assertTrue(predicate.test(
+                new PersonBuilder().withName("Alice Bob").withTags("friend").withCompany("Alice Corp").build()));
     }
 
     @Test
-    public void test_nameAndCompanyMatch_tagDoesNotExist_returnsFalse() {
+    public void test_nameAndCompanyMatchTagDoesNotExist_returnsFalse() {
         // Name and company match, but tag does not match (logical AND condition)
-        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Alice"), Arrays.asList("nonexistentTag"), Arrays.asList("Corp"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withCompany("Alice Corp").build()));
+        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Alice"),
+                Arrays.asList("nonexistentTag"), Arrays.asList("Corp"));
+        assertFalse(predicate.test(
+                new PersonBuilder().withName("Alice").withCompany("Alice Corp").build()));
     }
 
     @Test
-    public void test_tagAndCompanyMatch_nameDoesNotMatch_returnsFalse() {
+    public void test_tagAndCompanyMatchNameDoesNotMatch_returnsFalse() {
         // Tag and company match, but name does not match (logical AND condition)
-        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Nonexistent"), Arrays.asList("friend"), Arrays.asList("Corp"));
-        assertFalse(predicate.test(new PersonBuilder().withTags("friend").withCompany("Alice Corp").build()));
+        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Nonexistent"),
+                Arrays.asList("friend"), Arrays.asList("Corp"));
+        assertFalse(predicate.test(
+                new PersonBuilder().withTags("friend").withCompany("Alice Corp").build()));
     }
 
     @Test
     public void test_onlyOneFieldMatches_returnsFalse() {
         // Only one of the fields matches, others do not (logical AND condition)
         // Only name matches
-        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Alice"), Arrays.asList("nonexistentTag"), Arrays.asList("Nonexistent Corp"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withTags("friend").withCompany("Alice Corp").build()));
+        SearchPredicate predicate = new SearchPredicate(Arrays.asList("Alice"),
+                Arrays.asList("nonexistentTag"), Arrays.asList("Nonexistent Corp"));
+        assertFalse(predicate.test(
+                new PersonBuilder().withName("Alice").withTags("friend").withCompany("Alice Corp").build()));
 
         // Only tag matches
-        predicate = new SearchPredicate(Arrays.asList("Nonexistent"), Arrays.asList("friend"), Arrays.asList("Nonexistent Corp"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Bob").withTags("friend").withCompany("Alice Corp").build()));
+        predicate = new SearchPredicate(Arrays.asList("Nonexistent"),
+                Arrays.asList("friend"), Arrays.asList("Nonexistent Corp"));
+        assertFalse(predicate.test(
+                new PersonBuilder().withName("Bob").withTags("friend").withCompany("Alice Corp").build()));
 
         // Only company matches
-        predicate = new SearchPredicate(Arrays.asList("Nonexistent"), Arrays.asList("nonexistentTag"), Arrays.asList("Alice Corp"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Bob").withTags("friend").withCompany("Alice Corp").build()));
+        predicate = new SearchPredicate(Arrays.asList("Nonexistent"),
+                Arrays.asList("nonexistentTag"), Arrays.asList("Alice Corp"));
+        assertFalse(predicate.test(
+                new PersonBuilder().withName("Bob").withTags("friend").withCompany("Alice Corp").build()));
     }
 
     @Test
