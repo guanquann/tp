@@ -191,6 +191,21 @@ Below is the sequence diagram for the `addfav` command process:
 
 <puml src="diagrams/AddFavouriteSequenceDiagram.puml" alt="AddFavouriteSequenceDiagram" />
 
+### Remove favourite feature
+
+The `removefav` feature allows users to remove suppliers from favourites.
+
+#### Implementation
+1. **Command Parsing:** The `RemoveFavouriteCommandParser` interprets the user input, extracts the specified indices and creates an instance of `RemoveFavouriteCommand`.
+2. **Data Retrieval and Modification:** Upon execution, `RemoveFavouriteCommand` fetches the contacts specified by the indices and removes them from favourites by modifying the `isFavourite` field.
+3. **Output Generation:** A summarising message that includes the names of the contacts modified is then displayed to the user.
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `removefav` command process:
+
+<puml src="diagrams/RemoveFavouriteSequenceDiagram.puml" alt="RemoveFavouriteSequenceDiagram" />
+
 ### Show favourite feature
 
 The `showfav` feature allows users to filter the contacts such that only the favourites are shown.

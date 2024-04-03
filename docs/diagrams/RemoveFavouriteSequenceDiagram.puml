@@ -1,0 +1,91 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":RemoveFavouriteCommandParser" as RemoveFavouriteCommandParser LOGIC_COLOR
+participant "a:RemoveFavouriteCommand" as RemoveFavouriteCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+box Person PERSON_COLOR_T1
+participant ":Person" as Person PERSON_COLOR
+end box
+
+[-> LogicManager : execute(args)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(args)
+activate AddressBookParser
+
+create RemoveFavouriteCommandParser
+AddressBookParser -> RemoveFavouriteCommandParser
+activate RemoveFavouriteCommandParser
+
+
+RemoveFavouriteCommandParser --> AddressBookParser
+deactivate RemoveFavouriteCommandParser
+
+AddressBookParser -> RemoveFavouriteCommandParser : parse(args)
+activate RemoveFavouriteCommandParser
+
+create RemoveFavouriteCommand
+RemoveFavouriteCommandParser -> RemoveFavouriteCommand
+activate RemoveFavouriteCommand
+
+RemoveFavouriteCommand --> RemoveFavouriteCommandParser :
+deactivate RemoveFavouriteCommand
+
+RemoveFavouriteCommandParser --> AddressBookParser : a
+deactivate RemoveFavouriteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+RemoveFavouriteCommandParser -[hidden]-> AddressBookParser
+destroy RemoveFavouriteCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> RemoveFavouriteCommand : execute(m)
+activate RemoveFavouriteCommand
+
+RemoveFavouriteCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> RemoveFavouriteCommand
+deactivate Model
+
+loop iterate through all indices
+    RemoveFavouriteCommand -> Person : removeFavourite()
+    activate Person
+
+    Person --> RemoveFavouriteCommand
+    deactivate Person
+
+    RemoveFavouriteCommand -> Model : setPerson(target, editedPerson)
+    activate Model
+
+    Model --> RemoveFavouriteCommand
+    deactivate Model
+end
+
+deactivate Person
+
+create CommandResult
+RemoveFavouriteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RemoveFavouriteCommand
+deactivate CommandResult
+
+RemoveFavouriteCommand --> LogicManager : r
+deactivate RemoveFavouriteCommand
+
+[<--LogicManager : r
+deactivate LogicManager
+@enduml
