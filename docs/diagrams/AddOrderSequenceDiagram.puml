@@ -66,12 +66,6 @@ activate Model
 Model --> AddOrderCommand : lastShownList
 deactivate Model
 
-AddOrderCommand -> Model : getPerson(index)
-activate Model
-
-Model --> AddOrderCommand : person
-deactivate Model
-
 AddOrderCommand --> Model : addOrder(person, order)
 activate Model
 
