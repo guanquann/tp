@@ -12,7 +12,6 @@ GourmetGrid User Guide
 - About
 - Quick Start
 - Features
-    - Viewing help : help
     - Adding a person : add
     - Listing all persons : list
     - Editing a person : edit
@@ -26,6 +25,7 @@ GourmetGrid User Guide
     - Deleting a person : delete
     - Clearing all entries : clear
     - Exiting a program : exit
+    - Viewing help : help
     - Saving the data
     - Editing the data file
     - Archiving data files [coming in v2.0]
@@ -127,14 +127,6 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
-
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
 
 ### Adding a person : `add`
 
@@ -375,6 +367,14 @@ Exits the program.
 
 Format: `exit`
 
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -406,6 +406,8 @@ _Details coming soon ..._
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **When using non ASCII characters**, the application may not display the characters correctly. We currently only support ASCII characters, but we plan to support Unicode characters in the future.
+3. **When operating on macOS**, the application may not show bolded text. This is a known issue with the JavaFX library on macOS. Click [here](https://github.com/javafxports/openjdk-jfx/issues/344) for more details.
 
 --------------------------------------------------------------------------------------------------------------------
 
