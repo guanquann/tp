@@ -5,33 +5,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalOrders.ORDER;
+import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.order.Date;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Remark;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
-
-    private static final Date DATE_STUB = new Date("2020-01-01");
-    private static final Remark REMARK_STUB = new Remark("100 chicken wings");
-    private static final Order ORDER_STUB = new Order(DATE_STUB, REMARK_STUB);
-    private static final ArrayList<Order> ORDERS_STUB = new ArrayList<>(List.of(ORDER_STUB));
-
     private ModelManager modelManager = new ModelManager();
 
     @Test
@@ -106,27 +97,40 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addOrder_validOrder_orderAdded() {
+        Person personWithOrder = new PersonBuilder().build();
+        modelManager.addPerson(personWithOrder);
+        modelManager.addOrder(personWithOrder, ORDER);
+        assertTrue(personWithOrder.getOrders().contains(ORDER));
+    }
+
+    @Test
+    public void hasOrder_validPersonAndOrder_returnsTrue() {
+        Person personWithOrder = new PersonBuilder().build();
+        modelManager.addPerson(personWithOrder);
+        modelManager.addOrder(personWithOrder, ORDER);
+        assertTrue(modelManager.hasOrder(personWithOrder, ORDER));
+    }
+
+    @Test
     public void deleteOrder_removeExistingOrder_orderRemoved() {
-        Person personWithOrder = new PersonBuilder().withOrders(ORDERS_STUB).build();
+        Person personWithOrder = new PersonBuilder().withOrders(getTypicalOrders()).build();
         AddressBook addressBookWithOrder = new AddressBookBuilder().withPerson(personWithOrder).build();
         ModelManager modelManager = new ModelManager(addressBookWithOrder, new UserPrefs());
 
-        Order orderToRemove = ORDERS_STUB.get(0); // Assuming ORDERS_STUB is not empty
-        modelManager.deleteOrder(personWithOrder, orderToRemove);
+        modelManager.deleteOrder(personWithOrder, ORDER);
 
-        assertFalse(modelManager.getOrders(personWithOrder).contains(orderToRemove));
+        assertFalse(modelManager.getOrders(personWithOrder).contains(ORDER));
     }
 
     @Test
     public void getOrders_personWithOrders_returnsCorrectOrderList() {
-        Person personWithOrder = new PersonBuilder().withOrders(ORDERS_STUB).build();
+        Person personWithOrder = new PersonBuilder().withOrders(getTypicalOrders()).build();
         AddressBook addressBookWithOrder = new AddressBookBuilder().withPerson(personWithOrder).build();
         ModelManager modelManager = new ModelManager(addressBookWithOrder, new UserPrefs());
 
-        assertEquals(ORDERS_STUB, modelManager.getOrders(personWithOrder));
+        assertEquals(getTypicalOrders(), modelManager.getOrders(personWithOrder));
     }
-
-
 
     @Test
     public void equals() {

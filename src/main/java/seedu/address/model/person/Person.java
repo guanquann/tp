@@ -101,6 +101,21 @@ public class Person {
     }
 
     /**
+     * Checks if the person has the order
+     * @param order the order to be checked
+     */
+    public boolean hasOrder(Order order) {
+        return orders.contains(order);
+    }
+
+    /**
+     * Returns the order list
+     */
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    /**
      * Removes an order from the order list
      * @param order the order to be removed
      */
@@ -124,10 +139,6 @@ public class Person {
 
     public boolean getIsFavourite() {
         return this.isFavourite;
-    }
-
-    public ArrayList<Order> getOrders() {
-        return orders;
     }
 
     /**

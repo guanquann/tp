@@ -117,7 +117,7 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code date} is invalid.
+     * @throws ParseException if the given {@code Date} is invalid.
      */
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
@@ -131,7 +131,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String remark} into a {@code Remark}.
      *
-     * @throws ParseException if the given {@code remark} is invalid.
+     * @throws ParseException if the given {@code Remark} is invalid.
      */
     public static Remark parseRemark(String remark) throws ParseException {
         requireNonNull(remark);

@@ -141,6 +141,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOrder(Person target, Order order) {
+        requireNonNull(target);
+        requireNonNull(order);
+        return addressBook.hasOrder(target, order);
+    }
+
+    @Override
     public List<Order> getOrders(Person target) {
         requireNonNull(target);
 

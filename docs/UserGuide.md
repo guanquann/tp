@@ -16,8 +16,10 @@ GourmetGrid User Guide
     - Adding a person : add
     - Listing all persons : list
     - Editing a person : edit
-    - Add Contacts as Favourites : addfav
-    - Search Contact : find
+    - Adding contacts as favourites : addfav
+    - Showing favourite contacts : showfav
+    - Removing contacts from favourites : removefav
+    - Searching contact : find
     - Adding an order : addorder
     - Listing orders : listorder
     - Deleting a person : delete
@@ -67,11 +69,11 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `gourmetgrid.jar` from [here](https://github.com/AY2324S2-CS2103T-T16-3/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gourmetgrid.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -133,7 +135,7 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a person : `add`
 
 Adds a person to the address book.
 
@@ -154,6 +156,9 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+**Note:** `list` command is not compatible with further arguments.
+</box>
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -171,13 +176,13 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 
-### Add contacts as favourites `addfav`
+### Adding contacts as favourites : `addfav`
 
 - Adds the contacts specified by index as favourites
 
 Format: `addfav [i/INDICES]`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
-<box type="tip" seamless>
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+  <box type="tip" seamless>
 
 **Note:** Indices corresponding to existing favourite contacts are deemed as invalid indices for `addfav`
 </box>
@@ -191,10 +196,24 @@ Examples:
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
+- 
+### Showing favourite contacts : `showfav`
 
-### Remove contacts from favourites `removefav`
+- Shows the contacts that are marked as favourites
 
-- Remove the contacts specified by index as favourites
+Format: `showfav`
+
+**Note:** `showfav` command is not compatible with further arguments.
+</box>
+
+Examples:
+- `showfav` Shows all favourited contacts as expected
+- `showfav 1` returns an error message as there should not be arguments after the `showfav` command word
+- `showfav hello` returns an error message as there should not be arguments after the `showfav` command word
+
+### Removing contacts from favourites : `removefav`
+
+- Removes the contacts specified by index as favourites
 
 Format: `removefav [i/INDICES]`
 - Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
@@ -214,10 +233,11 @@ Examples:
 - `removefav` returns an error message as it must be accompanied by the 'INDICES' field
 - `removefav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
-### Search Contact `find`
+### Searching Contact : `find`
 
 - Search feature supports substring search by name and/or tags and/or company **ONLY**.
 - Finds all contacts whose names, tags or company matches the substring keyword provided.
+
 
 General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
@@ -286,7 +306,7 @@ Adds an order to a supplier.
 Format: `addorder INDEX d/DATE r/REMARK`
 
 * Adds an order to the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
-* The date must be in the format `YYYY-MM-DD`. For example, `2020-12-31`.
+* The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
 <box type="tip" seamless>
 
@@ -295,18 +315,37 @@ Format: `addorder INDEX d/DATE r/REMARK`
 
 Examples:
 * `addorder 1 d/2020-01-01 r/100 chicken wings`
-* `addorder 2 r/ 100 chicken wings d/ 2020-12-31`
-* `addorder 3 d/2020-01-01 r/100 chicken wings`
-* `addorder d/2020-01-01 r/100 chicken wings` returns an error as the index is not specified
-* `addorder r/` or `addorder d/` or `addorder r/ d/` returns an error message as the 'KEYWORD' field cannot be empty
+* `addorder 1 r/20 * 150g lettuce d/2020-12-31`
+* `addorder 2 r/20 tomatoes, 40 apples (green) d/2020-12-31`
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a supplier in order of Date.
+Shows a list of all orders for a supplier, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
 
 Format: `listorder INDEX`
 
 * Shows a list of all orders for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+
+### Deleting an order : `deleteorder`
+
+Deletes an order from a particular person.
+
+Format: `deleteorder INDEX o/ORDER_INDEX`
+
+* Deletes a particular order for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* The ORDER_INDEX refers to the index number shown in the displayed order list. The order index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+
+**Important Note on Order Index**:
+The ORDER_INDEX is determined based on the chronological order of the orders' dates from earliest to the latest (if 2 orders have the same date, they will then be sorted in the order they were added), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a supplier to determine the correct order index to delete.
+
+Examples:
+* Assuming the 1st supplier has 3 orders that were added in the following order:
+  * `addorder 1 d/2020-01-01 r/100 chicken wings`
+  * `addorder 1 d/2020-01-02 r/200 chicken wings`
+  * `addorder 1 d/2019-12-31 r/300 chicken wings`
+* `deleteorder 1 o/1` deletes the 1st order for the 1st supplier in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a supplier
+* `deleteorder 55 o/1` will return an error message if there is no 55th person in the address book and the index is invalid
+* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st supplier in the address book and the order index is invalid
 
 
 ### Deleting a person : `delete`

@@ -14,12 +14,13 @@ import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
- * Lists all persons in the address book to the user.
+ * Adds an order to a person identified by the index from the address book.
  */
 public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "addorder";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
+    public static final String MESSAGE_DUPLICATE_ORDER = "Order already exists for this person";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an order to the person identified "
@@ -27,7 +28,7 @@ public class AddOrderCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "d/ [DATE] r/ [REMARK] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "d/ 2024-01-01 r/ 100 chicken wings.";
+            + "d/ 2024-01-01 r/ 100 chicken wings";
 
     private final Index index;
     private final Order order;
@@ -54,6 +55,10 @@ public class AddOrderCommand extends Command {
         }
 
         Person person = lastShownList.get(index.getZeroBased());
+
+        if (model.hasOrder(person, order)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
+        }
 
         model.addOrder(person, order);
 

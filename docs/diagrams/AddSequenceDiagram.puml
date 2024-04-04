@@ -81,4 +81,7 @@ deactivate CommandResult
 AddCommand --> LogicManager : r
 deactivate AddCommand
 
+[<-- LogicManager : r
+deactivate LogicManager
+
 @enduml
