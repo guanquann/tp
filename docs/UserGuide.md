@@ -144,7 +144,14 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+**Note:** A person can have any number of tags (including 0)
+</box>
+
+<box type="tip" seamless>
+
+**Note:** Two persons cannot share the same name, but can share other details including phone number and email.
+Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
+If two persons really share a name, find a way to uniquely identify them somehow!
 </box>
 
 Examples:
@@ -180,7 +187,7 @@ Examples:
 
 - Adds the contacts specified by index as favourites
 
-Format: `addfav [i/INDICES]`
+Format: `addfav i/INDICES`
 - Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
   <box type="tip" seamless>
 
@@ -215,7 +222,7 @@ Examples:
 
 - Removes the contacts specified by index as favourites
 
-Format: `removefav [i/INDICES]`
+Format: `removefav i/INDICES`
 - Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
 
 <box type="tip" seamless>
@@ -404,20 +411,20 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action               | Format, Examples                                                                                                                                                                                |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Action               | Format, Examples                                                                                                                                                                            |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**              | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
-| **Clear**            | `clear`                                                                                                                                                                                         |
-| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
-| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
-| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
-| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
-| **List Orders**      | `listorder INDEX`                                                                                                                                                                               |
-| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                                 |
-| **Add Favourite**    | `addfav [i/INDICES]`<br> e.g., `addfav i/1,2`                                                                                                                                                   |
-| **Show Favourites**  | `showfav`                                                                                                                                                                                       |
-| **Remove Favourite** | `removefav [i/INDICES]`<br> e.g., `removefav i/2`                                                                                                                                               |
-| **List**             | `list`                                                                                                                                                                                          |
-| **Help**             | `help`                                                                                                                                                                                          | 
-| **Exit**             | `exit`                                                                                                                                                                                          | 
+| **Clear**            | `clear`                                                                                                                                                                                     |
+| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
+| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                     |
+| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                  |
+| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                  |
+| **List Orders**      | `listorder INDEX`                                                                                                                                                                           |
+| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                             |
+| **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                 |
+| **Show Favourites**  | `showfav`                                                                                                                                                                                   |
+| **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                             |
+| **List**             | `list`                                                                                                                                                                                      |
+| **Help**             | `help`                                                                                                                                                                                      | 
+| **Exit**             | `exit`                                                                                                                                                                                      | 
 

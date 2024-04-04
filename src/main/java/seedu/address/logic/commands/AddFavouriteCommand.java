@@ -28,7 +28,7 @@ public class AddFavouriteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds contacts identified by index number "
             + "as favourites.\n"
-            + "Parameters: i/ [INDICES] (must be positive integers separated by "
+            + "Parameters: i/ INDICES (must be positive integers separated by "
             + "commas that correspond to non-favourite contacts)\n"
             + "Example: " + COMMAND_WORD + " "
             + "i/ 1,2,5";
