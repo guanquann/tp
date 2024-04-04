@@ -19,7 +19,9 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_ALPHABET_ONLY = "Value for %1$s must consist of alphabets only.";
+    public static final String MESSAGE_ALPHANUMERIC_ONLY = "Value for %1$s must consist of alphabets or numbers only.";
+    public static final String MESSAGE_NAME_COMPANY_CONSTRAINTS = "Value for %1$s must consist of "
+            + "alphanumeric characters, spaces, hyphens and/or apostrophes only";
 
     public static final String MESSAGE_CANNOT_BE_EMPTY = "Keyword Value of FIELD %1$s cannot be empty.";
 

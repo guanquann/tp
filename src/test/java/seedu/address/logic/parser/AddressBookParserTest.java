@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -34,8 +35,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Date;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Remark;
-import seedu.address.model.person.NameAndTagContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SearchPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -95,10 +96,11 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> nameKeywords = Arrays.asList("foo", "bar");
         List<String> tagKeywords = Arrays.asList("friend", "colleague");
+        List<String> companyKeywords = Collections.emptyList();
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " n/ " + String.join(" n/ ", nameKeywords)
                         + " t/ " + String.join(" t/ ", tagKeywords));
-        assertEquals(new FindCommand(new NameAndTagContainsKeywordsPredicate(nameKeywords, tagKeywords)), command);
+        assertEquals(new FindCommand(new SearchPredicate(nameKeywords, tagKeywords, companyKeywords)), command);
     }
 
     @Test

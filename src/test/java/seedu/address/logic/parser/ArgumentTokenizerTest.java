@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ArgumentTokenizerTest {
 
@@ -135,6 +139,56 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, dashT, "not joined^Qjoined");
         assertArgumentAbsent(argMultimap, hatQ);
     }
+
+    @Test
+    public void verifyAllValuesAlphanumeric_validAlphanumericValues_success() {
+        // Arguments with valid alphanumeric values
+        String argsString = " n/Alice1 c/Company123 t/Tag1";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString,
+                new Prefix("n/"), new Prefix("c/"), new Prefix("t/"));
+
+        // Attempt to verify values as alphanumeric without throwing an exception
+        assertDoesNotThrow(() -> argMultimap.verifyAllValuesAlphanumeric(new Prefix("t/")));
+    }
+
+    @Test
+    public void verifyAllValuesAlphanumeric_invalidAlphanumericValues_throwsParseException() {
+        // Arguments with invalid alphanumeric values (contains special characters)
+        String argsString = " t/Tag#1";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, new Prefix("t/"));
+
+        // Expect a ParseException when verifying values
+        Exception exception = assertThrows(
+                ParseException.class, () -> argMultimap.verifyAllValuesAlphanumeric(new Prefix("t/")));
+
+
+        assertTrue(exception.getMessage().contains("Value for t/ must consist of alphabets or numbers only."));
+    }
+
+    @Test
+    public void verifyValuesNameCompany_validNameCompanyValues_success() {
+        // Arguments with valid name and company values (contains spaces, hyphens, apostrophes)
+        String argsString = " n/Alice-Bob c/O'Reilly Auto Parts";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, new Prefix("n/"), new Prefix("c/"));
+
+        // Attempt to verify values as valid for names and company without throwing an exception
+        assertDoesNotThrow(() -> argMultimap.verifyValuesNameCompany(new Prefix("n/"), new Prefix("c/")));
+    }
+
+    @Test
+    public void verifyValuesNameCompany_invalidNameCompanyValues_throwsParseException() {
+        // Arguments with invalid name and company values (contains special characters not allowed)
+        String argsString = " n/Alice_123 c/ACME* Inc.";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, new Prefix("n/"), new Prefix("c/"));
+
+        // Expect a ParseException when verifying values
+        Exception exception = assertThrows(
+                ParseException.class, () -> argMultimap.verifyValuesNameCompany(new Prefix("n/"), new Prefix("c/")));
+
+        assertTrue(exception.getMessage().contains("Value for n/ must consist of alphanumeric characters, "
+                + "spaces, hyphens and/or apostrophes only"));
+    }
+
 
     @Test
     public void equalsMethod() {

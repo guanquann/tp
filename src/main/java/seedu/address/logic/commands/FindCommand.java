@@ -5,26 +5,26 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameAndTagContainsKeywordsPredicate;
+import seedu.address.model.person.SearchPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in address book whose name, tags or company name contains any of the argument keywords.
  * Keyword matching is case-insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all persons whose names, tags or company names contain all of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: TYPE/KEYWORD TYPE/KEYWORD ... \n"
-            + "Where TYPE can be n/ or t/ to specify name or tag respectively.\n"
-            + "Example: " + COMMAND_WORD + " n/alice n/bob t/friends t/owesMoney \n"
-            + "Please Refer to User Guide for more details.";
+            + "Parameters: n/KEYWORD [MORE_KEYWORDS]... t/KEYWORD [MORE_KEYWORDS]... c/KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " n/alice t/friends c/Meat \n"
+            + "Note: Multiple keywords (name, tag or company) are treated with a logical AND.";
 
-    private final NameAndTagContainsKeywordsPredicate predicate;
+    private final SearchPredicate predicate;
 
-    public FindCommand(NameAndTagContainsKeywordsPredicate predicate) {
+    public FindCommand(SearchPredicate predicate) {
         this.predicate = predicate;
     }
 
