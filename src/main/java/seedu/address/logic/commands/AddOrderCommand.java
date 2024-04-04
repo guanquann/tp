@@ -26,7 +26,7 @@ public class AddOrderCommand extends Command {
             + ": Adds an order to the person identified "
             + "by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "d/ [DATE] r/ [REMARK] \n"
+            + "d/ DATE r/ REMARK \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "d/ 2024-01-01 r/ 100 chicken wings";
 
