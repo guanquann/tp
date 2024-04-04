@@ -22,6 +22,9 @@ public class AddFavouriteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "The following contacts have been added to favourites: %s";
 
+    public static final String MESSAGE_SUCCESS_WITH_WARNING = "The following contacts have been added to favourites: %s"
+            + "\nWarning: There are contacts in your input that were already favourites.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds contacts identified by index number "
             + "as favourites.\n"
@@ -44,22 +47,27 @@ public class AddFavouriteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         List<Person> people = model.getFilteredPersonList();
         List<String> modifiedContacts = new ArrayList<>();
+
         boolean anyGreaterThanSize = this.indices.stream().anyMatch(index -> index.getZeroBased() >= people.size());
         if (anyGreaterThanSize) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
         boolean anyFavourite = this.indices.stream().anyMatch(index ->
                 people.get(index.getZeroBased()).getIsFavourite());
-        if (anyFavourite) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
-        }
+
         for (Index index : this.indices) {
             Person person = people.get(index.getZeroBased());
             modifiedContacts.add(person.getName().fullName);
             person.addFavourite();
             model.setPerson(person, person);
         }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (anyFavourite) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_WARNING, modifiedContacts));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, modifiedContacts));
     }
 
