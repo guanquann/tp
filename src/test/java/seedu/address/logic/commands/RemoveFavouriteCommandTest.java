@@ -58,7 +58,7 @@ public class RemoveFavouriteCommandTest {
     }
 
     @Test
-    public void execute_alreadyNonFavouriteContact_success() {
+    public void execute_alreadyNonFavourite_successWithWarning() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withFavourite(false).build();
         model.setPerson(firstPerson, editedPerson);
