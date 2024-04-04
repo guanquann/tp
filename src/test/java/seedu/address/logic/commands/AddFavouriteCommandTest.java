@@ -59,7 +59,7 @@ public class AddFavouriteCommandTest {
     }
 
     @Test
-    public void execute_alreadyFavourite_success() {
+    public void execute_alreadyFavourite_successWithWarning() {
         Set<Index> indices = Set.of(Index.fromOneBased(1));
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withFavourite(true).build();
