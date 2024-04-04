@@ -22,6 +22,7 @@ GourmetGrid User Guide
     - Searching contact : find
     - Adding an order : addorder
     - Listing orders : listorder
+    - Deleting an order: deleteorder
     - Deleting a person : delete
     - Clearing all entries : clear
     - Exiting a program : exit
@@ -82,7 +83,8 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
     * `list` : Lists all contacts.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` : 
+   Adds a contact named `James Lim` with the corresponding details to the contact list.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -108,7 +110,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/bulkseller` or as `n/John Doe`.
 
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
@@ -119,8 +121,8 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) are not allowed.<br>
+  e.g. if the command specifies `list 1`, you will be shown an error, to avoid ambiguity.
 
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -128,12 +130,11 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
 Format: `help`
-
 
 ### Adding a person : `add`
 
@@ -143,7 +144,14 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+**Note:** A person can have any number of tags (including 0)
+</box>
+
+<box type="tip" seamless>
+
+**Note:** Two persons cannot share the same name, but can share other details including phone number and email.
+Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
+If two persons really share a name, find a way to uniquely identify them somehow!
 </box>
 
 Examples:
@@ -175,12 +183,11 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-
 ### Adding contacts as favourites : `addfav`
 
 - Adds the contacts specified by index as favourites
 
-Format: `addfav [i/INDICES]`
+Format: `addfav i/INDICES`
 - Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
   <box type="tip" seamless>
 
@@ -215,7 +222,7 @@ Examples:
 
 - Removes the contacts specified by index as favourites
 
-Format: `removefav [i/INDICES]`
+Format: `removefav i/INDICES`
 - Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
 
 <box type="tip" seamless>
@@ -253,22 +260,18 @@ General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
 * 'KEYWORD' cannot be empty.
     * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
 
-
 * 'KEYWORD' and next 'FIELD' should be separated by a space.
     * e.g. `find n/John t/friends` will find all instances of John that have the tag friends
     * but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends'
     * and there should not be non-alphabetic characters in the 'KEYWORD' field.
 
-
 * Multiple Search 'FIELD's will be treated as a **Logical AND (&&)**.
     * e.g. `find n/John n/Doe` will return all instances of John and Doe.
     * e.g. `find n/John t/friends c/ Meat` will return all instances of John that are tagged as friends and have Meat in their company name. This means if there exists a contact with the name John that is tagged as friends but has a company Mat, it will not be returned.
     * e.g. `find n/Ale n/le` can return contacts such as ["Alex Lew", "Alexis Lebrun", "Alec"]
-    
 
 * 'KEYWORD' should **NOT** be empty and there should be at least one 'FIELD' and 'KEYWORD' pair.
     * e.g. `find n/ t/` and `find ` will **NOT** work.
-
 
 * There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair.
     * e.g. `find testing123 n/John` will **NOT** work.
@@ -281,7 +284,6 @@ General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
 
 * You can have multiple of the same 'FIELD's.
     * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe` or `Dohnut Jibs`
-
 
 Examples:
 * `find n/Joh` returns `john`, `John Doe` and `Johnann Sebastian Bach`
@@ -347,7 +349,6 @@ Examples:
 * `deleteorder 55 o/1` will return an error message if there is no 55th person in the address book and the index is invalid
 * `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st supplier in the address book and the order index is invalid
 
-
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -410,15 +411,20 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                                |
-|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
-| **Clear**         | `clear`                                                                                                                                                                                         |
-| **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
-| **Find**          | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
-| **Add Order**     | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
-| **Add Favourite** | `addfav [i/INDICES]`                                                                                                                                                                            |
-| **List**      | `list`        |
-| **Help**      | `help`      | 
+| Action               | Format, Examples                                                                                                                                                                            |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**              | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
+| **Clear**            | `clear`                                                                                                                                                                                     |
+| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
+| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                     |
+| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                  |
+| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                  |
+| **List Orders**      | `listorder INDEX`                                                                                                                                                                           |
+| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                             |
+| **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                 |
+| **Show Favourites**  | `showfav`                                                                                                                                                                                   |
+| **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                             |
+| **List**             | `list`                                                                                                                                                                                      |
+| **Help**             | `help`                                                                                                                                                                                      | 
+| **Exit**             | `exit`                                                                                                                                                                                      | 
 
