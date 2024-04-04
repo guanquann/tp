@@ -16,11 +16,11 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all persons whose names, tags or company names contain any of "
+            + ": Finds all persons whose names, tags or company names contain all of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: n/KEYWORD [MORE_KEYWORDS]... t/KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: n/KEYWORD [MORE_KEYWORDS]... t/KEYWORD [MORE_KEYWORDS]... c/KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " n/alice t/friends c/Meat \n"
-            + "Note: Multiple keywords of the same type (name or tag) are treated with a logical AND.";
+            + "Note: Multiple keywords (name, tag or company) are treated with a logical AND.";
 
     private final SearchPredicate predicate;
 
