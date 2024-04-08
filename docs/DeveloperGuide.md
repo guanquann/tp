@@ -561,3 +561,25 @@ testers are expected to do more _exploratory_ testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+---
+
+## **Appendix: Planned Enhancements**
+
+Team size: 4
+
+1. **UI improvements:** The current UI shows the orders of a contact in`StatusBarFooter` when `listorder` 
+command is called. We plan to add an `OrderListPanel` beside the existing `PersonListPanel` to show the orders
+of a contact instead. This will allow users to view the orders of a contact in a more user-friendly manner, 
+without having the need to call `listorder` repeatedly for the same contact whenever a new command updates `StatusBarFooter`.
+Furthermore, when a very long field is added, the UI text may be truncated. We plan to add a tooltip to show 
+the full text when the mouse hovers over the truncated text.
+
+2. **Make `addorder` message more specific:** The current `addorder` command does not show a preview of the 
+order added, making it inconvenient for users as they have to scroll all the way to end of `StatusBarFooter` 
+to view their newly added order. We plan to show a preview of the order added. For example: 
+`Added Order: [100 oranges (by: 2024-04-15)] from Alex Yeoh`.
+
+3. **Raise error when an outdated order date is added:** The current date validation does not check if the 
+order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date 
+is added. For example: `Order date cannot be in the past`.
