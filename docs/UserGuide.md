@@ -237,45 +237,49 @@ Examples:
 - Search feature supports substring search by name and/or tags and/or company **ONLY**.
 - Finds all contacts whose names, tags or company matches the substring keyword provided.
 
-
-General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
+General Format: `find [FIELD/ KEYWORD] [FIELD/ KEYWORD] ...`
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
-- `KEYWORD` is the keyword to search for, here are some guidelines:
+- Each `FIELD` is optional BUT at least one `FIELD` and `KEYWORD` pair must be provided.
+- `KEYWORD` is the keyword to search for, here are some rules:
   - Name and Company should contain alphanumeric characters, spaces, hyphens and/or apostrophes only.
   - Tags should contain alphanumeric characters only.
-- The search is case-insensitive.
-- Teh search will find contacts containing the provided keyword as a substring within the specified field(s)
-- Multiple Search Fields are treated as a **Logical AND (&&)**. Therefore, a contact must match all specified keywords across any mentioned fields to appear in the search results.
+
 
 #### Search Guidelines
 
 * 'KEYWORD' cannot be empty.
     * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
 
+
 * 'KEYWORD' and next 'FIELD' should be separated by a space.
-    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends
-    * but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends'
-    * and there should not be non-alphabetic characters in the 'KEYWORD' field.
+    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends, but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends' and there should not be non-alphabetic characters in the 'KEYWORD' field.
+
 
 * Multiple Search 'FIELD's will be treated as a **Logical AND (&&)**.
     * e.g. `find n/John n/Doe` will return all instances of John and Doe.
     * e.g. `find n/John t/friends c/ Meat` will return all instances of John that are tagged as friends and have Meat in their company name. This means if there exists a contact with the name John that is tagged as friends but has a company Mat, it will not be returned.
     * e.g. `find n/Ale n/le` can return contacts such as ["Alex Lew", "Alexis Lebrun", "Alec"]
 
+
 * 'KEYWORD' should **NOT** be empty and there should be at least one 'FIELD' and 'KEYWORD' pair.
     * e.g. `find n/ t/` and `find ` will **NOT** work.
+
 
 * There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair.
     * e.g. `find testing123 n/John` will **NOT** work.
 
+
 * The search is case-insensitive.
     * e.g. `find n/hans` will match `Hans Niemann` and `Hans Zimmer`
+
 
 * The order of the keywords does not matter.
     * e.g. Results of `find n/Hans n/Bo` will match the results of`find n/Bo n/Hans`
 
+
 * You can have multiple of the same 'FIELD's.
     * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe` or `Dohnut Jibs`
+
 
 Examples:
 * `find n/Joh` returns `john`, `John Doe` and `Johnann Sebastian Bach`
@@ -314,7 +318,7 @@ Examples:
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a supplier, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
+Shows a list of all orders for a supplier, sorted **FIRST** by date from the earliest to the latest and then by the order they were added if the dates are the same.
 
 Format: `listorder INDEX`
 
