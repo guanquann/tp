@@ -177,7 +177,7 @@ The `addfav` feature allows users to add suppliers as favourites.
 
 **Aspect: How a contact being set as favourite is represented:**
 
-- **Alternative 1 (current choice):** A boolean field in the `Person` class is used to indicate whether a `Person` is a favourite 
+- **Alternative 1 (current choice):** A boolean field in the `Person` class is used to indicate whether a `Person` is a favourite
     - Pros: Make use of the current `Person` class by adding a simple primitive boolean to store information about favourites.
     - Cons: Not a uniform way of representing information in the `Person` class given that all other fields are their own defined classes.
 
@@ -215,7 +215,7 @@ The `showfav` feature allows users to filter the contacts such that only the fav
 **Aspect: How the end result of filtering manifests:**
 
 - **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
-    - Pros: Simple and easy to implement given the existing `find` feature. 
+    - Pros: Simple and easy to implement given the existing `find` feature.
     - Cons: May result in some similar functionality between `find` and `showfav` features.
 
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
@@ -230,7 +230,7 @@ Below is the sequence diagram for the `showfav` command process:
 
 ### Add order feature
 
-The `addorder` feature allows users to add orders to a contact. 
+The `addorder` feature allows users to add orders to a contact.
 
 #### Design considerations:
 
@@ -285,7 +285,7 @@ The `deleteorder` feature allows users to delete a specific order from a supplie
 #### Design Considerations
 
 - **Aspect: How order deletion is managed within Person objects**:
-- 
+
 - **Alternative 1 (current choice):** Directly manage orders within the Person class by removing them from the person's orders list.
   - Pros: Utilizes the existing structure of the Person class, allowing for straightforward access and modification of a person's order list.
   - Cons: Adds complexity to the Person class, which now handles both personal information and order management.
@@ -484,7 +484,7 @@ _{More to be added}_
 - 3a. System detects that the contact does not exist.
 
   - 3a1. System shows an error message.
-  
+
     Use case ends.
 
 ---
@@ -609,18 +609,18 @@ testers are expected to do more _exploratory_ testing.
 
 Team size: 4
 
-1. **UI improvements:** The current UI shows the orders of a contact in`StatusBarFooter` when `listorder` 
+1. **UI improvements:** The current UI shows the orders of a contact in`StatusBarFooter` when `listorder`
 command is called. We plan to add an `OrderListPanel` beside the existing `PersonListPanel` to show the orders
-of a contact instead. This will allow users to view the orders of a contact in a more user-friendly manner, 
+of a contact instead. This will allow users to view the orders of a contact in a more user-friendly manner,
 without having the need to call `listorder` repeatedly for the same contact whenever a new command updates `StatusBarFooter`.
-Furthermore, when a very long field is added, the UI text may be truncated. We plan to add a tooltip to show 
+Furthermore, when a very long field is added, the UI text may be truncated. We plan to add a tooltip to show
 the full text when the mouse hovers over the truncated text.
 
-2. **Make `addorder` message more specific:** The current `addorder` command does not show a preview of the 
-order added, making it inconvenient for users as they have to scroll all the way to end of `StatusBarFooter` 
-to view their newly added order. We plan to show a preview of the order added. For example: 
+2. **Make `addorder` message more specific:** The current `addorder` command does not show a preview of the
+order added, making it inconvenient for users as they have to scroll all the way to end of `StatusBarFooter`
+to view their newly added order. We plan to show a preview of the order added. For example:
 `Added Order: [100 oranges (by: 2024-04-15)] from Alex Yeoh`.
 
-3. **Raise error when an outdated order date is added:** The current date validation does not check if the 
-order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date 
+3. **Raise error when an outdated order date is added:** The current date validation does not check if the
+order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date
 is added. For example: `Order date cannot be in the past`.

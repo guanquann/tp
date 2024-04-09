@@ -82,7 +82,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
     * `list` : Lists all contacts.
 
-    * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` : 
+    * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` :
    Adds a contact named `James Lim` with the corresponding details to the contact list.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
@@ -194,7 +194,7 @@ Examples:
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
-- 
+
 ### Showing favourite contacts : `showfav`
 
 - Shows the contacts that are marked as favourites
@@ -214,7 +214,7 @@ Examples:
 - Removes the contacts specified by index as favourites
 
 Format: `removefav i/INDICES`
-- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
+- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
 
 <box type="tip" seamless>
 
@@ -408,20 +408,20 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 
 ## Command summary
 
-| Action               | Format, Examples                                                                                                                                                                            |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Action               | Format, Examples                                                                                                                                                                                |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**              | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
-| **Clear**            | `clear`                                                                                                                                                                                     |
-| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
-| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                     |
-| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                  |
-| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                  |
-| **List Orders**      | `listorder INDEX`                                                                                                                                                                           |
-| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                             |
-| **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                 |
-| **Show Favourites**  | `showfav`                                                                                                                                                                                   |
-| **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                             |
-| **List**             | `list`                                                                                                                                                                                      |
-| **Help**             | `help`                                                                                                                                                                                      | 
-| **Exit**             | `exit`                                                                                                                                                                                      | 
+| **Clear**            | `clear`                                                                                                                                                                                         |
+| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
+| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
+| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
+| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
+| **List Orders**      | `listorder INDEX`                                                                                                                                                                               |
+| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                                 |
+| **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                     |
+| **Show Favourites**  | `showfav`                                                                                                                                                                                       |
+| **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
+| **List**             | `list`                                                                                                                                                                                          |
+| **Help**             | `help`                                                                                                                                                                                          |
+| **Exit**             | `exit`                                                                                                                                                                                          |
 
