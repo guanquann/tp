@@ -230,7 +230,7 @@ Below is the sequence diagram for the `showfav` command process:
 
 ### Add order feature
 
-The `addorder` feature allows users to add orders from a supplier. 
+The `addorder` feature allows users to add orders to a contact. 
 
 #### Design considerations:
 
@@ -250,7 +250,7 @@ Below is the sequence diagram for the `addorder` command process:
 
 <puml src="diagrams/AddOrderSequenceDiagram.puml" alt="AddOrderSequenceDiagram" />
 
-### ListOrder Feature
+### List order Feature
 
 The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of suppliers efficiently.
 
@@ -278,7 +278,7 @@ Below is the sequence diagram for the `listorder` command process:
 - **Sorting by Status:** Introduce functionality to sort orders by their status (e.g., pending, completed), providing users with more flexibility in viewing order information.
 - **Filtering Options:** Implement filters to allow users to view orders within a specific date range or with particular characteristics, such as orders over a certain value.
 
-### DeleteOrder Feature
+### Delete order Feature
 
 The `deleteorder` feature allows users to delete a specific order from a supplier's list of orders, ensuring accurate and up-to-date record-keeping.
 
@@ -462,16 +462,16 @@ _{More to be added}_
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `GourmetGrid` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list contacts
+2.  System shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  System deletes the contact
 
     Use case ends.
 
@@ -481,13 +481,34 @@ _{More to be added}_
 
   Use case ends.
 
-- 3a. The given index is invalid.
+- 3a. System detects that the contact does not exist.
 
-  - 3a1. AddressBook shows an error message.
+  - 3a1. System shows an error message.
+  
+    Use case ends.
 
-    Use case resumes at step 2.
+---
 
-_{More to be added}_
+**Use case: Add an order**
+
+**MSS**
+
+1. User requests to add an order to a contact
+2. System adds the order to the contact
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. System detects an error in the user command.
+  - 1a1. System shows an error message.
+
+    Use case ends.
+
+- 1b. System detects that the contact does not exist.
+  - 1b1. System shows an error message.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
@@ -552,7 +573,27 @@ testers are expected to do more _exploratory_ testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding an order
+
+1. Adding an order to a person
+
+    1. Prerequisites: List all persons using the list command. There is only 1 contact in the address book.
+
+    2. Test case: `addorder 1 d/ 2025-01-01 r/ 100 chicken wings`<br>
+       Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the status bar. The date of the new order is 2025-01-01 and the remark is 100 chicken wings.
+
+    3. Test case: `addorder 0 d/ 2025-01-01 r/ 100 chicken wings`<br>
+       Expected: No new order is added. An error indicating invalid command format is shown in the status bar.
+
+    4. Test case: `addorder 5 d/ 2025-01-01 r/ 100 chicken wings`<br>
+       Expected: No new order is added. An error indicating invalid person index is shown in the status bar.
+
+    5. Test case: `addorder 1 d/ 2025-99-99 r/ 100 chicken wings`<br>
+       Expected: No new order is added. An error indicating invalid date format is shown in the status bar.
+
+2. Viewing orders after adding order to a contact.
+
+    1. To view the orders of the first contact after adding an order, use the `listorder 1` command.
 
 ### Saving data
 
