@@ -583,3 +583,7 @@ to view their newly added order. We plan to show a preview of the order added. F
 3. **Raise error when an outdated order date is added:** The current date validation does not check if the 
 order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date 
 is added. For example: `Order date cannot be in the past`.
+
+4. **Support more flexible phone number formats:** The current phone number validation only accepts numerical inputs.
+We plan to support more flexible formats, including country codes and special characters. For example: 
+`+65 1234 5678`, `+129-123-334-5678`.

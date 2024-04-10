@@ -12,9 +12,9 @@ GourmetGrid User Guide
 - About
 - Quick Start
 - Features
-    - Adding a person : add
-    - Listing all persons : list
-    - Editing a person : edit
+    - Adding a contact : add
+    - Listing all contacts : list
+    - Editing a contact : edit
     - Adding contacts as favourites : addfav
     - Showing favourite contacts : showfav
     - Removing contacts from favourites : removefav
@@ -22,7 +22,7 @@ GourmetGrid User Guide
     - Adding an order : addorder
     - Listing orders : listorder
     - Deleting an order: deleteorder
-    - Deleting a person : delete
+    - Deleting a contact : delete
     - Clearing all entries : clear
     - Exiting a program : exit
     - Viewing help : help
@@ -39,11 +39,11 @@ GourmetGrid User Guide
 ## Introduction
 
 
-GourmetGrid is a **desktop app to help small restaurant owners manage supplier contacts and orders**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GourmetGrid can get your day-to-day supplier management tasks done faster than traditional GUI apps.
+GourmetGrid is a **desktop app to help small restaurant owners manage contact contacts and orders**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GourmetGrid can get your day-to-day contact management tasks done faster than traditional GUI apps.
 
 
 ## About
-This user guide provides in-depth documentation on GourmetGrid installation process, system configuration and management. From setting up the app to managing supplier contacts and orders efficiently, we cover everything you need to know to use GourmetGrid effectively.
+This user guide provides in-depth documentation on GourmetGrid installation process, system configuration and management. From setting up the app to managing contact contacts and orders efficiently, we cover everything you need to know to use GourmetGrid effectively.
 
 
 ### How to Use the Guide
@@ -127,63 +127,61 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
-### Adding a person : `add`
+### Adding a contact : `add`
 
-Adds a person to the address book.
+Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Note:** A person can have any number of tags (including 0)
+**Note:** Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank
+**Note:** A contact can have any number of tags (including 0)
 </box>
 
 <box type="tip" seamless>
 
-**Note:** Two persons cannot share the same name, but can share other details including phone number and email.
+**Note:** Two contacts cannot share the same name, but can share other details including phone number and email.
 Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
-If two persons really share a name, find a way to uniquely identify them somehow!
+If two contacts really share a name, find a way to uniquely identify them somehow!
 </box>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123 c/John's Burgers`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/West Street 12 p/91234567 c/Great Vegs t/criminal`
 
-### Listing all persons : `list`
+### Listing all contacts : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the address book.
 
 Format: `list`
 
 **Note:** `list` command is not compatible with further arguments.
 </box>
 
-### Editing a person : `edit`
+### Editing a contact : `edit`
 
-Edits an existing person in the address book.
+Edits an existing contact in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* You can remove all the person’s tags by typing `t/` without
+* You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 ### Adding contacts as favourites : `addfav`
 
 - Adds the contacts specified by index as favourites
 
 Format: `addfav i/INDICES`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
   <box type="tip" seamless>
-
-**Note:** Indices corresponding to existing favourite contacts are deemed as invalid indices for `addfav`
-</box>
 
 Examples:
 - `addfav i/ 1` Sets the contact at index `1` as favourite
@@ -214,12 +212,7 @@ Examples:
 - Removes the contacts specified by index as favourites
 
 Format: `removefav i/INDICES`
-- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ... 
-
-<box type="tip" seamless>
-
-**Note:** Indices corresponding to non-favourite contacts are deemed as invalid indices for `removefav`
-</box>
+- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ... 
 
 Examples:
 - `removefav i/ 1` Removes the contact at index `1` from favourites
@@ -294,16 +287,16 @@ Examples:
 
 ### Adding an order : `addorder`
 
-Adds an order to a supplier.
+Adds an order to a contact.
 
 Format: `addorder INDEX d/DATE r/REMARK`
 
-* Adds an order to the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* Adds an order to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 * The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
 <box type="tip" seamless>
 
-**Note:** A person can have any number of orders (including 0)
+**Note:** A contact can have any number of orders (including 0)
 </box>
 
 Examples:
@@ -313,46 +306,46 @@ Examples:
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a supplier, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
+Shows a list of all orders for a contact, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
 
 Format: `listorder INDEX`
 
-* Shows a list of all orders for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* Shows a list of all orders for the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 
 ### Deleting an order : `deleteorder`
 
-Deletes an order from a particular person.
+Deletes an order from a particular contact.
 
 Format: `deleteorder INDEX o/ORDER_INDEX`
 
-* Deletes a particular order for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* Deletes a particular order for the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 * The ORDER_INDEX refers to the index number shown in the displayed order list. The order index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 
 **Important Note on Order Index**:
-The ORDER_INDEX is determined based on the chronological order of the orders' dates from earliest to the latest (if 2 orders have the same date, they will then be sorted in the order they were added), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a supplier to determine the correct order index to delete.
+The ORDER_INDEX is determined based on the chronological order of the orders' dates from earliest to the latest (if 2 orders have the same date, they will then be sorted in the order they were added), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a contact to determine the correct order index to delete.
 
 Examples:
-* Assuming the 1st supplier has 3 orders that were added in the following order:
+* Assuming the 1st contact has 3 orders that were added in the following order:
   * `addorder 1 d/2020-01-01 r/100 chicken wings`
   * `addorder 1 d/2020-01-02 r/200 chicken wings`
   * `addorder 1 d/2019-12-31 r/300 chicken wings`
-* `deleteorder 1 o/1` deletes the 1st order for the 1st supplier in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a supplier
-* `deleteorder 55 o/1` will return an error message if there is no 55th person in the address book and the index is invalid
-* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st supplier in the address book and the order index is invalid
+* `deleteorder 1 o/1` deletes the 1st order for the 1st contact in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a contact
+* `deleteorder 55 o/1` will return an error message if there is no 55th contact in the address book and the index is invalid
+* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st contact in the address book and the order index is invalid
 
-### Deleting a person : `delete`
+### Deleting a contact : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified contact from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd contact in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
