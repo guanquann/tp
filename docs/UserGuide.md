@@ -16,7 +16,7 @@ GourmetGrid User Guide
     - Listing all contacts : list
     - Editing a contact : edit
     - Adding contacts as favourites : addfav
-    - Showing favourite contacts : showfav
+    - Showing favourite contacts : listfav
     - Removing contacts from favourites : removefav
     - Searching contact : find
     - Adding an order : addorder
@@ -155,8 +155,9 @@ Examples:
 Shows a list of all contacts in the address book.
 
 Format: `list`
+<box type="tip" seamless>
 
-**Note:** `list` command is not compatible with further arguments.
+**Reminder:** `list` command is not compatible with further arguments.
 </box>
 
 ### Editing a contact : `edit`
@@ -170,6 +171,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]
 * Existing values will be updated to the input values.
 * You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
+* **Warning**: Making any edit to tags will replace all existing tags with the new tags.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
@@ -177,7 +179,7 @@ Examples:
 
 ### Adding contacts as favourites : `addfav`
 
-- Adds the contacts specified by index as favourites
+Adds the contacts specified by index as favourites
 
 Format: `addfav i/INDICES`
 - Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
@@ -193,19 +195,21 @@ Examples:
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 - 
-### Showing favourite contacts : `showfav`
+### Showing favourite contacts : `listfav`
 
-- Shows the contacts that are marked as favourites
+Lists the contacts that are marked as favourites
 
-Format: `showfav`
+Format: `listfav`
 
-**Note:** `showfav` command is not compatible with further arguments.
+<box type="tip" seamless>
+
+**Reminder:** `listfav` command is not compatible with further arguments.
 </box>
 
 Examples:
-- `showfav` Shows all favourited contacts as expected
-- `showfav 1` returns an error message as there should not be arguments after the `showfav` command word
-- `showfav hello` returns an error message as there should not be arguments after the `showfav` command word
+- `listfav` Lists all favourited contacts as expected
+- `listfav 1` returns an error message as there should not be arguments after the `listfav` command word
+- `listfav hello` returns an error message as there should not be arguments after the `listfav` command word
 
 ### Removing contacts from favourites : `removefav`
 
@@ -226,11 +230,9 @@ Examples:
 
 ### Searching Contact : `find`
 
-- Search feature supports substring search by name and/or tags and/or company **ONLY**.
-- Finds all contacts whose names, tags or company matches the substring keyword provided.
+Search feature supports substring search by name and/or tags and/or company **ONLY**. Finds all contacts whose names, tags or company matches the substring keyword provided.
 
-
-General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
+Format: `find FIELD/KEYWORD [FIELD/KEYWORD]...`
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
 - `KEYWORD` is the keyword to search for, here are some guidelines:
   - Name and Company should contain alphanumeric characters, spaces, hyphens and/or apostrophes only.
@@ -353,11 +355,21 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+<box type="tip" seamless>
+
+**Reminder:** `clear` command is not compatible with further arguments.
+</box>
+
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
+
+<box type="tip" seamless>
+
+**Reminder:** `exit` command is not compatible with further arguments.
+</box>
 
 ### Viewing help : `help`
 
@@ -366,6 +378,11 @@ Shows a message explaining how to access the help page.
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+<box type="tip" seamless>
+
+**Reminder:** `help` command is not compatible with further arguments.
+</box>
 
 ### Saving the data
 
@@ -401,20 +418,20 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 
 ## Command summary
 
-| Action               | Format, Examples                                                                                                                                                                            |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Action               | Format, Examples                                                                                                                                                                                |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**              | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Freshest Farm t/friend t/colleague` |
-| **Clear**            | `clear`                                                                                                                                                                                     |
-| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
-| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                     |
-| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                  |
-| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                  |
-| **List Orders**      | `listorder INDEX`                                                                                                                                                                           |
-| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                             |
-| **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                 |
-| **Show Favourites**  | `showfav`                                                                                                                                                                                   |
-| **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                             |
-| **List**             | `list`                                                                                                                                                                                      |
-| **Help**             | `help`                                                                                                                                                                                      | 
-| **Exit**             | `exit`                                                                                                                                                                                      | 
+| **Clear**            | `clear`                                                                                                                                                                                         |
+| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                             |
+| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                         |
+| **Find**             | `find KEYWORD/ [KEYWORD]`<br> e.g., `find n/ James n/ T t/ friend t/ rich`                                                                                                                      |
+| **Add Order**        | `addorder INDEX d/DATE r/REMARK`<br> e.g., `addorder 1 d/ 2020-01-01 r/ 100 chicken wings`                                                                                                      |
+| **List Orders**      | `listorder INDEX`                                                                                                                                                                               |
+| **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                                 |
+| **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                     |
+| **Show Favourites**  | `listfav`                                                                                                                                                                                       |
+| **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
+| **List**             | `list`                                                                                                                                                                                          |
+| **Help**             | `help`                                                                                                                                                                                          | 
+| **Exit**             | `exit`                                                                                                                                                                                          | 
 

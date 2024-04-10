@@ -5,8 +5,8 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":ShowFavouriteCommandParser" as ShowFavouriteCommandParser LOGIC_COLOR
-participant "s:ShowFavouriteCommand" as ShowFavouriteCommand LOGIC_COLOR
+participant ":ListFavouriteCommandParser" as ListFavouriteCommandParser LOGIC_COLOR
+participant "l:ListFavouriteCommand" as ListFavouriteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -25,36 +25,36 @@ activate LogicManager
 LogicManager -> AddressBookParser : parseCommand(args)
 activate AddressBookParser
 
-create ShowFavouriteCommandParser
-AddressBookParser -> ShowFavouriteCommandParser
-activate ShowFavouriteCommandParser
+create ListFavouriteCommandParser
+AddressBookParser -> ListFavouriteCommandParser
+activate ListFavouriteCommandParser
 
-ShowFavouriteCommandParser --> AddressBookParser
-deactivate ShowFavouriteCommandParser
+ListFavouriteCommandParser --> AddressBookParser
+deactivate ListFavouriteCommandParser
 
-AddressBookParser -> ShowFavouriteCommandParser : parse(args)
-activate ShowFavouriteCommandParser
+AddressBookParser -> ListFavouriteCommandParser : parse(args)
+activate ListFavouriteCommandParser
 
-create ShowFavouriteCommand
-ShowFavouriteCommandParser -> ShowFavouriteCommand
-activate ShowFavouriteCommand
+create ListFavouriteCommand
+ListFavouriteCommandParser -> ListFavouriteCommand
+activate ListFavouriteCommand
 
-ShowFavouriteCommand --> ShowFavouriteCommandParser :
-deactivate ShowFavouriteCommand
+ListFavouriteCommand --> ListFavouriteCommandParser :
+deactivate ListFavouriteCommand
 
-ShowFavouriteCommandParser --> AddressBookParser : s
-deactivate ShowFavouriteCommandParser
+ListFavouriteCommandParser --> AddressBookParser : l
+deactivate ListFavouriteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ShowFavouriteCommandParser -[hidden]-> AddressBookParser
-destroy ShowFavouriteCommandParser
+ListFavouriteCommandParser -[hidden]-> AddressBookParser
+destroy ListFavouriteCommandParser
 
-AddressBookParser --> LogicManager : s
+AddressBookParser --> LogicManager : l
 deactivate AddressBookParser
 
-LogicManager -> ShowFavouriteCommand : execute(m)
-activate ShowFavouriteCommand
+LogicManager -> ListFavouriteCommand : execute(m)
+activate ListFavouriteCommand
 
-ShowFavouriteCommand -> Model : updateFilteredPersonList(pred)
+ListFavouriteCommand -> Model : updateFilteredPersonList(pred)
 activate Model
 
 Model -> FilteredList : setPredicate(pred)
@@ -63,16 +63,16 @@ activate FilteredList
 FilteredList --> Model
 deactivate FilteredList
 
-Model --> ShowFavouriteCommand
+Model --> ListFavouriteCommand
 deactivate Model
 
-ShowFavouriteCommand -> CommandResult
+ListFavouriteCommand -> CommandResult
 activate CommandResult
-CommandResult --> ShowFavouriteCommand
+CommandResult --> ListFavouriteCommand
 deactivate CommandResult
 
-ShowFavouriteCommand --> LogicManager : r
-deactivate ShowFavouriteCommand
+ListFavouriteCommand --> LogicManager : r
+deactivate ListFavouriteCommand
 
 [<-- LogicManager : r
 deactivate LogicManager
