@@ -152,7 +152,7 @@ Examples:
 
 ### Listing all contacts : `list`
 
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in the address book, in the order they were added.
 
 Format: `list`
 <box type="tip" seamless>
