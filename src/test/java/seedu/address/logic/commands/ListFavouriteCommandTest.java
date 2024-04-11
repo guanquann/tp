@@ -16,38 +16,38 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ShowFavouriteCommand.
  */
-public class ShowFavouriteCommandTest {
+public class ListFavouriteCommandTest {
 
     @Test
-    public void execute_showFavouriteWithFavourites_success() {
+    public void execute_listFavouriteWithFavourites_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        ShowFavouriteCommand showFavouriteCommand = new ShowFavouriteCommand();
+        ListFavouriteCommand listFavouriteCommand = new ListFavouriteCommand();
 
-        String expectedMessage = ShowFavouriteCommand.MESSAGE_SUCCESS;
+        String expectedMessage = ListFavouriteCommand.MESSAGE_SUCCESS;
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         model.setPerson(ALICE, new PersonBuilder(ALICE).withFavourite(true).build());
 
         expectedModel.updateFilteredPersonList(person -> person.isSamePerson(ALICE)); // only Alice is favourited
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_FAVOURITES);
-        assertCommandSuccess(showFavouriteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(listFavouriteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
-        ShowFavouriteCommand showFavouriteCommand = new ShowFavouriteCommand();
+        ListFavouriteCommand listFavouriteCommand = new ListFavouriteCommand();
 
         // same object -> returns true
-        assert (showFavouriteCommand.equals(showFavouriteCommand));
+        assert (listFavouriteCommand.equals(listFavouriteCommand));
 
         // same values -> returns true
-        ShowFavouriteCommand showFavouriteCommandCopy = new ShowFavouriteCommand();
-        assert (showFavouriteCommand.equals(showFavouriteCommandCopy));
+        ListFavouriteCommand listFavouriteCommandCopy = new ListFavouriteCommand();
+        assert (listFavouriteCommand.equals(listFavouriteCommandCopy));
 
         // different types -> returns false
-        assertFalse(showFavouriteCommand.equals(1));
+        assertFalse(listFavouriteCommand.equals(1));
 
         // null -> returns false
-        assertFalse(showFavouriteCommand.equals(null));
+        assertFalse(listFavouriteCommand.equals(null));
     }
 }
