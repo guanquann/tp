@@ -307,7 +307,7 @@ Format: `addorder INDEX d/DATE r/REMARK`
 </box>
 
 <box type="tip" seamless>
-**Note:** You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to make duplicate orders during festive seasons or special occasions.
+**Note:** You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
 </box>
 
 Examples:
