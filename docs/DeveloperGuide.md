@@ -177,7 +177,7 @@ The `addfav` feature allows users to add suppliers as favourites.
 
 **Aspect: How a contact being set as favourite is represented:**
 
-- **Alternative 1 (current choice):** A boolean field in the `Person` class is used to indicate whether a `Person` is a favourite 
+- **Alternative 1 (current choice):** A boolean field in the `Person` class is used to indicate whether a `Person` is a favourite
     - Pros: Make use of the current `Person` class by adding a simple primitive boolean to store information about favourites.
     - Cons: Not a uniform way of representing information in the `Person` class given that all other fields are their own defined classes.
 
@@ -230,7 +230,7 @@ Below is the sequence diagram for the `listfav` command process:
 
 ### Add order feature
 
-The `addorder` feature allows users to add orders from a supplier. 
+The `addorder` feature allows users to add orders to a contact.
 
 #### Design considerations:
 
@@ -250,7 +250,7 @@ Below is the sequence diagram for the `addorder` command process:
 
 <puml src="diagrams/AddOrderSequenceDiagram.puml" alt="AddOrderSequenceDiagram" />
 
-### ListOrder Feature
+### List order Feature
 
 The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of suppliers efficiently.
 
@@ -278,14 +278,14 @@ Below is the sequence diagram for the `listorder` command process:
 - **Sorting by Status:** Introduce functionality to sort orders by their status (e.g., pending, completed), providing users with more flexibility in viewing order information.
 - **Filtering Options:** Implement filters to allow users to view orders within a specific date range or with particular characteristics, such as orders over a certain value.
 
-### DeleteOrder Feature
+### Delete order Feature
 
 The `deleteorder` feature allows users to delete a specific order from a supplier's list of orders, ensuring accurate and up-to-date record-keeping.
 
 #### Design Considerations
 
 - **Aspect: How order deletion is managed within Person objects**:
-- 
+
 - **Alternative 1 (current choice):** Directly manage orders within the Person class by removing them from the person's orders list.
   - Pros: Utilizes the existing structure of the Person class, allowing for straightforward access and modification of a person's order list.
   - Cons: Adds complexity to the Person class, which now handles both personal information and order management.
@@ -462,16 +462,16 @@ _{More to be added}_
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `GourmetGrid` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list contacts
+2.  System shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  System deletes the contact
 
     Use case ends.
 
@@ -481,13 +481,34 @@ _{More to be added}_
 
   Use case ends.
 
-- 3a. The given index is invalid.
+- 3a. System detects that the contact does not exist.
 
-  - 3a1. AddressBook shows an error message.
+  - 3a1. System shows an error message.
 
-    Use case resumes at step 2.
+    Use case ends.
 
-_{More to be added}_
+---
+
+**Use case: Add an order**
+
+**MSS**
+
+1. User requests to add an order to a contact
+2. System adds the order to the contact
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. System detects an error in the user command.
+  - 1a1. System shows an error message.
+
+    Use case ends.
+
+- 1b. System detects that the contact does not exist.
+  - 1b1. System shows an error message.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
@@ -552,7 +573,27 @@ testers are expected to do more _exploratory_ testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding an order
+
+1. Adding an order to a person
+
+    1. Prerequisites: List all persons using the list command. There is only 1 contact in the address book.
+
+    2. Test case: `addorder 1 d/ 2025-01-01 r/ 100 chicken wings`<br>
+       Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the status bar. The date of the new order is 2025-01-01 and the remark is 100 chicken wings.
+
+    3. Test case: `addorder 0 d/ 2025-01-01 r/ 100 chicken wings`<br>
+       Expected: No new order is added. An error indicating invalid command format is shown in the status bar.
+
+    4. Test case: `addorder 5 d/ 2025-01-01 r/ 100 chicken wings`<br>
+       Expected: No new order is added. An error indicating invalid person index is shown in the status bar.
+
+    5. Test case: `addorder 1 d/ 2025-99-99 r/ 100 chicken wings`<br>
+       Expected: No new order is added. An error indicating invalid date format is shown in the status bar.
+
+2. Viewing orders after adding order to a contact.
+
+    1. To view the orders of the first contact after adding an order, use the `listorder 1` command.
 
 ### Saving data
 
@@ -568,22 +609,24 @@ testers are expected to do more _exploratory_ testing.
 
 Team size: 4
 
-1. **UI improvements:** The current UI shows the orders of a contact in`StatusBarFooter` when `listorder` 
+1. **UI improvements:** The current UI shows the orders of a contact in`StatusBarFooter` when `listorder`
 command is called. We plan to add an `OrderListPanel` beside the existing `PersonListPanel` to show the orders
-of a contact instead. This will allow users to view the orders of a contact in a more user-friendly manner, 
+of a contact instead. This will allow users to view the orders of a contact in a more user-friendly manner,
 without having the need to call `listorder` repeatedly for the same contact whenever a new command updates `StatusBarFooter`.
-Furthermore, when a very long field is added, the UI text may be truncated. We plan to add a tooltip to show 
+Furthermore, when a very long field is added, the UI text may be truncated. We plan to add a tooltip to show
 the full text when the mouse hovers over the truncated text.
 
-2. **Make `addorder` message more specific:** The current `addorder` command does not show a preview of the 
-order added, making it inconvenient for users as they have to scroll all the way to end of `StatusBarFooter` 
-to view their newly added order. We plan to show a preview of the order added. For example: 
+2. **Make `addorder` message more specific:** The current `addorder` command does not show a preview of the
+order added, making it inconvenient for users as they have to scroll all the way to end of `StatusBarFooter`
+to view their newly added order. We plan to show a preview of the order added. For example:
 `Added Order: [100 oranges (by: 2024-04-15)] from Alex Yeoh`.
 
-3. **Raise error when an outdated order date is added:** The current date validation does not check if the 
-order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date 
+3. **Raise error when an outdated order date is added:** The current date validation does not check if the
+order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date
 is added. For example: `Order date cannot be in the past`.
 
 4. **Support more flexible phone number formats:** The current phone number validation only accepts numerical inputs.
 We plan to support more flexible formats, including country codes and special characters. For example: 
 `+65 1234 5678`, `+129-123-334-5678`.
+
+5. **Improve Search Functionality**: The current implementation of the find command allows users to search for contacts based on their names, tags, or company names. However, it does not support searching by address, email, or phone number. We acknowledge that the ability to search by these fields can significantly enhance user experience by providing more flexibility and efficiency in locating contact information. The initial decision to exclude address, email, and phone number from the search criteria was based on a focus on the most commonly used identifiers for quick search and to maintain simplicity in the search interface. We also considered the privacy implications and the less frequent necessity of searching by personal information such as phone numbers or addresses. However, in order to enhance the utility of our contact management system, we are planning to introduce expanded search capabilities. This will include the ability to search for contacts by their phone numbers, email addresses, and physical addresses. This enhancement aims to provide a comprehensive search functionality that meets the needs of all users, making the tool more versatile and efficient for locating specific entries.

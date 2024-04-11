@@ -7,7 +7,6 @@ pageNav: 3
 # GourmetGrid User Guide
 
 <!-- * Table of Contents -->
-GourmetGrid User Guide
 - Introduction
 - About
 - Quick Start
@@ -74,7 +73,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 1. Copy the file to the folder you want to use as the _home folder_ for GourmetGrid.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gourmetgrid.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -82,7 +81,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
     * `list` : Lists all contacts.
 
-    * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` : 
+    * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` :
    Adds a contact named `James Lim` with the corresponding details to the contact list.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
@@ -194,7 +193,7 @@ Examples:
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
-- 
+
 ### Showing favourite contacts : `listfav`
 
 Lists the contacts that are marked as favourites
@@ -216,7 +215,13 @@ Examples:
 - Removes the contacts specified by index as favourites
 
 Format: `removefav i/INDICES`
+
 - Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ... 
+
+<box type="tip" seamless>
+
+**Note:** Indices corresponding to non-favourite contacts are deemed as invalid indices for `removefav`
+</box>
 
 Examples:
 - `removefav i/ 1` Removes the contact at index `1` from favourites
@@ -233,43 +238,49 @@ Examples:
 Search feature supports substring search by name and/or tags and/or company **ONLY**. Finds all contacts whose names, tags or company matches the substring keyword provided.
 
 Format: `find FIELD/KEYWORD [FIELD/KEYWORD]...`
+
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
-- `KEYWORD` is the keyword to search for, here are some guidelines:
+- Each `FIELD` is optional BUT at least one `FIELD` and `KEYWORD` pair must be provided.
+- `KEYWORD` is the keyword to search for, here are some rules:
   - Name and Company should contain alphanumeric characters, spaces, hyphens and/or apostrophes only.
   - Tags should contain alphanumeric characters only.
-- The search is case-insensitive.
-- Teh search will find contacts containing the provided keyword as a substring within the specified field(s)
-- Multiple Search Fields are treated as a **Logical AND (&&)**. Therefore, a contact must match all specified keywords across any mentioned fields to appear in the search results.
+
 
 #### Search Guidelines
 
 * 'KEYWORD' cannot be empty.
     * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
 
+
 * 'KEYWORD' and next 'FIELD' should be separated by a space.
-    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends
-    * but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends'
-    * and there should not be non-alphabetic characters in the 'KEYWORD' field.
+    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends, but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends' and there should not be non-alphabetic characters in the 'KEYWORD' field.
+
 
 * Multiple Search 'FIELD's will be treated as a **Logical AND (&&)**.
     * e.g. `find n/John n/Doe` will return all instances of John and Doe.
     * e.g. `find n/John t/friends c/ Meat` will return all instances of John that are tagged as friends and have Meat in their company name. This means if there exists a contact with the name John that is tagged as friends but has a company Mat, it will not be returned.
     * e.g. `find n/Ale n/le` can return contacts such as ["Alex Lew", "Alexis Lebrun", "Alec"]
 
+
 * 'KEYWORD' should **NOT** be empty and there should be at least one 'FIELD' and 'KEYWORD' pair.
     * e.g. `find n/ t/` and `find ` will **NOT** work.
+
 
 * There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair.
     * e.g. `find testing123 n/John` will **NOT** work.
 
+
 * The search is case-insensitive.
     * e.g. `find n/hans` will match `Hans Niemann` and `Hans Zimmer`
+
 
 * The order of the keywords does not matter.
     * e.g. Results of `find n/Hans n/Bo` will match the results of`find n/Bo n/Hans`
 
+
 * You can have multiple of the same 'FIELD's.
     * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe` or `Dohnut Jibs`
+
 
 Examples:
 * `find n/Joh` returns `john`, `John Doe` and `Johnann Sebastian Bach`
@@ -301,6 +312,11 @@ Format: `addorder INDEX d/DATE r/REMARK`
 **Note:** A contact can have any number of orders (including 0)
 </box>
 
+<box type="tip" seamless>
+
+**Note**: You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
+</box>
+
 Examples:
 * `addorder 1 d/2020-01-01 r/100 chicken wings`
 * `addorder 1 r/20 * 150g lettuce d/2020-12-31`
@@ -308,7 +324,7 @@ Examples:
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a contact, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
+Shows a list of all orders for a contact, sorted **FIRST** by date from the earliest to the latest and then by the order they were added if the dates are the same.
 
 Format: `listorder INDEX`
 
@@ -433,5 +449,4 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 | **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
 | **List**             | `list`                                                                                                                                                                                          |
 | **Help**             | `help`                                                                                                                                                                                          | 
-| **Exit**             | `exit`                                                                                                                                                                                          | 
-
+| **Exit**             | `exit`                                                                                                                                                                                          |

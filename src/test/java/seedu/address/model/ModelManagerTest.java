@@ -105,14 +105,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasOrder_validPersonAndOrder_returnsTrue() {
-        Person personWithOrder = new PersonBuilder().build();
-        modelManager.addPerson(personWithOrder);
-        modelManager.addOrder(personWithOrder, ORDER);
-        assertTrue(modelManager.hasOrder(personWithOrder, ORDER));
-    }
-
-    @Test
     public void deleteOrder_removeExistingOrder_orderRemoved() {
         Person personWithOrder = new PersonBuilder().withOrders(getTypicalOrders()).build();
         AddressBook addressBookWithOrder = new AddressBookBuilder().withPerson(personWithOrder).build();
