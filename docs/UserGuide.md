@@ -7,7 +7,6 @@ pageNav: 3
 # GourmetGrid User Guide
 
 <!-- * Table of Contents -->
-GourmetGrid User Guide
 - Introduction
 - About
 - Quick Start
