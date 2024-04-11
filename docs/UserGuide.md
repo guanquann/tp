@@ -301,11 +301,13 @@ Format: `addorder INDEX d/DATE r/REMARK`
 * The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
 <box type="tip" seamless>
+
 **Note:** A person can have any number of orders (including 0)
 </box>
 
 <box type="tip" seamless>
-**Note:** You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
+
+**Note**: You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
 </box>
 
 Examples:
