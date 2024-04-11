@@ -235,45 +235,49 @@ Examples:
 - Search feature supports substring search by name and/or tags and/or company **ONLY**.
 - Finds all contacts whose names, tags or company matches the substring keyword provided.
 
-
-General Format: `find FIELD/ KEYWORD FIELD/ KEYWORD ...`
+General Format: `find [FIELD/KEYWORD] [FIELD/KEYWORD] ...`
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
-- `KEYWORD` is the keyword to search for, here are some guidelines:
+- Each `FIELD` is optional BUT at least one `FIELD` and `KEYWORD` pair must be provided.
+- `KEYWORD` is the keyword to search for, here are some rules:
   - Name and Company should contain alphanumeric characters, spaces, hyphens and/or apostrophes only.
   - Tags should contain alphanumeric characters only.
-- The search is case-insensitive.
-- Teh search will find contacts containing the provided keyword as a substring within the specified field(s)
-- Multiple Search Fields are treated as a **Logical AND (&&)**. Therefore, a contact must match all specified keywords across any mentioned fields to appear in the search results.
+
 
 #### Search Guidelines
 
 * 'KEYWORD' cannot be empty.
     * e.g. `find n/` will **NOT** work as 'KEYWORD' cannot be empty.
 
+
 * 'KEYWORD' and next 'FIELD' should be separated by a space.
-    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends
-    * but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends'
-    * and there should not be non-alphabetic characters in the 'KEYWORD' field.
+    * e.g. `find n/John t/friends` will find all instances of John that have the tag friends, but `find n/Johnt/tfriends` will instead return an error since it assumes you are searching for 'Johnt/tfriends' and there should not be non-alphabetic characters in the 'KEYWORD' field.
+
 
 * Multiple Search 'FIELD's will be treated as a **Logical AND (&&)**.
     * e.g. `find n/John n/Doe` will return all instances of John and Doe.
     * e.g. `find n/John t/friends c/ Meat` will return all instances of John that are tagged as friends and have Meat in their company name. This means if there exists a contact with the name John that is tagged as friends but has a company Mat, it will not be returned.
     * e.g. `find n/Ale n/le` can return contacts such as ["Alex Lew", "Alexis Lebrun", "Alec"]
 
+
 * 'KEYWORD' should **NOT** be empty and there should be at least one 'FIELD' and 'KEYWORD' pair.
     * e.g. `find n/ t/` and `find ` will **NOT** work.
+
 
 * There should not be prefixes before the first 'FIELD' and 'KEYWORD' pair.
     * e.g. `find testing123 n/John` will **NOT** work.
 
+
 * The search is case-insensitive.
     * e.g. `find n/hans` will match `Hans Niemann` and `Hans Zimmer`
+
 
 * The order of the keywords does not matter.
     * e.g. Results of `find n/Hans n/Bo` will match the results of`find n/Bo n/Hans`
 
+
 * You can have multiple of the same 'FIELD's.
     * e.g. `find n/J n/Do` will match names with `J` AND `Do`, like `John Doe` or `Dohnut Jibs`
+
 
 Examples:
 * `find n/Joh` returns `john`, `John Doe` and `Johnann Sebastian Bach`
@@ -317,11 +321,11 @@ Examples:
 
 ### Listing orders : `listorder`
 
-Shows a list of all orders for a supplier, sorted **first by date from the earliest to the latest and then by the order they were added if the dates are the same.
+Shows a list of all orders for a contact, sorted **FIRST** by date from the earliest to the latest and then by the order they were added if the dates are the same.
 
 Format: `listorder INDEX`
 
-* Shows a list of all orders for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* Shows a list of all orders for the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 
 ### Deleting an order : `deleteorder`
 
@@ -329,20 +333,20 @@ Deletes an order from a particular person.
 
 Format: `deleteorder INDEX o/ORDER_INDEX`
 
-* Deletes a particular order for the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* Deletes a particular order for the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 * The ORDER_INDEX refers to the index number shown in the displayed order list. The order index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 
 **Important Note on Order Index**:
-The ORDER_INDEX is determined based on the chronological order of the orders' dates from earliest to the latest (if 2 orders have the same date, they will then be sorted in the order they were added), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a supplier to determine the correct order index to delete.
+The ORDER_INDEX is determined based on the chronological order of the orders' dates from earliest to the latest (if 2 orders have the same date, they will then be sorted in the order they were added), not the sequence in which the orders were added. This means the orders are sorted by their dates, with the earliest orders appearing first. Hence, it is suggested you first list the orders for a contact to determine the correct order index to delete.
 
 Examples:
-* Assuming the 1st supplier has 3 orders that were added in the following order:
+* Assuming the 1st contact has 3 orders that were added in the following order:
   * `addorder 1 d/2020-01-01 r/100 chicken wings`
   * `addorder 1 d/2020-01-02 r/200 chicken wings`
   * `addorder 1 d/2019-12-31 r/300 chicken wings`
-* `deleteorder 1 o/1` deletes the 1st order for the 1st supplier in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a supplier
+* `deleteorder 1 o/1` deletes the 1st order for the 1st contact in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a contact
 * `deleteorder 55 o/1` will return an error message if there is no 55th person in the address book and the index is invalid
-* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st supplier in the address book and the order index is invalid
+* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st contact in the address book and the order index is invalid
 
 ### Deleting a person : `delete`
 
