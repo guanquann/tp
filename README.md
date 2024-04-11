@@ -72,7 +72,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
   * `list` : Lists all contacts.
 
-  * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to GourmetGrid.
+  * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` : Adds a contact named `James Lim` to GourmetGrid.
 
   * `delete 3` : Deletes the 3rd contact shown in the current list.
 
