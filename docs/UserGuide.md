@@ -237,7 +237,7 @@ Examples:
 - Search feature supports substring search by name and/or tags and/or company **ONLY**.
 - Finds all contacts whose names, tags or company matches the substring keyword provided.
 
-General Format: `find [FIELD/ KEYWORD] [FIELD/ KEYWORD] ...`
+General Format: `find [FIELD/KEYWORD] [FIELD/KEYWORD] ...`
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
 - Each `FIELD` is optional BUT at least one `FIELD` and `KEYWORD` pair must be provided.
 - `KEYWORD` is the keyword to search for, here are some rules:
