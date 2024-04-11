@@ -73,7 +73,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 1. Copy the file to the folder you want to use as the _home folder_ for GourmetGrid.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gourmetgrid.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -301,11 +301,13 @@ Format: `addorder INDEX d/DATE r/REMARK`
 * The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
 <box type="tip" seamless>
+
 **Note:** A person can have any number of orders (including 0)
 </box>
 
 <box type="tip" seamless>
-**Note:** You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
+
+**Note**: You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
 </box>
 
 Examples:
