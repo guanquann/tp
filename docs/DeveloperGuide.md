@@ -206,9 +206,9 @@ Below is the sequence diagram for the `removefav` command process:
 
 <puml src="diagrams/RemoveFavouriteSequenceDiagram.puml" alt="RemoveFavouriteSequenceDiagram" />
 
-### Show favourite feature
+### List favourite feature
 
-The `showfav` feature allows users to filter the contacts such that only the favourites are shown.
+The `listfav` feature allows users to filter the contacts such that only the favourites are shown.
 
 #### Design considerations:
 
@@ -216,7 +216,7 @@ The `showfav` feature allows users to filter the contacts such that only the fav
 
 - **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
     - Pros: Simple and easy to implement given the existing `find` feature. 
-    - Cons: May result in some similar functionality between `find` and `showfav` features.
+    - Cons: May result in some similar functionality between `find` and `listfav` features.
 
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
     - Pros: Allows users to see all contacts, with favourites at the top for easy access.
@@ -224,9 +224,9 @@ The `showfav` feature allows users to filter the contacts such that only the fav
 
 #### Sequence Diagram
 
-Below is the sequence diagram for the `showfav` command process:
+Below is the sequence diagram for the `listfav` command process:
 
-<puml src="diagrams/ShowFavouriteSequenceDiagram.puml" alt="ShowFavouriteSequenceDiagram" />
+<puml src="diagrams/ListFavouriteSequenceDiagram.puml" alt="ListFavouriteSequenceDiagram" />
 
 ### Add order feature
 
