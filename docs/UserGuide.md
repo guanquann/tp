@@ -211,9 +211,6 @@ Lists the contacts that are marked as favourites
 Format: `listfav`
 <box type="tip" seamless>
 
-
-<box type="tip" seamless>
-
 **Note:** `showfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `showfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
 **Reminder:** `listfav` command is not compatible with further arguments.
 </box>
