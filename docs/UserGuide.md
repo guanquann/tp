@@ -15,7 +15,7 @@ pageNav: 3
     - Listing all contacts : list
     - Editing a contact : edit
     - Adding contacts as favourites : addfav
-    - Showing favourite contacts : listfav
+    - Listing favourite contacts : listfav
     - Removing contacts from favourites : removefav
     - Searching contact : find
     - Adding an order : addorder
