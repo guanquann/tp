@@ -14,7 +14,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ShowFavouriteCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListFavouriteCommand.
  */
 public class ListFavouriteCommandTest {
 

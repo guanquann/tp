@@ -211,7 +211,7 @@ Lists the contacts that are marked as favourites
 Format: `listfav`
 <box type="tip" seamless>
 
-**Note:** `showfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `showfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
+**Note:** `listfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `listfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
 **Reminder:** `listfav` command is not compatible with further arguments.
 </box>
 
@@ -379,13 +379,19 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears **all** entries from the address book.
 
 Format: `clear`
 
 <box type="tip" seamless>
 
 **Reminder:** `clear` command is not compatible with further arguments.
+</box>
+
+<box type="warning" seamless>
+
+**Caution:**
+`clear` command is irreversible as all entries will be lost. Be sure before using this command. 
 </box>
 
 ### Exiting the program : `exit`
@@ -432,7 +438,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GourmetGrid home folder.
+**A**: Install the app in the other computer and overwrite the empty data file `[JAR file location]/data/addressbook.json` it creates with the file that contains the data of your previous GourmetGrid home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
