@@ -595,6 +595,41 @@ testers are expected to do more _exploratory_ testing.
 
     1. To view the orders of the first contact after adding an order, use the `listorder 1` command.
 
+
+### Listing orders
+
+1. Listing orders for a specific person
+
+   1. Prerequisites: There must be at least one person in the address book who has orders. Use `addorder` command to add orders if necessary.
+
+   1. Test case: `listorder 1`<br>
+      Expected: All orders associated with the first contact in the list are displayed. Details of the orders are shown in the status message.
+
+   1. Test case: `listorder 0`<br>
+      Expected: No orders are listed. An error message indicating invalid command format is shown in the status message.
+ 
+   1. Test case: `listorder x` (where x is larger than the list size)<br>
+      Expected: No orders are listed. An error message indicating invalid person index is shown in the status message.
+
+### Deleting an order
+
+1. Deleting an order from a person's list of orders
+
+   1. Prerequisites: List all persons using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
+   
+   1. Test case: `deleteorder 1 o/1`<br>
+      Expected: The first order from the first person’s order list is deleted. The details of the action are shown in the status message.
+   
+   1. Test case: `deleteorder 1 o/x` (where x is larger than the number of orders the person has)<br>
+      Expected: No order is deleted. An error message indicating an invalid order index is shown in the status message.
+   
+   1. Test case: `deleteorder 0 o/1`<br>
+      Expected: No order is deleted. An error message indicating invalid command format due to an incorrect person index is shown.
+   
+   1. Test case: `deleteorder x o/1` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
