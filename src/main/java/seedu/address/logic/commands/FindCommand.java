@@ -18,9 +18,13 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all persons whose names, tags or company names contain all of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: n/KEYWORD [MORE_KEYWORDS]... t/KEYWORD [MORE_KEYWORDS]... c/KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " n/alice t/friends c/Meat \n"
-            + "Note: Multiple keywords (name, tag or company) are treated with a logical AND.";
+            + "Parameters: [n/NAME_KEYWORDS] [t/TAG_KEYWORDS] [c/COMPANY_KEYWORDS]\n"
+            + "Each field is optional, "
+            + "but at least one must be provided. All Keywords are combined using logical AND (&&).\n"
+            + "Example: " + COMMAND_WORD + " n/alice t/friends c/Meat - "
+            + "Finds all persons named 'alice' AND tagged as 'friends' AND who's company name is "
+            + "associated with 'Meat'.\n";
+
 
     private final SearchPredicate predicate;
 

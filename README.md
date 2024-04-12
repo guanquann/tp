@@ -1,9 +1,9 @@
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
-[![codecov](https://codecov.io/gh/AY2324S2-CS2103T-T17-4/tp/graph/badge.svg?token=LPV8FKMOGM)](https://codecov.io/gh/AY2324S2-CS2103T-T16-3/tp)
+[![CI Status](https://github.com/AY2324S2-CS2103T-T16-3/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2324S2-CS2103T-T16-3/tp/actions)
+[![codecov](https://codecov.io/gh/AY2324S2-CS2103T-T16-3/tp/graph/badge.svg?token=VEEBDKIOHF)](https://codecov.io/gh/AY2324S2-CS2103T-T16-3/tp)
 
 ![Ui](docs/images/Ui.png)
 
-# Gourmet Grid
+# GourmetGrid
 <!-- * Table of Contents -->
 - Introduction
 - About
@@ -63,7 +63,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 1. Download the latest `gourmetgrid.jar` from [here](https://github.com/AY2324S2-CS2103T-T16-3/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for GourmetGrid.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gourmetgrid.jar` command to run the application.<br>
 
@@ -72,7 +72,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
   * `list` : Lists all contacts.
 
-  * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+  * `add n/James Lim p/98765432 e/jameslim@example.com a/West Street #01-01 c/The Big Butcher` : Adds a contact named `James Lim` to GourmetGrid.
 
   * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -80,4 +80,4 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
   * `exit` : Exits the app.
 
-Refer to the [User Guide](#features) for details of each command. If unsure, you can also key in the command without additional arguments to check the expected command format, which will be shown in the response prompt.
+Refer to the [User Guide](https://ay2324s2-cs2103t-t16-3.github.io/tp/UserGuide.html) for details of each command. If unsure, you can also key in the command without additional arguments to check the expected command format, which will be shown in the response prompt.

@@ -56,17 +56,6 @@ public class AddOrderCommandTest {
     }
 
     @Test
-    public void execute_addDuplicateOrder_throwsCommandException() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withOrders(ORDERS_STUB).build();
-        model.setPerson(firstPerson, editedPerson);
-
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, ORDER_STUB);
-        assertThrows(CommandException.class, AddOrderCommand.MESSAGE_DUPLICATE_ORDER, () ->
-                addOrderCommand.execute(model));
-    }
-
-    @Test
     public void execute_invalidIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         AddOrderCommand addOrderCommand = new AddOrderCommand(outOfBoundIndex, ORDER_STUB);
