@@ -14,7 +14,7 @@
   - Listing all persons : list
   - Editing a person : edit
   - Adding contacts as favourites : addfav
-  - Showing favourite contacts : showfav
+  - Listing favourite contacts : listfav
   - Removing contacts from favourites : removefav
   - Searching contact : find
   - Adding an order : addorder

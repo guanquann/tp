@@ -15,7 +15,7 @@ pageNav: 3
     - Listing all contacts : list
     - Editing a contact : edit
     - Adding contacts as favourites : addfav
-    - Showing favourite contacts : listfav
+    - Listing favourite contacts : listfav
     - Removing contacts from favourites : removefav
     - Searching contact : find
     - Adding an order : addorder
@@ -194,7 +194,7 @@ Examples:
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
-### Showing favourite contacts : `listfav`
+### Listing favourite contacts : `listfav`
 
 Lists the contacts that are marked as favourites
 
@@ -445,7 +445,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 | **List Orders**      | `listorder INDEX`                                                                                                                                                                               |
 | **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                                 |
 | **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                     |
-| **Show Favourites**  | `listfav`                                                                                                                                                                                       |
+| **List Favourites**  | `listfav`                                                                                                                                                                                       |
 | **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
 | **List**             | `list`                                                                                                                                                                                          |
 | **Help**             | `help`                                                                                                                                                                                          | 
