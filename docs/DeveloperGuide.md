@@ -215,7 +215,7 @@ The `listfav` feature allows users to filter the contacts such that only the fav
 **Aspect: How the end result of filtering manifests:**
 
 - **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
-    - Pros: Simple and easy to implement given the existing `find` feature. 
+    - Pros: Simple and easy to implement given the existing `find` feature.
     - Cons: May result in some similar functionality between `find` and `listfav` features.
 
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
@@ -621,7 +621,7 @@ order date is outdated when `addorder` command is called. We plan to raise an er
 is added. For example: `Order date cannot be in the past`.
 
 4. **Support more flexible phone number formats:** The current phone number validation only accepts numerical inputs.
-We plan to support more flexible formats, including country codes and special characters. For example: 
+We plan to support more flexible formats, including country codes and special characters. For example:
 `+65 1234 5678`, `+129-123-334-5678`.
 
 5. **Improve Search Functionality:** The current implementation of the find command allows users to search for

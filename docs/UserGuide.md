@@ -226,7 +226,7 @@ Examples:
 
 Format: `removefav i/INDICES`
 
-- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ... 
+- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
 
 <box type="tip" seamless>
 
@@ -391,7 +391,7 @@ Format: `clear`
 <box type="warning" seamless>
 
 **Caution:**
-`clear` command is irreversible as all entries will be lost. Be sure before using this command. 
+`clear` command is irreversible as all entries will be lost. Be sure before using this command.
 </box>
 
 ### Exiting the program : `exit`
@@ -466,5 +466,5 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 | **List Favourites**  | `listfav`                                                                                                                                                                                       |
 | **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
 | **List**             | `list`                                                                                                                                                                                          |
-| **Help**             | `help`                                                                                                                                                                                          | 
+| **Help**             | `help`                                                                                                                                                                                          |
 | **Exit**             | `exit`                                                                                                                                                                                          |
