@@ -15,7 +15,7 @@ pageNav: 3
     - Listing all contacts : list
     - Editing a contact : edit
     - Adding contacts as favourites : addfav
-    - Showing favourite contacts : listfav
+    - Listing favourite contacts : listfav
     - Removing contacts from favourites : removefav
     - Searching contact : find
     - Adding an order : addorder
@@ -119,6 +119,10 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 
+* Parameters like `NAME` that follow flags like `n/` can be separated by any number of spaces. <br>
+  e.g. `n/NAME`, `n/ NAME`, `n/  NAME` are valid and may be passed as arguments into commands.
+
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) are not allowed.<br>
   e.g. if the command specifies `list 1`, you will be shown an error, to avoid ambiguity.
 
@@ -181,27 +185,33 @@ Examples:
 Adds the contacts specified by index as favourites
 
 Format: `addfav i/INDICES`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
-  <box type="tip" seamless>
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
 
-Examples:
+<box type="tip" seamless>
+
+**Note:** `addfav` issues a warning when the index of a contact that is already marked as favourite is passed as an argument into the command.
+</box>
+
+Positive Examples:
 - `addfav i/ 1` Sets the contact at index `1` as favourite
 - `addfav i/ 1, 1, 1` Sets the contact at index `1` as favourite once
 - `addfav i/ 1, 2, 5` Sets the contacts at the indices `1, 2, 5` as favourites
+
+Negative Examples:
 - `addfav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
 - `addfav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
-### Showing favourite contacts : `listfav`
+### Listing favourite contacts : `listfav`
 
 Lists the contacts that are marked as favourites
 
 Format: `listfav`
-
 <box type="tip" seamless>
 
+**Note:** `showfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `showfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
 **Reminder:** `listfav` command is not compatible with further arguments.
 </box>
 
@@ -220,13 +230,15 @@ Format: `removefav i/INDICES`
 
 <box type="tip" seamless>
 
-**Note:** Indices corresponding to non-favourite contacts are deemed as invalid indices for `removefav`
+**Note:** `removefav` issues a warning when the index of a non-favourite contact is passed as an argument into the command.
 </box>
 
-Examples:
+Positive Examples:
 - `removefav i/ 1` Removes the contact at index `1` from favourites
 - `removefav i/ 1, 1, 1` Removes the contact at index `1` as favourite once
 - `removefav i/ 1, 2, 5` Removes the contacts at the indices `1, 2, 5` as favourites
+
+Negative Examples:
 - `removefav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
 - `removefav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
 - `removefav i/` returns an error message as the 'INDICES' field cannot be empty
@@ -445,7 +457,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 | **List Orders**      | `listorder INDEX`                                                                                                                                                                               |
 | **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                                 |
 | **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                     |
-| **Show Favourites**  | `listfav`                                                                                                                                                                                       |
+| **List Favourites**  | `listfav`                                                                                                                                                                                       |
 | **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
 | **List**             | `list`                                                                                                                                                                                          |
 | **Help**             | `help`                                                                                                                                                                                          | 
