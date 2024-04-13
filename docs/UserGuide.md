@@ -136,15 +136,12 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
-**Note:** Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank
-**Note:** A contact can have any number of tags (including 0)
-</box>
-
-<box type="tip" seamless>
-
-**Note:** Two contacts cannot share the same name, but can share other details including phone number and email.
+**Notes:**
+* Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank.
+* A contact can have any number of tags (including 0).
+* Two contacts cannot share the same name, but can share other details including phone number and email.
 Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
 If two contacts really share a name, find a way to uniquely identify them somehow!
 </box>
@@ -187,7 +184,7 @@ Adds the contacts specified by index as favourites
 Format: `addfav i/INDICES`
 - Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
 **Note:** `addfav` issues a warning when the index of a contact that is already marked as favourite is passed as an argument into the command.
 </box>
@@ -209,9 +206,14 @@ Negative Examples:
 Lists the contacts that are marked as favourites
 
 Format: `listfav`
-<box type="tip" seamless>
+
+<box type="info" seamless>
 
 **Note:** `listfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `listfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
+</box>
+
+<box type="tip" seamless>
+
 **Reminder:** `listfav` command is not compatible with further arguments.
 </box>
 
@@ -228,7 +230,7 @@ Format: `removefav i/INDICES`
 
 - Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
 **Note:** `removefav` issues a warning when the index of a non-favourite contact is passed as an argument into the command.
 </box>
@@ -319,14 +321,11 @@ Format: `addorder INDEX d/DATE r/REMARK`
 * Adds an order to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 * The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
-**Note:** A contact can have any number of orders (including 0)
-</box>
-
-<box type="tip" seamless>
-
-**Note**: You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
+**Notes:**
+- A contact can have any number of orders (including 0).
+- You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
 </box>
 
 Examples:
