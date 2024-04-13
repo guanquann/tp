@@ -13,7 +13,9 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+GourmetGrid is adapted from [AddressBook-Level3](https://github.com/se-edu/addressbook-level3).
+
+Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5).
 
 ---
 
@@ -244,6 +246,12 @@ The `addorder` feature allows users to add orders to a contact.
   - Pros: `Person` class remains simple.
   - Cons: Need to create a new `OrderStorage` storage class to store orders. This may result in duplicated code since the implementation of `AddressBookStorage` is similar.
 
+#### Implementation
+
+1. **Command Parsing:** The `AddOrderCommandParser` interprets the user input, extracts the index of the specified contact and the date and remark of the order. Then, it creates an instance of `Order` and `AddOrderCommand`.
+2. **Data Retrieval and Modification:** Upon execution, `AddOrderCommand` fetches the selected contact from the model and adds the order to the contact.
+3. **Output Generation:** A summarising message of the contact with his orders is then displayed to the user.
+
 #### Sequence Diagram
 
 Below is the sequence diagram for the `addorder` command process:
@@ -252,7 +260,7 @@ Below is the sequence diagram for the `addorder` command process:
 
 ### List order feature
 
-The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of suppliers efficiently.
+The `listorder` feature allows users to list all orders associated with a contact in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of contacts efficiently.
 
 #### Design Considerations
 

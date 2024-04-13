@@ -10,9 +10,9 @@
 - Quick Start
 - Features
   - Viewing help : help
-  - Adding a person : add
-  - Listing all persons : list
-  - Editing a person : edit
+  - Adding a contact : add
+  - Listing all contacts : list
+  - Editing a contact : edit
   - Adding contacts as favourites : addfav
   - Listing favourite contacts : listfav
   - Removing contacts from favourites : removefav
@@ -20,7 +20,7 @@
   - Adding an order : addorder
   - Listing orders : listorder
   - Deleting an order: deleteorder
-  - Deleting a person : delete
+  - Deleting a contact : delete
   - Clearing all entries : clear
   - Exiting a program : exit
 

@@ -183,7 +183,7 @@ Examples:
 Adds the contacts specified by index as favourites
 
 Format: `addfav i/INDICES`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
 
 <box type="info" seamless>
 
