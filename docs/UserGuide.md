@@ -424,7 +424,7 @@ GourmetGrid data are saved in the hard disk automatically after any command that
 
 ### Editing the data file
 
-GourmetGrid data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+GourmetGrid data are saved automatically as a JSON file `[JAR file location]/data/gourmetgrid.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -438,7 +438,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file `[JAR file location]/data/addressbook.json` it creates with the file that contains the data of your previous GourmetGrid home folder.
+**A**: Install the app in the other computer and overwrite the empty data file `[JAR file location]/data/gourmetgrid.json` it creates with the file that contains the data of your previous GourmetGrid home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
