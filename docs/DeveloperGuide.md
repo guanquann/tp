@@ -206,17 +206,17 @@ Below is the sequence diagram for the `removefav` command process:
 
 <puml src="diagrams/RemoveFavouriteSequenceDiagram.puml" alt="RemoveFavouriteSequenceDiagram" />
 
-### Show favourite feature
+### List favourite feature
 
-The `showfav` feature allows users to filter the contacts such that only the favourites are shown.
+The `listfav` feature allows users to filter the contacts such that only the favourites are shown.
 
 #### Design considerations:
 
 **Aspect: How the end result of filtering manifests:**
 
 - **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
-    - Pros: Simple and easy to implement given the existing `find` feature.
-    - Cons: May result in some similar functionality between `find` and `showfav` features.
+    - Pros: Simple and easy to implement given the existing `find` feature. 
+    - Cons: May result in some similar functionality between `find` and `listfav` features.
 
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
     - Pros: Allows users to see all contacts, with favourites at the top for easy access.
@@ -224,9 +224,9 @@ The `showfav` feature allows users to filter the contacts such that only the fav
 
 #### Sequence Diagram
 
-Below is the sequence diagram for the `showfav` command process:
+Below is the sequence diagram for the `listfav` command process:
 
-<puml src="diagrams/ShowFavouriteSequenceDiagram.puml" alt="ShowFavouriteSequenceDiagram" />
+<puml src="diagrams/ListFavouriteSequenceDiagram.puml" alt="ListFavouriteSequenceDiagram" />
 
 ### Add order feature
 
@@ -660,5 +660,8 @@ to view their newly added order. We plan to show a preview of the order added. F
 order date is outdated when `addorder` command is called. We plan to raise an error when an outdated order date
 is added. For example: `Order date cannot be in the past`.
 
-4. **Improve Search Functionality:** The current implementation of the find command allows users to search for contacts based on their names, tags, or company names. However, it does not support searching by address, email, or phone number. We acknowledge that the ability to search by these fields can significantly enhance user experience by providing more flexibility and efficiency in locating contact information. The initial decision to exclude address, email, and phone number from the search criteria was based on a focus on the most commonly used identifiers for quick search and to maintain simplicity in the search interface. We also considered the privacy implications and the less frequent necessity of searching by personal information such as phone numbers or addresses. However, in order to enhance the utility of our contact management system, we are planning to introduce expanded search capabilities. This will include the ability to search for contacts by their phone numbers, email addresses, and physical addresses. This enhancement aims to provide a comprehensive search functionality that meets the needs of all users, making the tool more versatile and efficient for locating specific entries.
+4. **Support more flexible phone number formats:** The current phone number validation only accepts numerical inputs.
+We plan to support more flexible formats, including country codes and special characters. For example: 
+`+65 1234 5678`, `+129-123-334-5678`.
 
+5. **Improve Search Functionality**: The current implementation of the find command allows users to search for contacts based on their names, tags, or company names. However, it does not support searching by address, email, or phone number. We acknowledge that the ability to search by these fields can significantly enhance user experience by providing more flexibility and efficiency in locating contact information. The initial decision to exclude address, email, and phone number from the search criteria was based on a focus on the most commonly used identifiers for quick search and to maintain simplicity in the search interface. We also considered the privacy implications and the less frequent necessity of searching by personal information such as phone numbers or addresses. However, in order to enhance the utility of our contact management system, we are planning to introduce expanded search capabilities. This will include the ability to search for contacts by their phone numbers, email addresses, and physical addresses. This enhancement aims to provide a comprehensive search functionality that meets the needs of all users, making the tool more versatile and efficient for locating specific entries.

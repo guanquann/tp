@@ -28,9 +28,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListFavouriteCommand;
 import seedu.address.logic.commands.ListOrderCommand;
 import seedu.address.logic.commands.RemoveFavouriteCommand;
-import seedu.address.logic.commands.ShowFavouriteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Date;
 import seedu.address.model.order.Order;
@@ -148,11 +148,11 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_showFavourite() throws Exception {
-        assertTrue(parser.parseCommand(ShowFavouriteCommand.COMMAND_WORD) instanceof ShowFavouriteCommand);
-        assertTrue(parser.parseCommand(ShowFavouriteCommand.COMMAND_WORD + " ") instanceof ShowFavouriteCommand);
+    public void parseCommand_listFavourite() throws Exception {
+        assertTrue(parser.parseCommand(ListFavouriteCommand.COMMAND_WORD) instanceof ListFavouriteCommand);
+        assertTrue(parser.parseCommand(ListFavouriteCommand.COMMAND_WORD + " ") instanceof ListFavouriteCommand);
         assertThrows(ParseException.class, MESSAGE_INVALID_NO_ARGUMENTS_COMMAND, () -> parser.parseCommand(
-                ShowFavouriteCommand.COMMAND_WORD + " 3"));
+                ListFavouriteCommand.COMMAND_WORD + " 3"));
     }
 
     @Test

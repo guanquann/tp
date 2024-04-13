@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ListFavouriteCommandParser" as ListFavouriteCommandParser LOGIC_COLOR
+participant "l:ListFavouriteCommand" as ListFavouriteCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+box AddressBook BOOK_COLOR_T1
+participant "filteredPersons:FilteredList" as FilteredList BOOK_COLOR
+end box
+
+
+[-> LogicManager : execute(args)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(args)
+activate AddressBookParser
+
+create ListFavouriteCommandParser
+AddressBookParser -> ListFavouriteCommandParser
+activate ListFavouriteCommandParser
+
+ListFavouriteCommandParser --> AddressBookParser
+deactivate ListFavouriteCommandParser
+
+AddressBookParser -> ListFavouriteCommandParser : parse(args)
+activate ListFavouriteCommandParser
+
+create ListFavouriteCommand
+ListFavouriteCommandParser -> ListFavouriteCommand
+activate ListFavouriteCommand
+
+ListFavouriteCommand --> ListFavouriteCommandParser :
+deactivate ListFavouriteCommand
+
+ListFavouriteCommandParser --> AddressBookParser : l
+deactivate ListFavouriteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ListFavouriteCommandParser -[hidden]-> AddressBookParser
+destroy ListFavouriteCommandParser
+
+AddressBookParser --> LogicManager : l
+deactivate AddressBookParser
+
+LogicManager -> ListFavouriteCommand : execute(m)
+activate ListFavouriteCommand
+
+ListFavouriteCommand -> Model : updateFilteredPersonList(pred)
+activate Model
+
+Model -> FilteredList : setPredicate(pred)
+activate FilteredList
+
+FilteredList --> Model
+deactivate FilteredList
+
+Model --> ListFavouriteCommand
+deactivate Model
+
+ListFavouriteCommand -> CommandResult
+activate CommandResult
+CommandResult --> ListFavouriteCommand
+deactivate CommandResult
+
+ListFavouriteCommand --> LogicManager : r
+deactivate ListFavouriteCommand
+
+[<-- LogicManager : r
+deactivate LogicManager
+
+@enduml
