@@ -139,6 +139,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 <box type="info" seamless>
 
 **Notes:**
+
 * Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank.
 * A contact can have any number of tags (including 0).
 * Two contacts cannot share the same name, but can share other details including phone number and email.
@@ -209,7 +210,7 @@ Format: `listfav`
 
 <box type="info" seamless>
 
-**Note:** `listfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `listfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
+**Note:** `listfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `listfav`. The `list` command may be used to update the displayed person list to show all contacts again.
 </box>
 
 <box type="tip" seamless>
@@ -324,8 +325,9 @@ Format: `addorder INDEX d/DATE r/REMARK`
 <box type="info" seamless>
 
 **Notes:**
-- A contact can have any number of orders (including 0).
-- You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
+
+* A contact can have any number of orders (including 0). 
+* You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
 </box>
 
 Examples:
