@@ -553,26 +553,26 @@ testers are expected to do more _exploratory_ testing.
    1. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
 
-### Deleting a person
+### Deleting a contact
 
-1. Deleting a person while all persons are being shown
+1. Deleting a contact while all contacts are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 ### Adding an order
 
-1. Adding an order to a person
+1. Adding an order to a contact
 
-    1. Prerequisites: List all persons using the list command. There is only 1 contact in the address book.
+    1. Prerequisites: List all contacts using the list command. There is only 1 contact in the address book.
 
     2. Test case: `addorder 1 d/ 2025-01-01 r/ 100 chicken wings`<br>
        Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the status bar. The date of the new order is 2025-01-01 and the remark is 100 chicken wings.
