@@ -185,6 +185,12 @@ The `addfav` feature allows users to add suppliers as favourites.
     - Pros: Aligns with the information representation of other fields in the `Person` class
     - Cons: Need to create a new `Favourite` wrapper class to store information on whether a person is a favourite. This may result in unnecessary abstraction given that the field and information to be stored are quite rudimentary.
 
+#### Implementation
+
+1. **Command Parsing:** The `AddFavouriteCommandParser` interprets the user input, extracts the specified indices and creates an instance of `AddFavouriteCommand`.
+2. **Data Retrieval and Modification:** Upon execution, `AddFavouriteCommand` fetches the contacts specified by the indices and adds them as favourites by modifying the `isFavourite` field.
+3. **Output Generation:** A summarising message that includes the names of the contacts modified is then displayed to the user.
+
 #### Sequence Diagram
 
 Below is the sequence diagram for the `addfav` command process:
@@ -195,7 +201,20 @@ Below is the sequence diagram for the `addfav` command process:
 
 The `removefav` feature allows users to remove suppliers from favourites.
 
+#### Design considerations:
+
+**Aspect: How a contact being removed from favourite is managed within Person objects:**
+
+- **Alternative 1 (current choice):** Directly remove a contact from favourite by setting its corresponding boolean field in the `Person` class, which indicates whether a `Person` is a favourite, to false
+    - Pros: Make use of the current `Person` class by modifying a simple primitive boolean to store information about favourites.
+    - Cons: Not a uniform way of representing information in the `Person` class given that all other fields are their own defined classes.
+
+- **Alternative 2:** Remove a contact from favourite by interacting with a custom class field in the `Person` class whose role is to indicate whether a `Person` is a favourite
+    - Pros: Aligns with the information representation of other fields in the `Person` class
+    - Cons: Need to create and interact with a new `Favourite` wrapper class to store information on whether a person is a favourite. This may result in unnecessary abstraction given that the field and information to be stored are quite rudimentary.
+
 #### Implementation
+
 1. **Command Parsing:** The `RemoveFavouriteCommandParser` interprets the user input, extracts the specified indices and creates an instance of `RemoveFavouriteCommand`.
 2. **Data Retrieval and Modification:** Upon execution, `RemoveFavouriteCommand` fetches the contacts specified by the indices and removes them from favourites by modifying the `isFavourite` field.
 3. **Output Generation:** A summarising message that includes the names of the contacts modified is then displayed to the user.
@@ -510,6 +529,50 @@ _{More to be added}_
 
     Use case ends.
 
+
+**Use case: Add a contact as favourite**
+
+**MSS**
+
+1. User requests to add a contact as favourite
+2. System marks the contact as favourite
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. System detects an error in the user command.
+    - 1a1. System shows an error message.
+
+      Use case ends.
+
+- 1b. System detects that the contact does not exist.
+    - 1b1. System shows an error message.
+
+      Use case ends.
+
+
+**Use case: Removing a contact from favourites**
+
+**MSS**
+
+1. User requests to remove a contact from favourites
+2. System removes the contact from favourites
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. System detects an error in the user command.
+    - 1a1. System shows an error message.
+
+      Use case ends.
+
+- 1b. System detects that the contact does not exist.
+    - 1b1. System shows an error message.
+
+      Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -629,6 +692,35 @@ testers are expected to do more _exploratory_ testing.
    1. Test case: `deleteorder x o/1` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+### Adding a contact as favourite
+
+1. Adding a contact as favourite
+
+    1. Prerequisites: List all contacts using the `list` command. Three contacts in the list.
+
+    1. Test case: `addfav i/ 1,3`<br>
+       Expected: First and third contact are added as favourites. Details of the affected contacts are shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `addfav i/ 0`<br>
+       Expected: No contact is added as favourites. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect addfav commands to try: `addfav`, `addfav i/ x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Removing a contact from favourites
+
+1. Removing a contact from favourites
+
+    1. Prerequisites: List all contacts using the `list` command. Three contacts in the list of which the first and third contacts are marked as favourite. You may use `addfav` to add these contacts as favourites.
+
+    1. Test case: `removefav i/ 1,3`<br>
+       Expected: First and third contact are removed from favourites. Details of the affected contacts are shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `removefav i/ 0`<br>
+       Expected: No contact is removed to favourites. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect removefav commands to try: `removefav`, `removefav i/ x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 ### Saving data
 
