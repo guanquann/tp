@@ -598,7 +598,7 @@ testers are expected to do more _exploratory_ testing.
 
 ### Listing orders
 
-1. Listing orders for a specific person
+1. Listing orders for a specific contact
 
    1. Prerequisites: There must be at least one person in the address book who has orders. Use `addorder` command to add orders if necessary.
 
