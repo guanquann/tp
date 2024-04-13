@@ -8,9 +8,9 @@ import seedu.address.model.Model;
 /**
  * Lists all favourites in the address book to the user.
  */
-public class ShowFavouriteCommand extends Command {
+public class ListFavouriteCommand extends Command {
 
-    public static final String COMMAND_WORD = "showfav";
+    public static final String COMMAND_WORD = "listfav";
 
     public static final String MESSAGE_SUCCESS = "Displayed all favourites";
 
@@ -30,6 +30,6 @@ public class ShowFavouriteCommand extends Command {
         }
 
         // instanceof handles nulls
-        return other instanceof ShowFavouriteCommand;
+        return other instanceof ListFavouriteCommand;
     }
 }

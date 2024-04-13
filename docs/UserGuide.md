@@ -11,17 +11,17 @@ pageNav: 3
 - About
 - Quick Start
 - Features
-    - Adding a person : add
-    - Listing all persons : list
-    - Editing a person : edit
+    - Adding a contact : add
+    - Listing all contacts : list
+    - Editing a contact : edit
     - Adding contacts as favourites : addfav
-    - Showing favourite contacts : showfav
+    - Listing favourite contacts : listfav
     - Removing contacts from favourites : removefav
     - Searching contact : find
     - Adding an order : addorder
     - Listing orders : listorder
     - Deleting an order: deleteorder
-    - Deleting a person : delete
+    - Deleting a contact : delete
     - Clearing all entries : clear
     - Exiting a program : exit
     - Viewing help : help
@@ -38,11 +38,11 @@ pageNav: 3
 ## Introduction
 
 
-GourmetGrid is a **desktop app to help small restaurant owners manage supplier contacts and orders**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GourmetGrid can get your day-to-day supplier management tasks done faster than traditional GUI apps.
+GourmetGrid is a **desktop app to help small restaurant owners manage contact contacts and orders**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GourmetGrid can get your day-to-day contact management tasks done faster than traditional GUI apps.
 
 
 ## About
-This user guide provides in-depth documentation on GourmetGrid installation process, system configuration and management. From setting up the app to managing supplier contacts and orders efficiently, we cover everything you need to know to use GourmetGrid effectively.
+This user guide provides in-depth documentation on GourmetGrid installation process, system configuration and management. From setting up the app to managing contact contacts and orders efficiently, we cover everything you need to know to use GourmetGrid effectively.
 
 
 ### How to Use the Guide
@@ -119,6 +119,10 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 
+* Parameters like `NAME` that follow flags like `n/` can be separated by any number of spaces. <br>
+  e.g. `n/NAME`, `n/ NAME`, `n/  NAME` are valid and may be passed as arguments into commands.
+
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) are not allowed.<br>
   e.g. if the command specifies `list 1`, you will be shown an error, to avoid ambiguity.
 
@@ -126,104 +130,115 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
-### Adding a person : `add`
+### Adding a contact : `add`
 
-Adds a person to the address book.
+Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Note:** A person can have any number of tags (including 0)
+**Note:** Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank
+**Note:** A contact can have any number of tags (including 0)
 </box>
 
 <box type="tip" seamless>
 
-**Note:** Two persons cannot share the same name, but can share other details including phone number and email.
+**Note:** Two contacts cannot share the same name, but can share other details including phone number and email.
 Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
-If two persons really share a name, find a way to uniquely identify them somehow!
+If two contacts really share a name, find a way to uniquely identify them somehow!
 </box>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123 c/John's Burgers`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/West Street 12 p/91234567 c/Great Vegs t/criminal`
 
-### Listing all persons : `list`
+### Listing all contacts : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the address book, in the order they were added.
 
 Format: `list`
+<box type="tip" seamless>
 
-**Note:** `list` command is not compatible with further arguments.
+**Reminder:** `list` command is not compatible with further arguments.
 </box>
 
-### Editing a person : `edit`
+### Editing a contact : `edit`
 
-Edits an existing person in the address book.
+Edits an existing contact in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* You can remove all the person’s tags by typing `t/` without
+* You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
+* **Warning**: Making any edit to tags will replace all existing tags with the new tags.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 ### Adding contacts as favourites : `addfav`
 
-- Adds the contacts specified by index as favourites
+Adds the contacts specified by index as favourites
 
 Format: `addfav i/INDICES`
 - Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
-  <box type="tip" seamless>
 
-**Note:** Indices corresponding to existing favourite contacts are deemed as invalid indices for `addfav`
+<box type="tip" seamless>
+
+**Note:** `addfav` issues a warning when the index of a contact that is already marked as favourite is passed as an argument into the command.
 </box>
 
-Examples:
+Positive Examples:
 - `addfav i/ 1` Sets the contact at index `1` as favourite
 - `addfav i/ 1, 1, 1` Sets the contact at index `1` as favourite once
 - `addfav i/ 1, 2, 5` Sets the contacts at the indices `1, 2, 5` as favourites
+
+Negative Examples:
 - `addfav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
 - `addfav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
 
-### Showing favourite contacts : `showfav`
+### Listing favourite contacts : `listfav`
 
-- Shows the contacts that are marked as favourites
+Lists the contacts that are marked as favourites
 
-Format: `showfav`
+Format: `listfav`
+<box type="tip" seamless>
 
-**Note:** `showfav` command is not compatible with further arguments.
+**Note:** `showfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `showfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
+**Reminder:** `listfav` command is not compatible with further arguments.
 </box>
 
 Examples:
-- `showfav` Shows all favourited contacts as expected
-- `showfav 1` returns an error message as there should not be arguments after the `showfav` command word
-- `showfav hello` returns an error message as there should not be arguments after the `showfav` command word
+- `listfav` Lists all favourited contacts as expected
+- `listfav 1` returns an error message as there should not be arguments after the `listfav` command word
+- `listfav hello` returns an error message as there should not be arguments after the `listfav` command word
 
 ### Removing contacts from favourites : `removefav`
 
 - Removes the contacts specified by index as favourites
 
 Format: `removefav i/INDICES`
-- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+
+- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ... 
 
 <box type="tip" seamless>
 
-**Note:** Indices corresponding to non-favourite contacts are deemed as invalid indices for `removefav`
+**Note:** `removefav` issues a warning when the index of a non-favourite contact is passed as an argument into the command.
 </box>
 
-Examples:
+Positive Examples:
 - `removefav i/ 1` Removes the contact at index `1` from favourites
 - `removefav i/ 1, 1, 1` Removes the contact at index `1` as favourite once
 - `removefav i/ 1, 2, 5` Removes the contacts at the indices `1, 2, 5` as favourites
+
+Negative Examples:
 - `removefav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
 - `removefav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
 - `removefav i/` returns an error message as the 'INDICES' field cannot be empty
@@ -232,10 +247,10 @@ Examples:
 
 ### Searching Contact : `find`
 
-- Search feature supports substring search by name and/or tags and/or company **ONLY**.
-- Finds all contacts whose names, tags or company matches the substring keyword provided.
+Search feature supports substring search by name and/or tags and/or company **ONLY**. Finds all contacts whose names, tags or company matches the substring keyword provided.
 
-General Format: `find FIELD/KEYWORD [FIELD/KEYWORD] ...`
+Format: `find FIELD/KEYWORD [FIELD/KEYWORD]...`
+
 - Where `FIELD` is either `n/` for name or `t/` for tag or `c/` for company.
 - Each `FIELD` is optional BUT at least one `FIELD` and `KEYWORD` pair must be provided.
 - `KEYWORD` is the keyword to search for, here are some rules:
@@ -297,16 +312,16 @@ Examples:
 
 ### Adding an order : `addorder`
 
-Adds an order to a supplier.
+Adds an order to a contact.
 
 Format: `addorder INDEX d/DATE r/REMARK`
 
-* Adds an order to the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
+* Adds an order to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 * The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
 <box type="tip" seamless>
 
-**Note:** A person can have any number of orders (including 0)
+**Note:** A contact can have any number of orders (including 0)
 </box>
 
 <box type="tip" seamless>
@@ -329,7 +344,7 @@ Format: `listorder INDEX`
 
 ### Deleting an order : `deleteorder`
 
-Deletes an order from a particular person.
+Deletes an order from a particular contact.
 
 Format: `deleteorder INDEX o/ORDER_INDEX`
 
@@ -345,22 +360,22 @@ Examples:
   * `addorder 1 d/2020-01-02 r/200 chicken wings`
   * `addorder 1 d/2019-12-31 r/300 chicken wings`
 * `deleteorder 1 o/1` deletes the 1st order for the 1st contact in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a contact
-* `deleteorder 55 o/1` will return an error message if there is no 55th person in the address book and the index is invalid
+* `deleteorder 55 o/1` will return an error message if there is no 55th contact in the address book and the index is invalid
 * `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st contact in the address book and the order index is invalid
 
-### Deleting a person : `delete`
+### Deleting a contact : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified contact from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd contact in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -368,11 +383,21 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+<box type="tip" seamless>
+
+**Reminder:** `clear` command is not compatible with further arguments.
+</box>
+
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
+
+<box type="tip" seamless>
+
+**Reminder:** `exit` command is not compatible with further arguments.
+</box>
 
 ### Viewing help : `help`
 
@@ -381,6 +406,11 @@ Shows a message explaining how to access the help page.
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+<box type="tip" seamless>
+
+**Reminder:** `help` command is not compatible with further arguments.
+</box>
 
 ### Saving the data
 
@@ -427,9 +457,8 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 | **List Orders**      | `listorder INDEX`                                                                                                                                                                               |
 | **Delete Order**     | `deleteorder INDEX o/ORDER_INDEX`<br> e.g., `deleteorder 2 o/1`                                                                                                                                 |
 | **Add Favourite**    | `addfav i/INDICES`<br> e.g., `addfav i/1,2`                                                                                                                                                     |
-| **Show Favourites**  | `showfav`                                                                                                                                                                                       |
+| **List Favourites**  | `listfav`                                                                                                                                                                                       |
 | **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
 | **List**             | `list`                                                                                                                                                                                          |
-| **Help**             | `help`                                                                                                                                                                                          |
+| **Help**             | `help`                                                                                                                                                                                          | 
 | **Exit**             | `exit`                                                                                                                                                                                          |
-
