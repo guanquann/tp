@@ -645,3 +645,7 @@ prompt them to confirm their decision before proceeding with the deletion.
 7. **Advanced data validation for inputs:** The current implementation does not check the length of text-based inputs.
 We plan to add a reasonable length limit for relevant fields such as `NAME`, `EMAIL`, `ADDRESS`, `TAG`, `COMPANY` and `REMARK`
 to prevent database overflow, ensure data integrity, and enhance user experience.
+
+8. **Adding a new contact:** The current implementation of the `add` command does not allow users to add a new
+contact with the same name but different address, email, and number. We plan to enhance the `add` command to support the
+addition of multiple contacts with the same name but different contact details.

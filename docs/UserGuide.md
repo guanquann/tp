@@ -448,6 +448,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **When using non ASCII characters**, the application may not display the characters correctly. We currently only support ASCII characters, but we plan to support Unicode characters in the future.
 3. **When operating on macOS**, the application may not show bolded text. This is a known issue with the JavaFX library on macOS. Click [here](https://github.com/javafxports/openjdk-jfx/issues/344) for more details.
+4. **When adding a contact with the same name as an existing contact**, we currently will not allow you to add the new contact. This is because the name is used to uniquely identify contacts. If you need to add a contact with the same name, find a way to uniquely identify them.
 
 --------------------------------------------------------------------------------------------------------------------
 
