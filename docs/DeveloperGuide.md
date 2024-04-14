@@ -526,6 +526,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
+**Use case: Find Contacts**
+
+**MSS**
+
+1. User enters a command to find contacts by name, tag, or company with one or more keywords.
+2. System searches and displays all contacts matching all the given keywords.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. The search keywords are missing or incorrectly formatted.
+    - 1a1. System shows an error message.
+
+      Use case ends.
+
+- 2a. No contacts match the search criteria.
+    - 2a1. System shows a message indicating no contacts were found.
+
+      Use case ends.
+
+---
+
 **Use case: Add an order**
 
 **MSS**
@@ -547,6 +570,61 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+---
+
+**Use case: List Orders**
+
+**MSS**
+
+1. User requests to list orders for a specific contact.
+2. System displays all orders associated with the contact.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. The specified contact index is out of bounds.
+    - 1a1. System shows an error message.
+
+      Use case ends.
+
+- 1b. The specified order index does not exist.
+    - 1b1. System shows an error message indicating the order does not exist.
+
+      Use case ends.
+  
+- 2a. The specified contact has no orders.
+    - 2a1. System shows a message indicating there are no orders for the contact.
+
+      Use case ends.
+
+---
+
+**Use case: Delete an Order**
+
+**MSS**
+
+1. User requests to delete a specific order from a specific contact’s list of orders.
+2. System deletes the order.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. System detects an error in the user command.
+    - 1a1. System shows an error message.
+
+      Use case ends.
+
+- 1b. The specified order index is out of bounds.
+    - 1b1. System shows an error message.
+
+      Use case ends.
+
+- 1c. The specified contact index is out of bounds.
+    - 1c1. System shows an error message.
+
+      Use case ends.
 ---
 
 **Use case: List favourites**
@@ -621,6 +699,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from Step 2.
 
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -670,7 +749,7 @@ testers are expected to do more _exploratory_ testing.
 
 1. Deleting a contact while all contacts are being shown
 
-   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+   1. Prerequisites: List all contacts using the `list` command. There should be at least one contact in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
@@ -680,6 +759,25 @@ testers are expected to do more _exploratory_ testing.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+
+### Finding a contact
+
+1. Finding contacts by names, tags, or companies
+
+   1. Prerequisites: List all contacts using the `list` command. There should be multiple contacts in the address book with varying names, tags, and company affiliations.
+   
+   1. Test case: `find n/Alice`<br>
+      Expected: The list is filtered to include only contacts with names containing "Alice" as a substring. The details of the contacts found are shown in the status message.
+   
+   1. Test case: `find t/friend`<br>
+         Expected: The list is filtered to show only contacts tagged with "friend" as a substring. Details of the action are displayed in the status message.
+   
+   1. Test case: `find c/Acme`<br>
+      Expected: The list is filtered to show only contacts associated with a company containing the "Acme" substring. Status message shows the details of the matches.
+   
+   1. Test case: `find n/Bob c/XYZ`<br>
+      Expected: Contacts that match both the name "Bob" substring and are associated with the company "XYZ" substring are displayed. This is a compound query demonstrating the logical AND operation.
+
 
 ### Adding an order
 
@@ -723,7 +821,7 @@ testers are expected to do more _exploratory_ testing.
 
 1. Deleting an order from a person's list of orders
 
-   1. Prerequisites: List all persons using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
+   1. Prerequisites: List all contacts using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
    
    1. Test case: `deleteorder 1 o/1`<br>
       Expected: The first order from the first person’s order list is deleted. The details of the action are shown in the status message.
