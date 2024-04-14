@@ -507,13 +507,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. No contacts match the search criteria.
-    - 2a1. System shows a message indicating no contacts were found.
+- 1a. The search keywords are missing or incorrectly formatted.
+    - 1a1. System shows an error message.
 
       Use case ends.
 
-- 1a. The search keywords are missing or incorrectly formatted.
-    - 1a1. System shows an error message.
+- 2a. No contacts match the search criteria.
+    - 2a1. System shows a message indicating no contacts were found.
 
       Use case ends.
 
@@ -553,11 +553,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The specified contact has no orders.
-    - 2a1. System shows a message indicating there are no orders for the contact.
-
-      Use case ends.
-
 - 1a. The specified contact index is out of bounds.
     - 1a1. System shows an error message.
 
@@ -565,6 +560,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - 1b. The specified order index does not exist.
     - 1b1. System shows an error message indicating the order does not exist.
+
+      Use case ends.
+  
+- 2a. The specified contact has no orders.
+    - 2a1. System shows a message indicating there are no orders for the contact.
 
       Use case ends.
 
@@ -645,7 +645,7 @@ testers are expected to do more _exploratory_ testing.
 
 1. Deleting a contact while all contacts are being shown
 
-   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+   1. Prerequisites: List all contacts using the `list` command. There should be at least one contact in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
@@ -660,7 +660,7 @@ testers are expected to do more _exploratory_ testing.
 
 1. Finding contacts by names, tags, or companies
 
-   1. Prerequisites: List all persons using the `list` command. There should be multiple persons in the address book with varying names, tags, and company affiliations.
+   1. Prerequisites: List all contacts using the `list` command. There should be multiple contacts in the address book with varying names, tags, and company affiliations.
    
    1. Test case: `find n/Alice`<br>
       Expected: The list is filtered to include only contacts with names containing "Alice" as a substring. The details of the contacts found are shown in the status message.
@@ -717,7 +717,7 @@ testers are expected to do more _exploratory_ testing.
 
 1. Deleting an order from a person's list of orders
 
-   1. Prerequisites: List all persons using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
+   1. Prerequisites: List all contacts using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
    
    1. Test case: `deleteorder 1 o/1`<br>
       Expected: The first order from the first person’s order list is deleted. The details of the action are shown in the status message.
