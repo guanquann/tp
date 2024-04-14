@@ -20,4 +20,8 @@ Person *--> "1" Email
 Person *--> "1" Address
 Person *--> "1" Company
 Person *--> "*" Order
+
+Order *--> "1" Date
+Order *--> "1" Remark
+
 @enduml

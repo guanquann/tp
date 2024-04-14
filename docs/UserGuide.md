@@ -136,15 +136,13 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
-**Note:** Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank
-**Note:** A contact can have any number of tags (including 0)
-</box>
+**Notes:**
 
-<box type="tip" seamless>
-
-**Note:** Two contacts cannot share the same name, but can share other details including phone number and email.
+* Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank.
+* A contact can have any number of tags (including 0).
+* Two contacts cannot share the same name, but can share other details including phone number and email.
 Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
 If two contacts really share a name, find a way to uniquely identify them somehow!
 </box>
@@ -185,9 +183,9 @@ Examples:
 Adds the contacts specified by index as favourites
 
 Format: `addfav i/INDICES`
-- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed person list. Each index **must be a positive integer** 1,2,3, ...
+- Adds the contacts at the specified `INDICES` as favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
 **Note:** `addfav` issues a warning when the index of a contact that is already marked as favourite is passed as an argument into the command.
 </box>
@@ -209,9 +207,14 @@ Negative Examples:
 Lists the contacts that are marked as favourites
 
 Format: `listfav`
+
+<box type="info" seamless>
+
+**Note:** `listfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `listfav`. The `list` command may be used to update the displayed person list to show all contacts again.
+</box>
+
 <box type="tip" seamless>
 
-**Note:** `showfav` **updates** the displayed person list, so commands like `edit` that act with respect to the displayed person list will now act on the list displayed by `showfav`. The `list` command may be used to update the displayed person list to show all contacts again. <br>
 **Reminder:** `listfav` command is not compatible with further arguments.
 </box>
 
@@ -226,9 +229,9 @@ Examples:
 
 Format: `removefav i/INDICES`
 
-- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ... 
+- Removes the contacts at the specified `INDICES` from favourites. The indices refer to comma-separated index numbers (i.e. index, index, index) shown in the displayed contact list. Each index **must be a positive integer** 1,2,3, ...
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
 **Note:** `removefav` issues a warning when the index of a non-favourite contact is passed as an argument into the command.
 </box>
@@ -319,14 +322,12 @@ Format: `addorder INDEX d/DATE r/REMARK`
 * Adds an order to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer, starting from 1** (1, 2, 3, …​)
 * The date must be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31). For example, `2020-12-31`.
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
-**Note:** A contact can have any number of orders (including 0)
-</box>
+**Notes:**
 
-<box type="tip" seamless>
-
-**Note**: You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
+* A contact can have any number of orders (including 0). 
+* You can add an order with the same remark and date to the same supplier multiple times. This is because we understand that you may want to quickly make duplicate orders when demand is high without the hassle of deleting your original order and adding back the updated version again.
 </box>
 
 Examples:
@@ -379,13 +380,19 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears **all** entries from the address book.
 
 Format: `clear`
 
 <box type="tip" seamless>
 
 **Reminder:** `clear` command is not compatible with further arguments.
+</box>
+
+<box type="warning" seamless>
+
+**Caution:**
+`clear` command is irreversible as all entries will be lost. Be sure before using this command.
 </box>
 
 ### Exiting the program : `exit`
@@ -418,7 +425,7 @@ GourmetGrid data are saved in the hard disk automatically after any command that
 
 ### Editing the data file
 
-GourmetGrid data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+GourmetGrid data are saved automatically as a JSON file `[JAR file location]/data/gourmetgrid.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -432,7 +439,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GourmetGrid home folder.
+**A**: Install the app in the other computer and overwrite the empty data file `[JAR file location]/data/gourmetgrid.json` it creates with the file that contains the data of your previous GourmetGrid home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -460,5 +467,5 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 | **List Favourites**  | `listfav`                                                                                                                                                                                       |
 | **Remove Favourite** | `removefav i/INDICES`<br> e.g., `removefav i/2`                                                                                                                                                 |
 | **List**             | `list`                                                                                                                                                                                          |
-| **Help**             | `help`                                                                                                                                                                                          | 
+| **Help**             | `help`                                                                                                                                                                                          |
 | **Exit**             | `exit`                                                                                                                                                                                          |

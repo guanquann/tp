@@ -21,6 +21,8 @@ Class Name
 Class Phone
 Class Tag
 Class Order
+Class Date
+Class Remark
 
 Class I #FFFFFF
 }
@@ -46,6 +48,9 @@ Person *--> "1" Address
 Person *--> "1" Company
 Person *--> "*" Tag
 Person *--> "*" Order
+
+Order *--> "1" Date
+Order *--> "1" Remark
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
