@@ -550,6 +550,11 @@ _{More to be added}_
     - 1b1. System shows an error message.
 
       Use case ends.
+     
+- 1c. System detects that the contact is already marked as favourite.
+    - 1c1. System shows a warning message.
+
+      Use case resumes from Step 2.
 
 
 **Use case: Removing a contact from favourites**
@@ -572,6 +577,11 @@ _{More to be added}_
     - 1b1. System shows an error message.
 
       Use case ends.
+
+- 1c. System detects that the contact is not marked as favourite.
+    - 1c1. System shows a warning message.
+
+      Use case resumes from Step 2.
 
 ### Non-Functional Requirements
 
@@ -692,32 +702,38 @@ testers are expected to do more _exploratory_ testing.
    1. Test case: `deleteorder x o/1` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-### Adding a contact as favourite
+### Adding contact(s) as favourite
 
-1. Adding a contact as favourite
+1. Adding contact(s) as favourite
 
     1. Prerequisites: List all contacts using the `list` command. Three contacts in the list.
 
     1. Test case: `addfav i/ 1,3`<br>
        Expected: First and third contact are added as favourites. Details of the affected contacts are shown in the status message. Timestamp in the status bar is updated.
 
+    1. Test case: `addfav i/ 1`<br>
+       Expected: First contact is added as favourite. Details of the affected contact is shown in the status message. A warning regarding contacts that were already in favourites is also shown in the status message. Timestamp in the status bar is updated.
+
     1. Test case: `addfav i/ 0`<br>
-       Expected: No contact is added as favourites. Error details shown in the status message. Status bar remains the same.
+        Expected: No contact is added as favourites. Error details shown in the status message. Status bar remains the same.
 
     1. Other incorrect addfav commands to try: `addfav`, `addfav i/ x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-### Removing a contact from favourites
+### Removing contact(s) from favourites
 
-1. Removing a contact from favourites
+1. Removing contact(s) from favourites
 
     1. Prerequisites: List all contacts using the `list` command. Three contacts in the list of which the first and third contacts are marked as favourite. You may use `addfav` to add these contacts as favourites.
 
     1. Test case: `removefav i/ 1,3`<br>
        Expected: First and third contact are removed from favourites. Details of the affected contacts are shown in the status message. Timestamp in the status bar is updated.
 
+    1. Test case: `removefav i/ 1`<br>
+       Expected: First contact is removed from favourites. Details of the affected contact is shown in the status message. A warning regarding contacts that were not previously in favourites is also shown in the status message. Timestamp in the status bar is updated.
+
     1. Test case: `removefav i/ 0`<br>
-       Expected: No contact is removed to favourites. Error details shown in the status message. Status bar remains the same.
+        Expected: No contact is removed to favourites. Error details shown in the status message. Status bar remains the same.
 
     1. Other incorrect removefav commands to try: `removefav`, `removefav i/ x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
