@@ -718,7 +718,7 @@ testers are expected to do more _exploratory_ testing.
       Expected: No contact is added as favourite. An error message indicating invalid contact index is shown in the status message.
 
    1. Test case: `addfav x i/ 1` (where x is any character) <br>
-      Expected: No contact is added as favourite. An error message indicating that there should not be prefixes preceding the 'INDICES' field is shown in the status message.
+      Expected: No contact is added as favourite. An error message indicating invalid command format is shown in the status message.
 
 ### Removing contact(s) from favourites
 
@@ -736,7 +736,7 @@ testers are expected to do more _exploratory_ testing.
         Expected: No contact is removed from favourites. An error message indicating invalid contact index is shown in the status message. 
 
     1. Test case: `removefav x i/ 1` (where x is any character) <br>
-       Expected: No contact is removed from favourites. An error message indicating that there should not be prefixes preceding the 'INDICES' field is shown in the status message.
+       Expected: No contact is removed from favourites. An error message indicating invalid command format is shown in the status message.
 
 ### Saving data
 
