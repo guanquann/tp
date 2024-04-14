@@ -709,16 +709,16 @@ testers are expected to do more _exploratory_ testing.
     1. Prerequisites: List all contacts using the `list` command. Three contacts in the list.
 
     1. Test case: `addfav i/ 1,3`<br>
-       Expected: First and third contact are added as favourites. Details of the affected contacts are shown in the status message. Timestamp in the status bar is updated.
+       Expected: First and third contact are added as favourites. Details of the affected contacts are shown in the status message. 
 
     1. Test case: `addfav i/ 1`<br>
-       Expected: First contact is added as favourite. Details of the affected contact is shown in the status message. A warning regarding contacts that were already in favourites is also shown in the status message. Timestamp in the status bar is updated.
+       Expected: First contact is added as favourite. Details of the affected contact is shown in the status message. A warning regarding contacts that were already in favourites is also shown in the status message. 
 
-    1. Test case: `addfav i/ 0`<br>
-        Expected: No contact is added as favourites. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `addfav i/ 0`<br>
+      Expected: No contact is added as favourite. An error message indicating invalid contact index is shown in the status message.
 
-    1. Other incorrect addfav commands to try: `addfav`, `addfav i/ x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+   1. Test case: `addfav x i/ 1` (where x is any character) <br>
+      Expected: No contact is added as favourite. An error message indicating that there should not be prefixes preceding the 'INDICES' field is shown in the status message.
 
 ### Removing contact(s) from favourites
 
@@ -727,16 +727,16 @@ testers are expected to do more _exploratory_ testing.
     1. Prerequisites: List all contacts using the `list` command. Three contacts in the list of which the first and third contacts are marked as favourite. You may use `addfav` to add these contacts as favourites.
 
     1. Test case: `removefav i/ 1,3`<br>
-       Expected: First and third contact are removed from favourites. Details of the affected contacts are shown in the status message. Timestamp in the status bar is updated.
+       Expected: First and third contact are removed from favourites. Details of the affected contacts are shown in the status message. 
 
     1. Test case: `removefav i/ 1`<br>
-       Expected: First contact is removed from favourites. Details of the affected contact is shown in the status message. A warning regarding contacts that were not previously in favourites is also shown in the status message. Timestamp in the status bar is updated.
+       Expected: First contact is removed from favourites. Details of the affected contact is shown in the status message. A warning regarding contacts that were not previously in favourites is also shown in the status message. 
 
     1. Test case: `removefav i/ 0`<br>
-        Expected: No contact is removed to favourites. Error details shown in the status message. Status bar remains the same.
+        Expected: No contact is removed from favourites. An error message indicating invalid contact index is shown in the status message. 
 
-    1. Other incorrect removefav commands to try: `removefav`, `removefav i/ x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+    1. Test case: `removefav x i/ 1` (where x is any character) <br>
+       Expected: No contact is removed from favourites. An error message indicating that there should not be prefixes preceding the 'INDICES' field is shown in the status message.
 
 ### Saving data
 
