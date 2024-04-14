@@ -17,6 +17,9 @@ GourmetGrid is adapted from [AddressBook-Level3](https://github.com/se-edu/addre
 
 Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5).
 
+AI was used to autocomplete content and occasionally code where appropriate, but always refined by the team and used with caution.
+In particular, the [GitHub Copilot](https://github.com/features/copilot) tool was used as an IDE plugin to provide hints on how to complete our sentences.
+
 ---
 
 ## **Setting up, getting started**
@@ -167,7 +170,10 @@ This section describes some noteworthy details on how certain features are imple
 The `add` command allows users to create and add a new contact to the list.
 
 Its process largely follows from the previous address book implementation, but with slight modifications for GourmetGrid's unique functions.
-Below is the sequence diagram modelling the process of running an `add` command:
+
+#### Sequence Diagram
+
+Below is the sequence diagram for the `add` command process:
 
 <puml src="diagrams/AddSequenceDiagram.puml" alt="AddSequenceDiagram" />
 
@@ -223,6 +229,12 @@ The `listfav` feature allows users to filter the contacts such that only the fav
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
     - Pros: Allows users to see all contacts, with favourites at the top for easy access.
     - Cons: May result in confusion regarding the ordering of contacts.
+
+#### Implementation
+
+1. **Command Parsing:** The `ListFavouriteCommandParser` interprets the user input and creates an instance of `ListFavouriteCommand`.
+2. **Filtering:** Upon execution, `ListFavouriteCommand` updates the filtering rule through the model to show only favourite contacts.
+3. **Output Generation:** The newly filtered list of contacts is then displayed to the user along with a success message.
 
 #### Sequence Diagram
 
@@ -433,7 +445,6 @@ _{Explain here how the data archiving feature will be implemented}_
 
 - regularly receives deliveries of supplies from different suppliers
 - troublesome to make orders when supplies are running low
-- has some favorite and some not great customers
 - has a need to manage a significant number of contacts
 - prefer desktop apps over other types
 - can type fast
@@ -442,8 +453,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Value proposition**:
 
-- Our product is specifically tailored to restaurant owners like Bob who juggle multiple suppliers and customer relationships by streamlining daily delivery management, simplifying tracking supplier schedules and enabling personalised engagement with regulars.
-- Focusing on a small number of stable suppliers, it centralises contacts and smoothens day-to-day tasks.
+- Our product is specifically tailored to restaurant owners like Bob who juggle multiple supplier relationships by streamlining regular delivery management and simplifying the tracking of supplier schedules.
+- Working with both stable and irregular suppliers, it powerfully centralises contacts and smoothens day-to-day tasks.
 
 ### User stories
 
@@ -517,6 +528,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+---
+
+**Use case: List favourites**
+
+**MSS**
+
+1. User requests to list favourite contacts
+2. System lists favourite contacts
+
+    Use case ends.
+
+**Extensions**
+
+- 1a. System detects an error in the user command.
+  - 1a1. System shows an error message.
+
+    Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -532,6 +561,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - **Mainstream OS**: Windows, Linux, Unix, MacOS
 - **Reasonable Number of Contacts**: Set to be 100 for now
 - **Hesitance**: Time spent deliberating by user due to uncertainty of UI interactions
+- **Address Book**: Often used interchangeably with **Contact List**.
 
 ---
 
@@ -632,6 +662,24 @@ testers are expected to do more _exploratory_ testing.
    1. Test case: `deleteorder x o/1` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+### Listing favourites
+
+1. Listing contacts that have been added to favourites
+
+   1. Prerequisites: Add a few contacts to favourites using the `addfav` command.
+
+   1. Test case: `listfav`<br>
+      Expected: All contacts that have been added to favourites are displayed. A success response is shown in the status message.
+
+   1. Test case: `listfav x` (where x is any non-space character(s))<bar>
+         Expected: An error message indicating invalid command format due to trailing text after `listfav` is shown. No filtering occurs on the displayed list.
+
+2. Removing a contact from favourites after `listfav`
+
+   1. Prerequisites: Call `listfav` successfully.
+
+   1. Test case: `removefav i/1`<br>
+      Expected: The first contact currently displayed in list of favourites is removed as favourite. A successful status message shows the name of the contact removed from favourites. Updated full list of contacts is shown.
 
 ### Saving data
 
