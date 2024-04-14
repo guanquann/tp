@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +57,10 @@ public class RemoveFavouriteCommand extends Command {
         boolean anyNotFavourite = this.indices.stream().anyMatch(index ->
                 !people.get(index.getZeroBased()).getIsFavourite());
 
-        for (Index index : this.indices) {
+        List<Index> sortedIndices = new ArrayList<>(this.indices);
+        Collections.sort(sortedIndices, (Index indexA, Index indexB) -> indexB.getZeroBased() - indexA.getZeroBased());
+
+        for (Index index : sortedIndices) {
             Person person = people.get(index.getZeroBased());
             modifiedContacts.add(person.getName().fullName);
             person.removeFavourite();

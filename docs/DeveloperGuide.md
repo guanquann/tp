@@ -13,7 +13,9 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+GourmetGrid is adapted from [AddressBook-Level3](https://github.com/se-edu/addressbook-level3).
+
+Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5).
 
 ---
 
@@ -160,7 +162,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Add command
+### Add feature
 
 The `add` command allows users to create and add a new contact to the list.
 
@@ -215,7 +217,7 @@ The `listfav` feature allows users to filter the contacts such that only the fav
 **Aspect: How the end result of filtering manifests:**
 
 - **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
-    - Pros: Simple and easy to implement given the existing `find` feature. 
+    - Pros: Simple and easy to implement given the existing `find` feature.
     - Cons: May result in some similar functionality between `find` and `listfav` features.
 
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
@@ -244,15 +246,21 @@ The `addorder` feature allows users to add orders to a contact.
   - Pros: `Person` class remains simple.
   - Cons: Need to create a new `OrderStorage` storage class to store orders. This may result in duplicated code since the implementation of `AddressBookStorage` is similar.
 
+#### Implementation
+
+1. **Command Parsing:** The `AddOrderCommandParser` interprets the user input, extracts the index of the specified contact and the date and remark of the order. Then, it creates an instance of `Order` and `AddOrderCommand`.
+2. **Data Retrieval and Modification:** Upon execution, `AddOrderCommand` fetches the selected contact from the model and adds the order to the contact.
+3. **Output Generation:** A summarising message of the contact with his orders is then displayed to the user.
+
 #### Sequence Diagram
 
 Below is the sequence diagram for the `addorder` command process:
 
 <puml src="diagrams/AddOrderSequenceDiagram.puml" alt="AddOrderSequenceDiagram" />
 
-### List order Feature
+### List order feature
 
-The `listorder` feature allows users to list all orders associated with a person in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of suppliers efficiently.
+The `listorder` feature allows users to list all orders associated with a contact in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of contacts efficiently.
 
 #### Design Considerations
 
@@ -278,7 +286,7 @@ Below is the sequence diagram for the `listorder` command process:
 - **Sorting by Status:** Introduce functionality to sort orders by their status (e.g., pending, completed), providing users with more flexibility in viewing order information.
 - **Filtering Options:** Implement filters to allow users to view orders within a specific date range or with particular characteristics, such as orders over a certain value.
 
-### Delete order Feature
+### Delete order feature
 
 The `deleteorder` feature allows users to delete a specific order from a supplier's list of orders, ensuring accurate and up-to-date record-keeping.
 
@@ -441,24 +449,23 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                          | I want to …​                                                     | So that I can…​                                                                                |
-|----------|----------------------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| `* * *`  | restaurant owner                 | add contacts with detailed information                           | better manage relationship with suppliers and customers                                        |
-| `* * *`  | restaurant owner                 | immediately see a list of contact                                | access or contact them more easily                                                             |
-| `* * *`  | restaurant owner                 | search by name                                                   | quickly find the person I want to contact                                                      |
-| `* * *`  | restaurant owner                 | add orders to a contact                                          | keep track of my orders with the contact                                                       |
-| `* * *`  | restaurant owner                 | views orders of a contact                                        | keep track of my orders with the contact                                                       |
-| `* * *`  | restaurant owner                 | mark certain contacts as favourites                              | access them more easily in the future                                                          |
-| `* * *`  | frequent user                    | view my favourite contacts                                       | access or contact them more easily                                                             |
-| `* * *`  | long time user                   | edit contact details                                             | keep my address book up to date                                                                |
-| `* * *`  | long time user                   | delete contacts                                                  | keep my address book relevant and clean                                                        |
-| `* * *`  | potential user exploring the app | see examples with sample data on the app                         | easily visualize how the app will look like when handling data that is typical for my use case |
-| `* * *`  | potential user exploring the app | delete all sample data                                           | easily add my own data to a clean slate                                                        |
-| `* *`    | long time user                   | filter search based on a specific criteria (like vegan supplier) | quickly find the person I want to contact                                                      |
-| `* *`    | restaurant owner                 | keep track of temporary contacts                                 | easily check on the status of my incoming deliveries with the deliverymen responsible          |
-| `*`      | careless user                    | undo my contacts                                                 | reduces the number of actions I have to take                                                   |
-
-_{More to be added}_
+| Priority | As a …​                          | I want to …​                             | So that I can…​                                                                                |
+|----------|----------------------------------|------------------------------------------|------------------------------------------------------------------------------------------------|
+| `* * *`  | restaurant owner                 | add contacts with detailed information   | better manage relationship with contacts                                                       |
+| `* * *`  | restaurant owner                 | immediately see a list of contacts       | access or contact them more easily                                                             |
+| `* * *`  | restaurant owner                 | search by name, tag and company          | quickly find the person I want to contact                                                      |
+| `* * *`  | restaurant owner                 | add orders to a contact                  | keep track of my orders with the contact                                                       |
+| `* * *`  | restaurant owner                 | views orders of a contact                | keep track of my orders with the contact                                                       |
+| `* * *`  | restaurant owner                 | mark certain contacts as favourites      | access them more easily in the future                                                          |
+| `* * *`  | restaurant owner                 | unmark certain contacts as favourites    | keep my favourite contact list clean                                                           |
+| `* * *`  | frequent user                    | view my favourite contacts               | access or contact them more easily                                                             |
+| `* * *`  | long time user                   | edit contact details                     | keep my address book up to date                                                                |
+| `* * *`  | long time user                   | delete contacts                          | keep my address book relevant and clean                                                        |
+| `* * *`  | long time user                   | delete orders                            | keep my order list relevant and clean                                                          |
+| `* * *`  | potential user exploring the app | see examples with sample data on the app | easily visualize how the app will look like when handling data that is typical for my use case |
+| `* * *`  | potential user exploring the app | delete all sample data                   | easily add my own data to a clean slate                                                        |
+| `* *`    | restaurant owner                 | receive notifications of incoming orders | know the orders that I am expecting today                                                      |
+| `*`      | careless user                    | undo my commands                         | reduces the number of actions I have to take                                                   |
 
 ### Use cases
 
@@ -520,8 +527,6 @@ _{More to be added}_
 6.  Should remain functional and fully usable in the event that the user enters unexpected inputs, with appropriate error statement displayed before the app returns to a functional state to continue running.
 7.  Should update automatically or have a good way to manually update in case of time zone changes.
 
-_{More to be added}_
-
 ### Glossary
 
 - **Mainstream OS**: Windows, Linux, Unix, MacOS
@@ -556,28 +561,26 @@ testers are expected to do more _exploratory_ testing.
    1. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Deleting a contact
 
-### Deleting a person
+1. Deleting a contact while all contacts are being shown
 
-1. Deleting a person while all persons are being shown
-
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 ### Adding an order
 
-1. Adding an order to a person
+1. Adding an order to a contact
 
-    1. Prerequisites: List all persons using the list command. There is only 1 contact in the address book.
+    1. Prerequisites: List all contacts using the list command. There is only 1 contact in the address book.
 
     2. Test case: `addorder 1 d/ 2025-01-01 r/ 100 chicken wings`<br>
        Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the status bar. The date of the new order is 2025-01-01 and the remark is 100 chicken wings.
@@ -594,6 +597,41 @@ testers are expected to do more _exploratory_ testing.
 2. Viewing orders after adding order to a contact.
 
     1. To view the orders of the first contact after adding an order, use the `listorder 1` command.
+
+
+### Listing orders
+
+1. Listing orders for a specific contact
+
+   1. Prerequisites: There must be at least one person in the address book who has orders. Use `addorder` command to add orders if necessary.
+
+   1. Test case: `listorder 1`<br>
+      Expected: All orders associated with the first contact in the list are displayed. Details of the orders are shown in the status message.
+
+   1. Test case: `listorder 0`<br>
+      Expected: No orders are listed. An error message indicating invalid command format is shown in the status message.
+ 
+   1. Test case: `listorder x` (where x is larger than the list size)<br>
+      Expected: No orders are listed. An error message indicating invalid person index is shown in the status message.
+
+### Deleting an order
+
+1. Deleting an order from a person's list of orders
+
+   1. Prerequisites: List all persons using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
+   
+   1. Test case: `deleteorder 1 o/1`<br>
+      Expected: The first order from the first person’s order list is deleted. The details of the action are shown in the status message.
+   
+   1. Test case: `deleteorder 1 o/x` (where x is larger than the number of orders the person has)<br>
+      Expected: No order is deleted. An error message indicating an invalid order index is shown in the status message.
+   
+   1. Test case: `deleteorder 0 o/1`<br>
+      Expected: No order is deleted. An error message indicating invalid command format due to an incorrect person index is shown.
+   
+   1. Test case: `deleteorder x o/1` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+
 
 ### Saving data
 
@@ -626,7 +664,31 @@ order date is outdated when `addorder` command is called. We plan to raise an er
 is added. For example: `Order date cannot be in the past`.
 
 4. **Support more flexible phone number formats:** The current phone number validation only accepts numerical inputs.
-We plan to support more flexible formats, including country codes and special characters. For example: 
+We plan to support more flexible formats, including country codes and special characters. For example:
 `+65 1234 5678`, `+129-123-334-5678`.
 
-5. **Improve Search Functionality**: The current implementation of the find command allows users to search for contacts based on their names, tags, or company names. However, it does not support searching by address, email, or phone number. We acknowledge that the ability to search by these fields can significantly enhance user experience by providing more flexibility and efficiency in locating contact information. The initial decision to exclude address, email, and phone number from the search criteria was based on a focus on the most commonly used identifiers for quick search and to maintain simplicity in the search interface. We also considered the privacy implications and the less frequent necessity of searching by personal information such as phone numbers or addresses. However, in order to enhance the utility of our contact management system, we are planning to introduce expanded search capabilities. This will include the ability to search for contacts by their phone numbers, email addresses, and physical addresses. This enhancement aims to provide a comprehensive search functionality that meets the needs of all users, making the tool more versatile and efficient for locating specific entries.
+5. **Improve Search Functionality:** The current implementation of the find command allows users to search for
+contacts based on their names, tags, or company names. However, it does not support searching by address, email,
+or phone number. We acknowledge that the ability to search by these fields can significantly enhance user experience
+by providing more flexibility and efficiency in locating contact information. The initial decision to exclude address,
+email, and phone number from the search criteria was based on a focus on the most commonly used identifiers for
+quick search and to maintain simplicity in the search interface. We also considered the privacy implications and
+the less frequent necessity of searching by personal information such as phone numbers or addresses. However,
+in order to enhance the utility of our contact management system, we are planning to introduce expanded search
+capabilities. This will include the ability to search for contacts by their phone numbers, email addresses, and
+physical addresses. This enhancement aims to provide a comprehensive search functionality that meets the needs
+of all users, making the tool more versatile and efficient for locating specific entries.
+
+6. **Warning when using `clear` command:** The current implementation of the `clear` command deletes all contacts
+and orders without any warning or confirmation from the user. This can lead to accidental data loss if the user
+mistakenly enters the command. To prevent such incidents, we plan to introduce a warning prompt when the `clear`
+command is executed. The warning message will inform the user about the irreversible nature of the action and
+prompt them to confirm their decision before proceeding with the deletion.
+
+7. **Advanced data validation for inputs:** The current implementation does not check the length of text-based inputs.
+We plan to add a reasonable length limit for relevant fields such as `NAME`, `EMAIL`, `ADDRESS`, `TAG`, `COMPANY` and `REMARK`
+to prevent database overflow, ensure data integrity, and enhance user experience.
+
+8. **Adding a new contact:** The current implementation of the `add` command does not allow users to add a new
+contact with the same name but different address, email, and number. We plan to enhance the `add` command to support the
+addition of multiple contacts with the same name but different contact details.
