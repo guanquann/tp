@@ -132,7 +132,7 @@ This user guide provides in-depth documentation on GourmetGrid installation proc
 
 ### Adding a contact : `add`
 
-Adds a contact to the address book.
+Adds a contact to the contact list.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 
@@ -141,6 +141,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [t/TAG]…​`
 **Notes:**
 
 * Name should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank.
+* Phone number should only contain numbers and should be at least 3 digits long.
+* Address should not contain any reserved terms such as `t/` that indicate other parameters.
 * A contact can have any number of tags (including 0).
 * Two contacts cannot share the same name, but can share other details including phone number and email.
 Because a company phone can be used by multiple people, but the name is used to uniquely determine people.
@@ -153,7 +155,7 @@ Examples:
 
 ### Listing all contacts : `list`
 
-Shows a list of all contacts in the address book, in the order they were added.
+Shows a list of all contacts in the contact list, in the order they were added.
 
 Format: `list`
 <box type="tip" seamless>
@@ -163,7 +165,7 @@ Format: `list`
 
 ### Editing a contact : `edit`
 
-Edits an existing contact in the address book.
+Edits an existing contact in the contact list.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]…​`
 
@@ -197,7 +199,7 @@ Positive Examples:
 
 Negative Examples:
 - `addfav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
-- `addfav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
+- `addfav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the contact list
 - `addfav i/` returns an error message as the 'INDICES' field cannot be empty
 - `addfav` returns an error message as it must be accompanied by the 'INDICES' field
 - `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
@@ -243,7 +245,7 @@ Positive Examples:
 
 Negative Examples:
 - `removefav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the 'INDICES' field must consist of comma-separated positive integers
-- `removefav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the address book
+- `removefav i/ 10, 1` returns an error message as the 'INDICES' field must consist of valid index values which are positive integers from 1 to the total number of contacts in the contact list
 - `removefav i/` returns an error message as the 'INDICES' field cannot be empty
 - `removefav` returns an error message as it must be accompanied by the 'INDICES' field
 - `removefav 1 i/ 2, 5` returns an error message as there should not be prefixes before the 'INDICES' field
@@ -360,13 +362,13 @@ Examples:
   * `addorder 1 d/2020-01-01 r/100 chicken wings`
   * `addorder 1 d/2020-01-02 r/200 chicken wings`
   * `addorder 1 d/2019-12-31 r/300 chicken wings`
-* `deleteorder 1 o/1` deletes the 1st order for the 1st contact in the address book. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a contact
-* `deleteorder 55 o/1` will return an error message if there is no 55th contact in the address book and the index is invalid
-* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st contact in the address book and the order index is invalid
+* `deleteorder 1 o/1` deletes the 1st order for the 1st contact in the contact list. Which in the above example will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` Since the orders are sorted by date when added to a contact
+* `deleteorder 55 o/1` will return an error message if there is no 55th contact in the contact list and the index is invalid
+* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st contact in the contact list and the order index is invalid
 
 ### Deleting a contact : `delete`
 
-Deletes the specified contact from the address book.
+Deletes the specified contact from the contact list.
 
 Format: `delete INDEX`
 
@@ -375,12 +377,12 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd contact in the address book.
+* `list` followed by `delete 2` deletes the 2nd contact in the contact list.
 * `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears **all** entries from the address book.
+Clears **all** entries from the contact list.
 
 Format: `clear`
 
@@ -448,6 +450,7 @@ Furthermore, certain edits can cause GourmetGrid to behave in unexpected ways (e
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **When using non ASCII characters**, the application may not display the characters correctly. We currently only support ASCII characters, but we plan to support Unicode characters in the future.
 3. **When operating on macOS**, the application may not show bolded text. This is a known issue with the JavaFX library on macOS. Click [here](https://github.com/javafxports/openjdk-jfx/issues/344) for more details.
+4. **When using the `add` command**, if you use an address that contains a reserved term like `t/`, the rest of the address is taken as a different argument. This small complication is unavoidable by the way inputs are designed to be a continuous string.
 
 --------------------------------------------------------------------------------------------------------------------
 
