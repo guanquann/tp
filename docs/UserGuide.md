@@ -10,6 +10,7 @@ pageNav: 3
 - [Introduction](#introduction)
 - [About](#about)
 - [Quick Start](#quick-start)
+- [Input Constraints](#input-constraints)
 - [Features](#features)
     - [Adding a contact : add](#adding-a-contact-add)
     - [Listing all contacts : list](#listing-all-contacts-list)
@@ -93,6 +94,21 @@ This user guide provides in-depth documentation on GourmetGrid's installation pr
 1. Refer to the [Features](#features) below for details of each command. If unsure, you can also key in the command without additional arguments to check the expected command format, which will be shown in the result display section.
 
 --------------------------------------------------------------------------------------------------------------------
+
+## Input Constraints
+
+* Name and company should only contain alphanumeric characters, spaces, hyphens and/or apostrophes, and should not be blank.
+
+* Phone number should only contain numbers and should be at least 3 digits long.
+
+* Email should be in the format `local-part@domain`.
+
+* Address should not contain any words that begin with reserved terms (`n/`, `p/`, `e/`, `c/`, `t/`) that indicate other parameters.
+
+* Remark should not contain any words that begin with reserved terms (`d/`) that indicate the date parameter.
+
+* Date should be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31).
+
 
 ## Features
 
