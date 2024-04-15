@@ -355,7 +355,7 @@ Format: `addorder INDEX d/DATE r/REMARK`
 
 * You can add multiple orders with identical remarks and dates to the same contact. This functionality is designed to accommodate the need for duplicating orders efficiently during periods of high demand, eliminating the need to delete and re-enter the original order.
 
-* Remark should not contain any words that begin with reserved term (`d/`) that indicate other parameter.
+* Remark should not contain any words that begin with reserved term (`d/`) that indicate the date parameter.
 </box>
 
 Examples:
