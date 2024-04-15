@@ -177,7 +177,7 @@ Below is the sequence diagram for the `add` command process:
 
 <puml src="diagrams/AddSequenceDiagram.puml" alt="AddSequenceDiagram" />
 
-### Add favourite feature
+### Add favourites feature
 
 The `addfav` feature allows users to add suppliers as favourites.
 
@@ -205,7 +205,7 @@ Below is the sequence diagram for the `addfav` command process:
 
 <puml src="diagrams/AddFavouriteSequenceDiagram.puml" alt="AddFavouriteSequenceDiagram" />
 
-### Remove favourite feature
+### Remove favourites feature
 
 The `removefav` feature allows users to remove suppliers from favourites.
 
@@ -214,12 +214,16 @@ The `removefav` feature allows users to remove suppliers from favourites.
 **Aspect: How a contact being removed from favourite is managed within Person objects:**
 
 - **Alternative 1 (current choice):** Directly remove a contact from favourite by setting its corresponding boolean field in the `Person` class, which indicates whether a `Person` is a favourite, to false
-    - Pros: Make use of the current `Person` class by modifying a simple primitive boolean to store information about favourites.
+    - Pros: Utilises the current `Person` class by modifying a simple primitive boolean to store information about favourites.
+
     - Cons: Not a uniform way of representing information in the `Person` class given that all other fields are their own defined classes.
+
 
 - **Alternative 2:** Remove a contact from favourite by interacting with a custom class field in the `Person` class whose role is to indicate whether a `Person` is a favourite
     - Pros: Aligns with the information representation of other fields in the `Person` class
-    - Cons: Need to create and interact with a new `Favourite` wrapper class to store information on whether a person is a favourite. This may result in unnecessary abstraction given that the field and information to be stored are quite rudimentary.
+
+    - Cons: Necessitates a new `Favourite` wrapper class to store information on whether a person is a favourite. This may result in unnecessary abstraction given that the field and information to be stored are quite rudimentary.
+
 
 #### Implementation
 
@@ -233,7 +237,7 @@ Below is the sequence diagram for the `removefav` command process:
 
 <puml src="diagrams/RemoveFavouriteSequenceDiagram.puml" alt="RemoveFavouriteSequenceDiagram" />
 
-### List favourite feature
+### List favourites feature
 
 The `listfav` feature allows users to filter the contacts such that only the favourites are shown.
 
@@ -243,11 +247,15 @@ The `listfav` feature allows users to filter the contacts such that only the fav
 
 - **Alternative 1 (current choice):** The filtering logic follows closely from that of the `find` feature.
     - Pros: Simple and easy to implement given the existing `find` feature.
+
     - Cons: May result in some similar functionality between `find` and `listfav` features.
+
 
 - **Alternative 2:** Favourite contacts can be sorted to be above, with non-favourites below but still visible.
     - Pros: Allows users to see all contacts, with favourites at the top for easy access.
+
     - Cons: May result in confusion regarding the ordering of contacts.
+
 
 #### Implementation
 
@@ -270,12 +278,16 @@ The `addorder` feature allows users to add orders to a contact.
 **Aspect: How orders are stored:**
 
 - **Alternative 1 (current choice):** Orders are stored as a list in `Person` class.
-  - Pros: Make use of the current `Person` class by allowing it to store a list of orders.
+  - Pros: Utilises the current `Person` class by allowing it to store a list of orders.
+
   - Cons: `Person` class become more complicated as more attributes are added.
+
 
 - **Alternative 2:** Orders are stored in a different storage class such as `OrderStorage`.
   - Pros: `Person` class remains simple.
-  - Cons: Need to create a new `OrderStorage` storage class to store orders. This may result in duplicated code since the implementation of `AddressBookStorage` is similar.
+
+  - Cons: Necessitates a new `OrderStorage` storage class to store orders. This may result in duplicated code since the implementation of `AddressBookStorage` is similar.
+
 
 #### Implementation
 
@@ -289,16 +301,20 @@ Below is the sequence diagram for the `addorder` command process:
 
 <puml src="diagrams/AddOrderSequenceDiagram.puml" alt="AddOrderSequenceDiagram" />
 
-### List order feature
+### List orders feature
 
-The `listorder` feature allows users to list all orders associated with a contact in the address book, sorted by date in ascending order first, then sorted by order they were added in if date is the same. This is particularly useful for users who wish to track the order history of contacts efficiently.
+The `listorder` feature allows users to list all orders associated with a contact in the address book, sorted by date in ascending order first, then tiebroken by the sequence they were added in. This is particularly useful for users to track incoming orders of contacts efficiently.
 
 #### Design Considerations
 
 - **Aspect:** Sorting orders by date.
+
     - **Motivation:** Users are likely interested in the most recent orders. Sorting orders by date in ascending order allows users to see the most relevant orders first.
+<br><br>
 - **Aspect:** Integration with existing data models.
+
     - **Motivation:** Utilising the existing `Person` and new implemented `Order` models minimizes code redundancy and maintains consistency within the application.
+
 
 #### Implementation
 
@@ -312,26 +328,25 @@ Below is the sequence diagram for the `listorder` command process:
 
 <puml src="diagrams/ListOrderSequenceDiagram.puml" alt="ListOrderSequenceDiagram" />
 
-#### Future Enhancements
-
-- **Sorting by Status:** Introduce functionality to sort orders by their status (e.g., pending, completed), providing users with more flexibility in viewing order information.
-- **Filtering Options:** Implement filters to allow users to view orders within a specific date range or with particular characteristics, such as orders over a certain value.
-
 ### Delete order feature
 
 The `deleteorder` feature allows users to delete a specific order from a supplier's list of orders, ensuring accurate and up-to-date record-keeping.
 
 #### Design Considerations
 
-- **Aspect: How order deletion is managed within Person objects**:
+- **Aspect: How order deletion is managed within Person objects**
 
-- **Alternative 1 (current choice):** Directly manage orders within the Person class by removing them from the person's orders list.
-  - Pros: Utilizes the existing structure of the Person class, allowing for straightforward access and modification of a person's order list.
+- **Alternative 1 (current choice):** Directly manage orders within the Person class by removing them from the person's order list.
+  - Pros: Utilises the existing structure of the Person class, allowing for straightforward access and modification of a person's order list.
+
   - Cons: Adds complexity to the Person class, which now handles both personal information and order management.
+
 
 - **Alternative 2:** Implement a dedicated order management system within the model.
   - Pros: Separates concerns, making the system more modular and potentially easier to maintain.
+
   - Cons: Increases system complexity by introducing new components and possibly duplicating list management functionality.
+
 
 #### Implementation
 
@@ -364,7 +379,7 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
@@ -378,7 +393,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -434,14 +449,8 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 - **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  - Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  - Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
   - Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 ---
@@ -499,203 +508,207 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `GourmetGrid` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `GourmetGrid` and the **Actor** is the `User`, unless specified otherwise)
 
-**Use case: Delete a contact**
+**Use case: UC1 - List contacts**
 
 **MSS**
 
-1.  User requests to list contacts
-2.  System shows a list of contacts
-3.  User requests to delete a specific contact in the list
-4.  System deletes the contact
+1. User requests to list contacts.
+2. GourmetGrid shows a list of contacts.
 
     Use case ends.
 
 **Extensions**
 
-- 2a. The list is empty.
+- 1a. GourmetGrid detects an error in the user command.
+
+    - 1a1. GourmetGrid shows an error message.
+
+      Use case ends.
+
+---
+
+**Use case: UC2 - Delete a contact**
+
+**MSS**
+
+1. User lists contacts (UC1).
+2. User requests to delete a specific contact in the list.
+3. GourmetGrid deletes the contact.
+
+    Use case ends.
+
+**Extensions**
+
+- 1a. The list is empty.
 
   Use case ends.
 
-- 3a. System detects that the contact does not exist.
+- 2a. GourmetGrid detects an error in the user command.
 
-  - 3a1. System shows an error message.
+    - 2a1. GourmetGrid shows an error message.
+
+      Use case ends.
+
+- 2b. GourmetGrid detects that the contact does not exist.
+
+  - 2b1. GourmetGrid shows an error message.
 
     Use case ends.
 
 ---
 
-**Use case: Find Contacts**
+**Use case: UC3 - Find contacts**
 
 **MSS**
 
 1. User enters a command to find contacts by name, tag, or company with one or more keywords.
-2. System searches and displays all contacts matching all the given keywords.
+2. GourmetGrid searches and displays all contacts matching all the given keywords.
 
    Use case ends.
 
 **Extensions**
 
-- 1a. The search keywords are missing or incorrectly formatted.
-    - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
+
+    - 1a1. GourmetGrid shows an error message.
 
       Use case ends.
 
-- 2a. No contacts match the search criteria.
-    - 2a1. System shows a message indicating no contacts were found.
+- 1b. No contacts match the search criteria.
+
+    - 1b1. GourmetGrid shows a message indicating no contacts were found.
 
       Use case ends.
 
 ---
 
-**Use case: Add an order**
+**Use case: UC4 - Add an order**
 
 **MSS**
 
 1. User requests to add an order to a contact
-2. System adds the order to the contact
+2. GourmetGrid adds the order to the contact
 
    Use case ends.
 
 **Extensions**
 
-- 1a. System detects an error in the user command.
-  - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
 
-    Use case ends.
-
-- 1b. System detects that the contact does not exist.
-  - 1b1. System shows an error message.
+  - 1a1. GourmetGrid shows an error message.
 
     Use case ends.
 
 ---
 
-**Use case: List Orders**
+**Use case: UC5 - List orders**
 
 **MSS**
 
 1. User requests to list orders for a specific contact.
-2. System displays all orders associated with the contact.
+2. GourmetGrid displays all orders associated with the contact.
 
    Use case ends.
 
 **Extensions**
 
-- 1a. The specified contact index is out of bounds.
-    - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
 
-      Use case ends.
-
-- 1b. The specified order index does not exist.
-    - 1b1. System shows an error message indicating the order does not exist.
+    - 1a1. GourmetGrid shows an error message.
 
       Use case ends.
   
-- 2a. The specified contact has no orders.
-    - 2a1. System shows a message indicating there are no orders for the contact.
+- 1b. The specified contact has no orders.
+
+    - 1b1. GourmetGrid shows a message indicating there are no orders for the contact.
 
       Use case ends.
 
 ---
 
-**Use case: Delete an Order**
+**Use case: UC6 - Delete an order**
 
 **MSS**
 
 1. User requests to delete a specific order from a specific contact’s list of orders.
-2. System deletes the order.
+2. GourmetGrid deletes the order.
 
    Use case ends.
 
 **Extensions**
 
-- 1a. System detects an error in the user command.
-    - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
 
-      Use case ends.
-
-- 1b. The specified order index is out of bounds.
-    - 1b1. System shows an error message.
-
-      Use case ends.
-
-- 1c. The specified contact index is out of bounds.
-    - 1c1. System shows an error message.
+    - 1a1. GourmetGrid shows an error message.
 
       Use case ends.
 ---
 
-**Use case: List favourites**
+**Use case: UC7 - List favourites**
 
 **MSS**
 
 1. User requests to list favourite contacts
-2. System lists favourite contacts
+2. GourmetGrid lists favourite contacts
 
     Use case ends.
     
 **Extensions**
 
-- 1a. System detects an error in the user command.
-    - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
 
-    Use case ends.
+    - 1a1. GourmetGrid shows an error message.
+
+      Use case ends.
     
 ---
 
-**Use case: Add a contact as favourite**
+**Use case: UC8 - Add a contact as favourite**
 
 **MSS**
 
 1. User requests to add a contact as favourite
-2. System marks the contact as favourite
+2. GourmetGrid marks the contact as favourite
 
    Use case ends.
 
 **Extensions**
 
-- 1a. System detects an error in the user command.
-    - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
 
-    Use case ends.
-
-- 1b. System detects that the contact does not exist.
-    - 1b1. System shows an error message.
+    - 1a1. GourmetGrid shows an error message.
 
       Use case ends.
      
-- 1c. System detects that the contact is already marked as favourite.
-    - 1c1. System shows a warning message.
+- 1b. GourmetGrid detects that the contact is already marked as favourite.
+    - 1b1. GourmetGrid shows a warning message.
 
       Use case resumes from Step 2.
 
 ---
 
-**Use case: Removing a contact from favourites**
+**Use case: UC9 - Removing a contact from favourites**
 
 **MSS**
 
 1. User requests to remove a contact from favourites
-2. System removes the contact from favourites
+2. GourmetGrid removes the contact from favourites
 
    Use case ends.
 
 **Extensions**
 
-- 1a. System detects an error in the user command.
-    - 1a1. System shows an error message.
+- 1a. GourmetGrid detects an error in the user command.
+
+    - 1a1. GourmetGrid shows an error message.
 
       Use case ends.
 
-- 1b. System detects that the contact does not exist.
-    - 1b1. System shows an error message.
+- 1b. GourmetGrid detects that the contact is not marked as favourite.
 
-      Use case ends.
-
-- 1c. System detects that the contact is not marked as favourite.
-    - 1c1. System shows a warning message.
+    - 1b1. GourmetGrid shows a warning message.
 
       Use case resumes from Step 2.
 
@@ -705,15 +718,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to a reasonable number of contacts with their corresponding information reliably without detriment to performance.
 3.  A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Should work consistently regardless of environment, such as the settings of the phone running it (within reasonable bounds).
+4.  Should work consistently regardless of environment, such as the settings of the device running it (within reasonable bounds).
 5.  Users should easily navigate the app with minimal hesitance.
 6.  Should remain functional and fully usable in the event that the user enters unexpected inputs, with appropriate error statement displayed before the app returns to a functional state to continue running.
-7.  Should update automatically or have a good way to manually update in case of time zone changes.
 
 ### Glossary
 
 - **Mainstream OS**: Windows, Linux, Unix, MacOS
-- **Reasonable Number of Contacts**: Set to be 100 for now
+- **Reasonable Number of Contacts**: 100 on a typical device
 - **Hesitance**: Time spent deliberating by user due to uncertainty of UI interactions
 - **Address Book**: Often used interchangeably with **Contact List**.
 
@@ -734,13 +746,16 @@ testers are expected to do more _exploratory_ testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Prerequisites: Ensure you have followed the setup instructions above.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Download the jar file and copy into an empty folder
+   
+   1. Double-click the jar file <br>
+      Expected: Shows the GUI with a set of sample contacts.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window to an optimal size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
@@ -752,10 +767,10 @@ testers are expected to do more _exploratory_ testing.
    1. Prerequisites: List all contacts using the `list` command. There should be at least one contact in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the result display.
 
    1. Test case: `delete 0`<br>
-      Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No contact is deleted. Error details shown in the result display. List of visible contacts remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
@@ -767,16 +782,16 @@ testers are expected to do more _exploratory_ testing.
    1. Prerequisites: List all contacts using the `list` command. There should be multiple contacts in the address book with varying names, tags, and company affiliations.
    
    1. Test case: `find n/Alice`<br>
-      Expected: The list is filtered to include only contacts with names containing "Alice" as a substring. The details of the contacts found are shown in the status message.
+      Expected: The list is filtered to include only contacts with names containing "Alice" as a substring. The details of the contacts found are shown in the result display.
    
    1. Test case: `find t/friend`<br>
-         Expected: The list is filtered to show only contacts tagged with "friend" as a substring. Details of the action are displayed in the status message.
+         Expected: The list is filtered to show only contacts tagged with "friend" as a substring. Details of the contacts found are displayed in the result display.
    
    1. Test case: `find c/Acme`<br>
-      Expected: The list is filtered to show only contacts associated with a company containing the "Acme" substring. Status message shows the details of the matches.
+      Expected: The list is filtered to show only contacts associated with a company containing the "Acme" substring. Result display shows the details of the contacts found.
    
    1. Test case: `find n/Bob c/XYZ`<br>
-      Expected: Contacts that match both the name "Bob" substring and are associated with the company "XYZ" substring are displayed. This is a compound query demonstrating the logical AND operation.
+      Expected: Contacts with name containing "Bob" as a substring **and** with company containing "XYZ" as a substring are displayed. This is a compound query demonstrating the logical AND operation.
 
 
 ### Adding an order
@@ -786,16 +801,16 @@ testers are expected to do more _exploratory_ testing.
     1. Prerequisites: List all contacts using the list command. There is only 1 contact in the address book.
 
     2. Test case: `addorder 1 d/ 2025-01-01 r/ 100 chicken wings`<br>
-       Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the status bar. The date of the new order is 2025-01-01 and the remark is 100 chicken wings.
+       Expected: The number of orders of the first contact increases by 1. Details of the contact, with the new order, are shown in the result display. The date of the new order is 2025-01-01 and the remark is 100 chicken wings.
 
     3. Test case: `addorder 0 d/ 2025-01-01 r/ 100 chicken wings`<br>
-       Expected: No new order is added. An error indicating invalid command format is shown in the status bar.
+       Expected: No new order is added. An error indicating invalid command format is shown in the result display.
 
     4. Test case: `addorder 5 d/ 2025-01-01 r/ 100 chicken wings`<br>
-       Expected: No new order is added. An error indicating invalid person index is shown in the status bar.
+       Expected: No new order is added. An error indicating invalid contact index is shown in the result display.
 
     5. Test case: `addorder 1 d/ 2025-99-99 r/ 100 chicken wings`<br>
-       Expected: No new order is added. An error indicating invalid date format is shown in the status bar.
+       Expected: No new order is added. An error indicating invalid date format is shown in the result display.
 
 2. Viewing orders after adding order to a contact.
 
@@ -806,34 +821,35 @@ testers are expected to do more _exploratory_ testing.
 
 1. Listing orders for a specific contact
 
-   1. Prerequisites: There must be at least one person in the address book who has orders. Use `addorder` command to add orders if necessary.
+   1. Prerequisites: There must be at least one contact in the address book who has orders. Use `addorder` command to add orders if necessary.
 
    1. Test case: `listorder 1`<br>
-      Expected: All orders associated with the first contact in the list are displayed. Details of the orders are shown in the status message.
+      Expected: All orders associated with the first contact in the list are displayed. Details of the orders are shown in the result display.
 
    1. Test case: `listorder 0`<br>
-      Expected: No orders are listed. An error message indicating invalid command format is shown in the status message.
+      Expected: No orders are listed. An error message indicating invalid command format is shown in the result display.
  
    1. Test case: `listorder x` (where x is larger than the list size)<br>
-      Expected: No orders are listed. An error message indicating invalid person index is shown in the status message.
+      Expected: No orders are listed. An error message indicating invalid contact index is shown in the result display.
 
 ### Deleting an order
 
 1. Deleting an order from a person's list of orders
 
-   1. Prerequisites: List all contacts using the `list` command. Ensure that at least the first person has multiple orders. You may use `addorder` to add orders to a person.
+   1. Prerequisites: List all contacts using the `list` command. Ensure that at least the first contact has multiple orders. You may use `addorder` to add orders to a person.
    
    1. Test case: `deleteorder 1 o/1`<br>
-      Expected: The first order from the first person’s order list is deleted. The details of the action are shown in the status message.
+      Expected: The first order from the first person’s order list is deleted. The details of the deleted order are shown in the result display.
    
-   1. Test case: `deleteorder 1 o/x` (where x is larger than the number of orders the person has)<br>
-      Expected: No order is deleted. An error message indicating an invalid order index is shown in the status message.
+   1. Test case: `deleteorder 1 o/x` (where x is larger than the number of orders the contact has)<br>
+      Expected: No order is deleted. An error message indicating an invalid order index is shown in the result display.
    
    1. Test case: `deleteorder 0 o/1`<br>
-      Expected: No order is deleted. An error message indicating invalid command format due to an incorrect person index is shown.
+      Expected: No order is deleted. An error message indicating invalid command format is shown.
    
    1. Test case: `deleteorder x o/1` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+      Expected: No order is deleted. An error message indicating invalid contact index is shown.
+
 
 
 ### Listing favourites
@@ -843,34 +859,34 @@ testers are expected to do more _exploratory_ testing.
    1. Prerequisites: Add a few contacts to favourites using the `addfav` command.
 
    1. Test case: `listfav`<br>
-      Expected: All contacts that have been added to favourites are displayed. A success response is shown in the status message.
+      Expected: All contacts that have been added to favourites are displayed. A success response is shown in the result display.
 
-   1. Test case: `listfav x` (where x is any non-space character(s))<bar>
-         Expected: An error message indicating invalid command format due to trailing text after `listfav` is shown. No filtering occurs on the displayed list.
+   1. Test case: `listfav x` (where x is any non-space character(s))<br>
+         Expected: An error message indicating invalid command format due to trailing text after `listfav` is shown in the result display. No filtering occurs on the displayed list.
 
 2. Removing a contact from favourites after `listfav`
 
    1. Prerequisites: Call `listfav` successfully.
 
    1. Test case: `removefav i/1`<br>
-      Expected: The first contact currently displayed in list of favourites is removed as favourite. A successful status message shows the name of the contact removed from favourites. Updated full list of contacts is shown.
+      Expected: The first contact currently displayed in list of favourites is removed as favourite. Result display shows the name of the contact removed from favourites. Updated full list of contacts is shown.
 
 ### Adding contact(s) as favourite
 
 1. Adding contact(s) as favourite
 
-    1. Prerequisites: List all contacts using the `list` command. Three contacts in the list.
+    1. Prerequisites: List all contacts using the `list` command. Ensure there are at least three contacts in the list.
 
     1. Test case: `addfav i/ 1,3`<br>
-       Expected: First and third contact are added as favourites. Details of the affected contacts are shown in the status message. 
+       Expected: First and third contacts are added as favourites. Details of the affected contacts are shown in the result display. 
 
     1. Test case: `addfav i/ 1`<br>
-       Expected: First contact is added as favourite. Details of the affected contact is shown in the status message. A warning regarding contacts that were already in favourites is also shown in the status message. 
+       Expected: First contact is added as favourite. Details of the affected contact are shown in the result display. A warning regarding contacts that were already in favourites is also shown in the result display. 
 
    1. Test case: `addfav i/ 0`<br>
-      Expected: No contact is added as favourite. An error message indicating invalid command format is shown in the status message.
+      Expected: No contact is added as favourite. An error message indicating invalid command format is shown in the result display.
 
-   1. Test case: `addfav x i/ 1` (where x is any character) <br>
+   1. Test case: `addfav x i/ 1` (where x is any non-space character) <br>
       Expected: Similar to previous.
 
 ### Removing contact(s) from favourites
@@ -880,24 +896,16 @@ testers are expected to do more _exploratory_ testing.
     1. Prerequisites: List all contacts using the `list` command. Three contacts in the list of which the first and third contacts are marked as favourite. You may use `addfav` to add these contacts as favourites.
 
     1. Test case: `removefav i/ 1,3`<br>
-       Expected: First and third contact are removed from favourites. Details of the affected contacts are shown in the status message. 
+       Expected: First and third contacts are removed from favourites. Details of the affected contacts are shown in the result display. 
 
     1. Test case: `removefav i/ 1`<br>
-       Expected: First contact is removed from favourites. Details of the affected contact is shown in the status message. A warning regarding contacts that were not previously in favourites is also shown in the status message. 
+       Expected: First contact is removed from favourites. Details of the affected contact are shown in the result display. A warning regarding contacts that were not previously in favourites is also shown in the result display. 
 
     1. Test case: `removefav i/ 0`<br>
-       Expected: No contact is removed from favourites. An error message indicating invalid command format is shown in the status message.
+       Expected: No contact is removed from favourites. An error message indicating invalid command format is shown in the result display.
 
-    1. Test case: `removefav x i/ 1` (where x is any character) <br>
+    1. Test case: `removefav x i/ 1` (where x is any non-space character) <br>
        Expected: Similar to previous.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
 
 ---
 
@@ -905,15 +913,15 @@ testers are expected to do more _exploratory_ testing.
 
 Team size: 4
 
-1. **UI improvements:** The current UI shows the orders of a contact in`StatusBarFooter` when `listorder`
+1. **UI improvements:** The current UI shows the orders of a contact in`ResultDisplay` when `listorder`
 command is called. We plan to add an `OrderListPanel` beside the existing `PersonListPanel` to show the orders
 of a contact instead. This will allow users to view the orders of a contact in a more user-friendly manner,
-without having the need to call `listorder` repeatedly for the same contact whenever a new command updates `StatusBarFooter`.
+without having the need to call `listorder` repeatedly for the same contact whenever a new command updates `ResultDisplay`.
 Furthermore, when a very long field is added, the UI text may be truncated. We plan to add a tooltip to show
 the full text when the mouse hovers over the truncated text.
 
 2. **Make `addorder` message more specific:** The current `addorder` command does not show a preview of the
-order added, making it inconvenient for users as they have to scroll all the way to end of `StatusBarFooter`
+order added, making it inconvenient for users as they have to scroll all the way to end of `ResultDisplay`
 to view their newly added order. We plan to show a preview of the order added. For example:
 `Added Order: [100 oranges (by: 2024-04-15)] from Alex Yeoh`.
 
