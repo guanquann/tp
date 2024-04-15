@@ -7,29 +7,29 @@ pageNav: 3
 # GourmetGrid User Guide
 
 <!-- * Table of Contents -->
-- Introduction
-- About
-- Quick Start
-- Features
-    - Adding a contact : add
-    - Listing all contacts : list
-    - Editing a contact : edit
-    - Adding contacts as favourites : addfav
-    - Listing favourite contacts : listfav
-    - Removing contacts from favourites : removefav
-    - Searching contact : find
-    - Adding an order : addorder
-    - Listing orders : listorder
-    - Deleting an order: deleteorder
-    - Deleting a contact : delete
-    - Clearing all entries : clear
-    - Exiting a program : exit
-    - Viewing help : help
-    - Saving the data
-    - Editing the data file
-- FAQ
-- Known Issues
-- Command Summary
+- [Introduction](#introduction)
+- [About](#about)
+- [Quick Start](#quick-start)
+- [Features](#features)
+    - [Adding a contact : add](#adding-a-contact-add)
+    - [Listing all contacts : list](#listing-all-contacts-list)
+    - [Editing a contact : edit](#editing-a-contact-edit)
+    - [Adding contacts as favourites : addfav](#adding-contacts-as-favourites-addfav)
+    - [Listing favourite contacts : listfav](#listing-favourite-contacts-listfav)
+    - [Removing contacts from favourites : removefav](#removing-contacts-from-favourites-removefav)
+    - [Searching contact : find](#searching-contact-find)
+    - [Adding an order : addorder](#adding-an-order-addorder)
+    - [Listing orders : listorder](#listing-orders-listorder)
+    - [Deleting an order: deleteorder](#deleting-an-order-deleteorder)
+    - [Deleting a contact : delete](#deleting-a-contact-delete)
+    - [Clearing all entries : clear](#clearing-all-entries-clear)
+    - [Exiting a program : exit](#exiting-the-program-exit)
+    - [Viewing help : help](#viewing-help-help)
+    - [Saving the data](#saving-the-data)
+    - [Editing the data file](#editing-the-data-file)
+- [FAQ](#faq)
+- [Known Issues](#known-issues)
+- [Command Summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ This user guide provides in-depth documentation on GourmetGrid's installation pr
 
     * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command. If unsure, you can also key in the command without additional arguments to check the expected command format, which will be shown in the status bar.
+1. Refer to the [Features](#features) below for details of each command. If unsure, you can also key in the command without additional arguments to check the expected command format, which will be shown in the result display section.
 
 --------------------------------------------------------------------------------------------------------------------
 
