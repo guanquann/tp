@@ -101,7 +101,7 @@ This user guide provides in-depth documentation on GourmetGrid's installation pr
 
 * Phone number should only contain numbers and should be at least 3 digits long.
 
-* Emails should be of the format `local-part@domain` and adhere to the following constraints:
+* Email should be of the format `local-part@domain` and adhere to the following constraints:
 
   * The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, `(+_.-)`. The local-part may not start or end with any special characters. 
 
@@ -115,7 +115,9 @@ This user guide provides in-depth documentation on GourmetGrid's installation pr
     
     * have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 
-* Address and remark should not contain any words that begin with reserved terms such as `n/`, `p/`, `d/` that indicate other parameters.
+Address should not contain any words that begin with reserved terms (`n/`, `p/`, `e/`, `c/`, `t/`) that indicate other parameters.
+
+Remark should not contain any words that begin with reserved terms (`d/`) that indicate the date parameter.
 
 * Date should be in the format `YYYY-MM-DD`, where `YYYY` is the year (all the digits, i.e. 2012), `MM` is the month (01 to 12) and `DD` is the day (01 to 31).
 
