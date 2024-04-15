@@ -199,23 +199,12 @@ Format: `addfav i/INDICES`
 **Note:** `addfav` issues a warning when the index of a contact that is already marked as favourite is passed as an argument into the command.
 </box>
 
-Positive Examples:
+Examples:
 - `addfav i/ 1` Sets the contact at index `1` as favourite
 
 - `addfav i/ 1, 1` Sets the contact at index `1` as favourite once
 
 - `addfav i/ 1, 2, 5` Sets the contacts at the indices `1, 2, 5` as favourites
-
-Negative Examples:
-- `addfav i/ -10, 0, -100`, `addfav i/ abc` and `addfav i/////` return an error message as the `INDICES` field must consist of comma-separated positive integers
-
-- `addfav i/ 10, 1` returns an error message as the `INDICES` field must consist of valid index values which are positive integers from 1 to the total number of contacts in the contact list
-
-- `addfav i/` returns an error message as the `INDICES` field cannot be empty
-
-- `addfav` returns an error message as it must be accompanied by the `INDICES` field
-
-- `addfav 1 i/ 2, 5` returns an error message as there should not be prefixes before the `INDICES` field
 
 ### Listing favourite contacts : `listfav`
 
@@ -236,10 +225,6 @@ Format: `listfav`
 Examples:
 - `listfav` Lists all favourite contacts as expected
 
-- `listfav 1` returns an error message as there should not be arguments after the `listfav` command word
-
-- `listfav hello` returns an error message as there should not be arguments after the `listfav` command word
-
 ### Removing contacts from favourites : `removefav`
 
 Removes the contacts specified by index as favourites.
@@ -253,23 +238,12 @@ Format: `removefav i/INDICES`
 **Note:** `removefav` issues a warning when the index of a non-favourite contact is passed as an argument into the command.
 </box>
 
-Positive Examples:
+Examples:
 - `removefav i/ 1` Removes the contact at index `1` from favourites
 
 - `removefav i/ 1, 1` Removes the contact at index `1` from favourites once
 
 - `removefav i/ 1, 2, 5` Removes the contacts at the indices `1, 2, 5` from favourites
-
-Negative Examples:
-- `removefav i/ -10, 0, -100`, `removefav i/ abc` and `removefav i/////` return an error message as the `INDICES` field must consist of comma-separated positive integers
-
-- `removefav i/ 10, 1` returns an error message as the `INDICES` field must consist of valid index values which are positive integers from 1 to the total number of contacts in the contact list
-
-- `removefav i/` returns an error message as the `INDICES` field cannot be empty
-
-- `removefav` returns an error message as it must be accompanied by the `INDICES` field
-
-- `removefav 1 i/ 2, 5` returns an error message as there should not be prefixes before the `INDICES` field
 
 ### Searching Contact : `find`
 
@@ -326,14 +300,6 @@ Examples:
 * `find n/alex n/david` returns `Alex Davidson` and `David Alexis`
 
 * `find n/Alex t/friends` returns `Alex Yeoh` who is tagged as a `friend`
-
-* `find n////` returns an error message as the `KEYWORD` field must consist of alphanumeric characters, spaces, hyphens and/or apostrophes only.
-
-* `find n/` or `find t/` or `find n/ t/` returns an error message as the `KEYWORD` field cannot be empty
-
-* `find` returns an error message as there should be at least one `FIELD` and `KEYWORD` pair
-
-* `find testing123 n/John` returns an error message as there should not be prefixes before the first `FIELD` and `KEYWORD` pair
 
 ### Adding an order : `addorder`
 
@@ -399,10 +365,6 @@ Examples:
   * `addorder 1 d/2019-12-31 r/300 chicken wings`
 
 * `deleteorder 1 o/1` deletes the 1st order for the 1st contact in the contact list. In the above example, this will remove the order added by `addorder 1 d/2019-12-31 r/300 chicken wings` since the orders are sorted by date when added to a contact
-
-* `deleteorder 55 o/1` will return an error message if there is no 55th contact in the contact list
-
-* `deleteorder 1 o/55` will return an error message if there is no 55th order for the 1st contact in the contact list
 
 ### Deleting a contact : `delete`
 
